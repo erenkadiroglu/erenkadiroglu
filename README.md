@@ -1,16 +1,20 @@
-## Hi there 👋
+# 👋 Hi, I'm Eren KADİROĞLU.
 
-<!--
-**erenkadiroglu/erenkadiroglu** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+🎓 2nd-year Computer Engineering student at Kahramanmaraş Sütçü İmam University.  
+🎮 I am particularly interested in game development and mobile application development.  
+🧠 I develop projects using languages such as Java, Python, C, and C++, and continue to learn new technologies.  
+🌐 Personal Website: [erenkadiroglu.com](https://erenkadiroglu.com)
 
-Here are some ideas to get you started:
+## 🛠️ Skills & Technologies
+- 💻 Programming Languages: `C`, `C++`, `Java (Swing)`, `Python`, `SQL`
+- 🌐 Web: `HTML & CSS`
+- 📱 Mobile: `Flutter`
+- 🧠 Tools & IDEs: `NetBeans`, `PyCharm`, `IntelliJ IDEA`, `Visual Studio Code`, `DevC++`
+- 📷 Image Processing: `Python + Roboflow`
+- 💾 Version Control: `Git`, `GitHub`
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## 📫 Contact Me
+- 📧 [E-mail](erenkdroglu@gmail.com)
+- 🌐 [Personal Website](https://erenkadiroglu.com)
+- 💼 [LinkedIn](https://www.linkedin.com/in/erenkadiroglu)
+- 📸 [Instagram](https://instagram.com/eren_kdroglu)
