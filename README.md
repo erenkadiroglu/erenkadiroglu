@@ -14,7 +14,7 @@
 - 💾 Version Control: `Git`, `GitHub`
 
 ## 📫 Contact Me
-- 📧 [E-mail](erenkdroglu@gmail.com)
-- 🌐 [Personal Website](https://erenkadiroglu.com)
-- 💼 [LinkedIn](https://www.linkedin.com/in/erenkadiroglu)
-- 📸 [Instagram](https://instagram.com/eren_kdroglu)
+- 📧 Email: [erenkdroglu@gmail.com](mailto:erenkdroglu@gmail.com)
+- 💼 LinkedIn: [linkedin.com/in/erenkadiroglu](https://www.linkedin.com/in/erenkadiroglu)
+- 🌐 Personal Website: [erenkadiroglu.com](https://erenkadiroglu.com)
+- 📸 Instagram: [@eren_kdroglu](https://instagram.com/eren_kdroglu)
