@@ -1,43 +1,128 @@
-# 👋 Hi, I'm Eren KADİROĞLU
+# 👋 Hi, I'm **Eren KADİROĞLU**
 
-🎓 I'm a 2nd-year Computer Engineering student at Kahramanmaraş Sütçü İmam University.  
-🎮 Passionate about **game development** and **mobile application development**.  
-🧠 I build projects using `Java`, `Python`, `C`, `C++` and I continuously explore new technologies.  
-🌐 Personal Website: [erenkadiroglu.com](https://erenkadiroglu.com)
+🎓 Computer Engineering student at *Kahramanmaraş Sütçü İmam University*.  
+🎮 Passionate about **Game Development** & **Mobile Application Development**.  
+🧠 Building projects and continuously exploring new technologies.  
+<img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" width="20" alt="Personal"/> &nbsp;***Personal Website:*** [erenkadiroglu.com](https://erenkadiroglu.com)
 
 ---
 
 ## 🛠️ Skills & Technologies
 
 ### 💻 Programming Languages
-![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white) 
-![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white) 
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) 
-![Python](https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=white) 
-![SQL](https://img.shields.io/badge/SQL-336791?style=for-the-badge&logo=postgresql&logoColor=white) 
+<p align="left">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg" alt="C" width="40" height="40"/><br/>
+        <b>C</b>
+      </td>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" width="40" height="40"/><br/>
+        <b>C#</b>
+      </td>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" width="40" height="40"/><br/>
+        <b>C++</b>
+      </td>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" width="40" height="40"/><br/>
+        <b>Java</b>
+      </td>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" width="40" height="40"/><br/>
+        <b>Python</b>
+      </td>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" width="40" height="40"/><br/>
+        <b>MySQL</b>
+      </td>
+    </tr>
+  </table>
+</p>
 
 ### 🌐 Web Development
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+<p align="left">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" width="40" height="40"/><br/>
+        <b>HTML</b>
+      </td>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" width="40" height="40"/><br/>
+        <b>CSS</b>
+      </td>
+    </tr>
+  </table>
+</p>
 
 ### 📱 Mobile Development
-![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+<p align="left">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter" width="40" height="40"/><br/>
+        <b>Flutter</b>
+      </td>
+    </tr>
+  </table>
+</p>
 
 ### 🧰 Tools & IDEs
-![NetBeans](https://img.shields.io/badge/NetBeans-1B6AC6?style=for-the-badge&logo=apachenetbeanside&logoColor=white)
-![PyCharm](https://img.shields.io/badge/PyCharm-143?style=for-the-badge&logo=pycharm&logoColor=white)
-![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000?style=for-the-badge&logo=intellijidea&logoColor=white)
-![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white)
-![Visual Studio](https://img.shields.io/badge/Visual_Studio-5C2D91?style=for-the-badge&logo=visualstudio&logoColor=white)
-![Dev-C++](https://img.shields.io/badge/DevC++-blue?style=for-the-badge)
-
-### 🖼️ Image Processing
-![Python](https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=white)
-![Roboflow](https://img.shields.io/badge/Roboflow-000000?style=for-the-badge&logo=roboflow&logoColor=white)
+<p align="left">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code" width="40" height="40"/><br/>
+        <b>VS Code</b>
+      </td>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" alt="Visual Studio" width="40" height="40"/><br/>
+        <b>Visual Studio</b>
+      </td>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netbeans/netbeans-original.svg" alt="NetBeans" width="40" height="40"/><br/>
+        <b>NetBeans</b>
+      </td>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg" alt="PyCharm" width="40" height="40"/><br/>
+        <b>PyCharm</b>
+      </td>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" alt="IntelliJ IDEA" width="40" height="40"/><br/>
+        <b>IntelliJ IDEA</b>
+      </td>
+    </tr>
+  </table>
+</p>
 
 ### 💾 Version Control
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+<p align="left">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" width="40" height="40"/><br/>
+        <b>Git</b>
+      </td>
+      <td align="center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" width="40" height="40"/><br/>
+        <b>GitHub</b>
+      </td>
+    </tr>
+  </table>
+</p>
+
+---
+
+## 📫 Contact Me
+
+| Platform          | 🔗 Link                                          |
+|-------------------|--------------------------------------------------|
+| <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" width="20" alt="Gmail"/> &nbsp; **Gmail** | [erenkdroglu@gmail.com](mailto:erenkdroglu@gmail.com) |
+| <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20" alt="LinkedIn"/> &nbsp; **LinkedIn** | [linkedin.com/in/erenkadiroglu](https://linkedin.com/in/erenkadiroglu) |
+| <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" width="20" alt="Instagram"/> &nbsp; **Instagram** | [eren_kdroglu](https://instagram.com/eren_kdroglu) |
+| <img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" width="20" alt="Personal"/> &nbsp; **Personal Website** | [erenkadiroglu.com](https://erenkadiroglu.com) |
 
 ---
 
@@ -46,13 +131,3 @@
 ![GitHub Streak](https://streak-stats.demolab.com?user=erenkadiroglu&theme=github-dark&hide_border=true)  
 ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=erenkadiroglu&show_icons=true&theme=github_dark)  
 ![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=erenkadiroglu&layout=compact&theme=github_dark)
-
----
-
-## 📫 Contact Me
-
-📧 **Email:** [erenkdroglu@gmail.com](mailto:erenkdroglu@gmail.com)  
-💼 **LinkedIn:** [linkedin.com/in/erenkadiroglu](https://linkedin.com/in/erenkadiroglu)  
-🌐 **Website:** [erenkadiroglu.com](https://erenkadiroglu.com)  
-📸 **Instagram:** [eren_kdroglu](https://instagram.com/eren_kdroglu)
-
