@@ -33,10 +33,6 @@
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" width="40" height="40"/><br/>
         <b>Python</b>
       </td>
-      <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" width="40" height="40"/><br/>
-        <b>MySQL</b>
-      </td>
     </tr>
   </table>
 </p>
