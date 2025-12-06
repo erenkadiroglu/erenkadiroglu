@@ -1,7 +1,7 @@
 # 👋 Hi, I'm **Eren KADİROĞLU**
 
 🎓 Computer Engineering student at *Kahramanmaraş Sütçü İmam University*.  
-🎮 Passionate about **Game Development** & **Mobile Application Development**.  
+💻 Passionate about **Web Development** & **Mobile Application Development**.  
 🧠 Building projects and continuously exploring new technologies.  
 <img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" width="20" alt="Personal"/> &nbsp;***Personal Website:*** [erenkadiroglu.com](https://erenkadiroglu.com)
 
@@ -18,16 +18,8 @@
         <b>C</b>
       </td>
       <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" width="40" height="40"/><br/>
-        <b>C#</b>
-      </td>
-      <td align="center">
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" width="40" height="40"/><br/>
         <b>C++</b>
-      </td>
-      <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" width="40" height="40"/><br/>
-        <b>Java</b>
       </td>
       <td align="center">
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" width="40" height="40"/><br/>
@@ -53,18 +45,6 @@
   </table>
 </p>
 
-### 📱 Mobile Development
-<p align="left">
-  <table>
-    <tr>
-      <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter" width="40" height="40"/><br/>
-        <b>Flutter</b>
-      </td>
-    </tr>
-  </table>
-</p>
-
 ### 🧰 Tools & IDEs
 <p align="left">
   <table>
@@ -76,14 +56,6 @@
       <td align="center">
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" alt="Visual Studio" width="40" height="40"/><br/>
         <b>Visual Studio</b>
-      </td>
-      <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netbeans/netbeans-original.svg" alt="NetBeans" width="40" height="40"/><br/>
-        <b>NetBeans</b>
-      </td>
-      <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg" alt="PyCharm" width="40" height="40"/><br/>
-        <b>PyCharm</b>
       </td>
       <td align="center">
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" alt="IntelliJ IDEA" width="40" height="40"/><br/>
