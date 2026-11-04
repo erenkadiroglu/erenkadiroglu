@@ -1,0 +1,16 @@
+{
+  "name": "readme-assets",
+  "private": true,
+  "description": "Zero-dependency generators for the SVG assets used in the profile README.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node src/build-static.mjs",
+    "activity": "node src/stats/index.mjs",
+    "activity:placeholder": "node src/stats/index.mjs --placeholder",
+    "preview": "node src/stats/index.mjs --fixture test/fixtures/user.json --out ../.preview",
+    "test": "node --test \"test/*.test.mjs\""
+  }
+}

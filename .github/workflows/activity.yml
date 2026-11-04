@@ -1,0 +1,53 @@
+name: activity
+
+# Re-renders assets/generated/activity-*.svg from the GitHub GraphQL API.
+on:
+  schedule:
+    - cron: '23 4 * * *' # daily, off the top of the hour
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tools/src/**'
+      - 'tools/fonts/**'
+      - '.github/workflows/activity.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: activity-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Render activity card
+        working-directory: tools
+        env:
+          # GITHUB_TOKEN sees public activity. Add a fine-grained PAT as the
+          # STATS_TOKEN secret to also count private contributions.
+          GITHUB_TOKEN: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_USER: ${{ github.repository_owner }}
+          # Notebooks store outputs as JSON, which inflates their byte counts.
+          EXCLUDE_LANGUAGES: Jupyter Notebook
+        run: node src/stats/index.mjs
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet -- assets/generated; then
+            echo "Activity card unchanged."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/generated
+          git commit -m 'chore(activity): refresh activity card'
+          git push

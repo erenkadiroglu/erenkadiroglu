@@ -1,101 +1,87 @@
-# 👋 Hi, I'm **Eren KADİROĞLU**
+<!--
+  Every visual on this page is generated from source in tools/.
+  Edit tools/src/content.mjs, then run `npm run build` inside tools/.
+-->
 
-🎓 Computer Engineering student at *Kahramanmaraş Sütçü İmam University*.  
-💻 Passionate about **Web Development** & **Mobile Application Development**.  
-🧠 Building projects and continuously exploring new technologies.  
-<img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" width="20" alt="Personal"/> &nbsp;***Personal Website:*** [erenkadiroglu.com](https://erenkadiroglu.com)
+<div align="center">
 
----
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg">
+  <img src="assets/header-light.svg" width="100%" alt="Eren Kadiroğlu — Computer Engineering Student · Mobile & Web Developer">
+</picture>
 
-## 🛠️ Skills & Technologies
+<br><br>
 
-### 💻 Programming Languages
-<p align="left">
-  <table>
-    <tr>
-      <td align="center">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg" alt="C" width="40" height="40"/><br/>
-        <b>C</b>
-      </td>
-      <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" width="40" height="40"/><br/>
-        <b>C++</b>
-      </td>
-      <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" width="40" height="40"/><br/>
-        <b>Python</b>
-      </td>
-    </tr>
-  </table>
-</p>
+<a href="https://erenkadiroglu.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/links/website-dark.svg"><img src="assets/links/website-light.svg" height="38" alt="Website: erenkadiroglu.com"></picture></a>&nbsp;
+<a href="https://www.linkedin.com/in/erenkadiroglu"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/links/linkedin-dark.svg"><img src="assets/links/linkedin-light.svg" height="38" alt="LinkedIn"></picture></a>&nbsp;
+<a href="mailto:erenkdroglu@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/links/email-dark.svg"><img src="assets/links/email-light.svg" height="38" alt="Email: erenkdroglu@gmail.com"></picture></a>&nbsp;
+<a href="https://instagram.com/eren_kdroglu"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/links/instagram-dark.svg"><img src="assets/links/instagram-light.svg" height="38" alt="Instagram"></picture></a>
 
-### 🌐 Web Development
-<p align="left">
-  <table>
-    <tr>
-      <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" width="40" height="40"/><br/>
-        <b>HTML</b>
-      </td>
-      <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" width="40" height="40"/><br/>
-        <b>CSS</b>
-      </td>
-    </tr>
-  </table>
-</p>
+</div>
 
-### 🧰 Tools & IDEs
-<p align="left">
-  <table>
-    <tr>
-      <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code" width="40" height="40"/><br/>
-        <b>VS Code</b>
-      </td>
-      <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" alt="Visual Studio" width="40" height="40"/><br/>
-        <b>Visual Studio</b>
-      </td>
-      <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" alt="IntelliJ IDEA" width="40" height="40"/><br/>
-        <b>IntelliJ IDEA</b>
-      </td>
-    </tr>
-  </table>
-</p>
+<br>
 
-### 💾 Version Control
-<p align="left">
-  <table>
-    <tr>
-      <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" width="40" height="40"/><br/>
-        <b>Git</b>
-      </td>
-      <td align="center">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" width="40" height="40"/><br/>
-        <b>GitHub</b>
-      </td>
-    </tr>
-  </table>
-</p>
+## About
 
----
+I'm a Computer Engineering student at **Kahramanmaraş Sütçü İmam University**, focused on native Android
+development and the backends that power it. I like software with a clear architecture — apps that keep working
+when the network doesn't, and code the next person can read without a guide.
 
-## 📫 Contact Me
+- **Building** — offline-first Android apps with Kotlin, MVVM, Room and Retrofit
+- **Backend** — REST APIs in PHP on top of MySQL
+- **Learning** — web fundamentals, from semantic HTML and CSS toward JavaScript
+- **Explored** — data analysis with pandas, NumPy and Seaborn, and relational design in T-SQL
 
-| Platform          | 🔗 Link                                          |
-|-------------------|--------------------------------------------------|
-| <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" width="20" alt="Gmail"/> &nbsp; **Gmail** | [erenkdroglu@gmail.com](mailto:erenkdroglu@gmail.com) |
-| <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20" alt="LinkedIn"/> &nbsp; **LinkedIn** | [linkedin.com/in/erenkadiroglu](https://linkedin.com/in/erenkadiroglu) |
-| <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" width="20" alt="Instagram"/> &nbsp; **Instagram** | [eren_kdroglu](https://instagram.com/eren_kdroglu) |
-| <img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" width="20" alt="Personal"/> &nbsp; **Personal Website** | [erenkadiroglu.com](https://erenkadiroglu.com) |
+## Tech stack
 
----
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg">
+  <img src="assets/stack-light.svg" width="100%" alt="Languages: C, C++, C#, Python, Kotlin, PHP, SQL. Mobile: Android, Android Studio, Gradle, MVVM, Room, Retrofit, OkHttp, Coroutines, LiveData. Backend and data: MySQL, SQL Server, Jupyter, pandas, NumPy, Matplotlib, REST APIs, Seaborn. Web: HTML5, CSS3. Tooling: Git, GitHub, VS Code, Visual Studio, IntelliJ IDEA.">
+</picture>
 
-## 📊 GitHub Activity
+## Featured project
 
-![GitHub Streak](https://streak-stats.demolab.com?user=erenkadiroglu&theme=github-dark&hide_border=true)  
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=erenkadiroglu&show_icons=true&theme=github_dark)  
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=erenkadiroglu&layout=compact&theme=github_dark)
+<a href="https://github.com/erenkadiroglu/saharez-legacy">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/projects/saharez-dark.svg">
+    <img src="assets/projects/saharez-light.svg" width="100%" alt="SahaRez — offline-first booking platform for football pitches. Kotlin Android client (View → ViewModel → Repository) backed by a Room cache and a Retrofit client calling a PHP REST API on MySQL.">
+  </picture>
+</a>
+
+## More work
+
+<a href="https://github.com/erenkadiroglu/minesweeper-c-project"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/projects/minesweeper-dark.svg"><img src="assets/projects/minesweeper-light.svg" width="49%" alt="minesweeper-c-project — terminal Minesweeper in C"></picture></a>
+<a href="https://github.com/erenkadiroglu/Python-ToDoList"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/projects/todo-dark.svg"><img src="assets/projects/todo-light.svg" width="49%" alt="Python-ToDoList — command-line task manager in Python"></picture></a>
+<a href="https://github.com/erenkadiroglu/TechCareer-Veri_Bilimine_Giris_Yaz_Kampi"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/projects/datascience-dark.svg"><img src="assets/projects/datascience-light.svg" width="49%" alt="Veri Bilimine Giriş — data science assignments with pandas, NumPy and Seaborn"></picture></a>
+<a href="https://github.com/erenkadiroglu/TechCareer-SQL_Yaz_Kampi"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/projects/sql-dark.svg"><img src="assets/projects/sql-light.svg" width="49%" alt="SQL Yaz Kampı — schema design and queries in T-SQL"></picture></a>
+
+Also on GitHub: [learn-csharp-by-examples](https://github.com/erenkadiroglu/learn-csharp-by-examples) — C# fundamentals, one concept at a time · [My-Web-Development-Journey](https://github.com/erenkadiroglu/My-Web-Development-Journey) — notes and exercises from my front-end path.
+
+## Activity
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/generated/activity-dark.svg">
+  <img src="assets/generated/activity-light.svg" width="100%" alt="GitHub activity: contributions, commits, streaks, stars, top languages and a 12-month contribution calendar.">
+</picture>
+
+<sub>Rendered daily by <a href=".github/workflows/activity.yml">a GitHub Action in this repository</a> from the public GraphQL API — no third-party stats services.</sub>
+
+<details>
+<summary><b>How this profile is built</b></summary>
+<br>
+
+| Piece | Details |
+| --- | --- |
+| Visuals | Hand-authored SVGs generated by a zero-dependency Node.js script in [`tools/`](tools) |
+| Theming | One token set, rendered for GitHub's light and dark themes via `<picture>` |
+| Typography | JetBrains Mono, subset and embedded, so cards render identically everywhere |
+| Activity | [`activity.yml`](.github/workflows/activity.yml) queries GraphQL daily and commits only when the data changes |
+| Quality | [`checks.yml`](.github/workflows/checks.yml) validates every SVG, enforces WCAG AA text contrast and fails on stale assets |
+
+</details>
+
+<br>
+
+<div align="center">
+<sub>Thanks for stopping by — the fastest way to reach me is <a href="mailto:erenkdroglu@gmail.com">email</a>.</sub>
+</div>
