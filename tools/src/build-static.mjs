@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Renders the static README panels for both themes and both languages into ../assets:
- *   about-*, projects-*, experience-*   content panels in the banner's visual language
+ *   about-*, experience-*               content panels in the banner's visual language
+ *   project-<slug>-*, contact-<slug>-*  cards and buttons, one image each so each can be a link
  *   stack-*                             monochrome tech-stack strip (transparent background)
  * File names: <panel>-<theme>[.tr].svg
  *
@@ -155,56 +156,138 @@ function about(theme, t, c) {
 
 /* ----------------------------------------------------------------- projects */
 
-function projects(theme, t, c) {
-  const nameX = PAD + 46;
-  const cols = Math.floor((W - nameX - PAD) / (13 * 0.6));
-  const parts = [];
-  let y = 70;
-  c.items.forEach((p, i) => {
-    const top = y;
-    if (i) parts.push(`<path d="M${PAD} ${top}H${W - PAD}" stroke="${theme.divider}"/>`);
-    const row = [];
-    row.push(text(PAD, top + 34, String(i + 1).padStart(2, '0'), { size: 13, weight: 700, extra: `fill="${theme.accentText}"` }));
-    row.push(text(nameX, top + 34, p.name, { size: 17, weight: 700 }));
-    if (p.link) {
-      const lx = nameX + textWidth(p.name, 17) + 16;
-      row.push(text(lx, top + 33, p.linkLabel, { size: 11.5, cls: 's' }));
-      row.push(glyph('arrowUpRight', lx + textWidth(p.linkLabel, 11.5) + 3, top + 23, 12, theme.subtle, 1.6));
+const HALF = 580;
+
+/** Status pill, right-aligned at (x1, y). */
+function statusPill(p, c, theme, x1, y) {
+  const label = c.status[p.status];
+  const sw = (p.status === 'private' ? 40 : 34) + textWidth(label, 11.5);
+  const sx = x1 - sw;
+  const tone = p.status === 'live' ? theme.accent : p.status === 'public' ? theme.ink : theme.subtle;
+  const mark =
+    p.status === 'private'
+      ? glyph('lock', sx + 9, y + 5, 13, tone, 1.7)
+      : `<circle ${p.status === 'live' ? 'class="pulse" ' : ''}cx="${r(sx + 14)}" cy="${y + 11.5}" r="3.5" fill="${tone}"/>`;
+  return (
+    `<rect x="${r(sx + 0.5)}" y="${y + 0.5}" width="${r(sw - 1)}" height="23" rx="11.5" fill="none" stroke="${tone}" stroke-opacity=".55"/>` +
+    mark +
+    text(sx + (p.status === 'private' ? 28 : 24), y + 15.5, label, { size: 11.5, extra: `fill="${tone}"` })
+  );
+}
+
+/** Filled call-to-action button, right-aligned — the whole card is the link. */
+function cta(label, theme, x1, y) {
+  const w = 52 + textWidth(label, 12.5);
+  const x = x1 - w;
+  return (
+    `<rect x="${r(x)}" y="${y}" width="${r(w)}" height="32" rx="9" fill="${theme.accent}"/>` +
+    text(x + 16, y + 21, label, { size: 12.5, weight: 700, extra: `fill="${theme.surface}"` }) +
+    glyph('arrowUpRight', x + w - 30, y + 9, 14, theme.surface, 2)
+  );
+}
+
+function chips(list, x, y, theme, maxX) {
+  const out = [];
+  let cx = x;
+  let cy = y;
+  for (const s of list) {
+    const ch = chip(s, 0, 0, theme);
+    if (cx + ch.w > maxX) {
+      cx = x;
+      cy += 28;
     }
-    // status pill
-    const label = c.status[p.status];
-    const sw = 34 + textWidth(label, 11.5);
-    const sx = W - PAD - sw;
-    const tone = p.status === 'live' ? theme.accent : p.status === 'public' ? theme.ink : theme.subtle;
-    row.push(
-      `<rect x="${r(sx + 0.5)}" y="${top + 17.5}" width="${r(sw - 1)}" height="23" rx="11.5" fill="none" stroke="${tone}" stroke-opacity=".55"/>` +
-        `<circle ${p.status === 'live' ? 'class="pulse" ' : ''}cx="${r(sx + 14)}" cy="${top + 29}" r="3.5" fill="${tone}"/>` +
-        text(sx + 24, top + 33, label, { size: 11.5, extra: `fill="${tone}"` }),
-    );
-    // description
-    const lines = richLines(p.desc, cols, theme);
-    lines.forEach((l, li) => row.push(`<text x="${nameX}" y="${top + 62 + li * 21}" font-size="13" fill="${theme.muted}">${l}</text>`));
-    // stack chips
-    let cx = nameX;
-    const cy = top + 62 + lines.length * 21 - 4;
-    p.stack.forEach((s) => {
-      const ch = chip(s, cx, cy, theme);
-      row.push(ch.svg);
-      cx += ch.w + 6;
+    out.push(chip(s, cx, cy, theme).svg);
+    cx += ch.w + 6;
+  }
+  return { svg: out.join(''), bottom: cy + 22 };
+}
+
+function projectCard(p, i, theme, c, wide) {
+  const width = wide ? W : HALF;
+  const x0 = PAD;
+  const x1 = width - PAD;
+  const linked = Boolean(p.link);
+  const parts = [];
+  parts.push(text(x0, 44, String(i + 1).padStart(2, '0'), { size: 13, weight: 700, extra: `fill="${theme.accentText}"` }));
+  parts.push(text(x0 + 34, 45, p.name, { size: 19, weight: 700 }));
+  parts.push(statusPill(p, c, theme, x1, 27));
+  const textRight = wide ? width * 0.64 : x1;
+  const cols = Math.floor((textRight - x0) / (13 * 0.6));
+  const lines = richLines(p.desc, cols, theme);
+  lines.forEach((l, li) => parts.push(`<text x="${x0}" y="${84 + li * 21}" font-size="13" fill="${theme.muted}">${l}</text>`));
+  const ch = chips(p.stack, x0, 84 + lines.length * 21 + 2, theme, textRight);
+  parts.push(ch.svg);
+  let bottom = ch.bottom;
+  if (wide && c.highlights) {
+    const hx = width * 0.68;
+    parts.push(`<path d="M${r(hx - 24)} 70V${bottom}" stroke="${theme.divider}"/>`);
+    parts.push(text(hx, 84, c.highlightsTitle, { size: 11, weight: 700, extra: `fill="${theme.accentText}" letter-spacing="1.6"` }));
+    c.highlights.forEach((h, k) => {
+      parts.push(glyph('diamond', hx, 100 + k * 28, 13, theme.accent, 1.6));
+      parts.push(text(hx + 24, 111 + k * 28, h, { size: 13 }));
     });
-    parts.push(`<g class="in" style="animation-delay:${r(0.07 * i)}s">${row.join('')}</g>`);
-    y = cy + 22 + 22;
-  });
-  const H = y + 6;
-  const priv = c.items.filter((p) => p.status === 'private').length;
-  return panel({
-    height: H,
+    bottom = Math.max(bottom, 100 + c.highlights.length * 28);
+  }
+  if (linked) {
+    parts.push(text(x0, bottom + 40, p.linkLabel, { size: 12, cls: 's' }));
+    parts.push(cta(c.cta[p.status], theme, x1, bottom + 18));
+    bottom += 50;
+  }
+  const minH = wide ? 0 : 0;
+  const height = Math.max(minH, bottom + PAD);
+  return {
+    height,
+    render: (h) =>
+      document({
+        width,
+        height: h,
+        theme,
+        title: `${p.name} — ${c.status[p.status]}`,
+        desc: `${p.desc} ${p.stack.join(', ')}.${linked ? ` ${p.link}` : ''}`,
+        css: CSS,
+        body: [
+          `<rect x=".5" y=".5" width="${width - 1}" height="${h - 1}" rx="12" fill="${theme.surface}" stroke="${linked ? theme.accent : theme.border}" stroke-opacity="${linked ? 0.55 : 1}"/>`,
+          ...parts,
+        ].join('\n'),
+      }),
+  };
+}
+
+/** Featured card full width, the rest as equal-height pairs. */
+function projectCards(theme, t, c) {
+  const out = {};
+  const [first, ...rest] = c.items;
+  const lead = projectCard(first, 0, theme, c, true);
+  out[first.slug] = lead.render(lead.height);
+  for (let k = 0; k < rest.length; k += 2) {
+    const pair = rest.slice(k, k + 2).map((p, j) => [p, projectCard(p, k + j + 1, theme, c, false)]);
+    const h = Math.max(...pair.map(([, card]) => card.height));
+    for (const [p, card] of pair) out[p.slug] = card.render(h);
+  }
+  return out;
+}
+
+/* ------------------------------------------------------------------ contact */
+
+function contactButton(item, theme) {
+  const w = 280;
+  const h = 64;
+  const mark = item.icon ? icon(item.icon, 26, 22, 20, theme.accent) : glyph(item.glyph, 25, 21, 22, theme.accent, 1.8);
+  return document({
+    width: w,
+    height: h,
     theme,
-    title: c.title,
-    meta: c.meta(c.items.length, priv),
-    docTitle: c.title,
-    desc: c.items.map((p) => `${p.name} (${c.status[p.status]}): ${p.desc} ${p.stack.join(', ')}.`).join(' '),
-    body: parts.join('\n'),
+    title: item.label,
+    desc: item.sub,
+    css: CSS,
+    body: [
+      `<rect x=".5" y=".5" width="${w - 1}" height="${h - 1}" rx="14" fill="${theme.surface}" stroke="${theme.border}"/>`,
+      `<rect x="14" y="12" width="40" height="40" rx="10" fill="${theme.accentSoft}" stroke="${theme.accent}" stroke-opacity=".45"/>`,
+      mark,
+      text(68, 29, item.label, { size: 14, weight: 700 }),
+      text(68, 47, item.sub, { size: 11.5, cls: 'm' }),
+      glyph('arrowUpRight', w - 34, 24, 16, theme.subtle, 1.8),
+    ].join('\n'),
   });
 }
 
@@ -296,7 +379,8 @@ export function buildAll() {
     for (const theme of Object.values(themes)) {
       const n = (name) => `${name}-${theme.name}${t.suffix}.svg`;
       files[n('about')] = about(theme, t, c.about);
-      files[n('projects')] = projects(theme, t, c.projects);
+      for (const [slug, svg] of Object.entries(projectCards(theme, t, c.projects))) files[n(`project-${slug}`)] = svg;
+      for (const item of c.contact) files[n(`contact-${item.slug}`)] = contactButton(item, theme);
       files[n('experience')] = experience(theme, t, c.experience);
       files[n('stack')] = techStack(theme, t);
     }

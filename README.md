@@ -10,14 +10,28 @@
   <img src="assets/banner-light.svg" width="100%" alt="Eren Kadiroğlu — Mobile &amp; Web Developer. A dithered portrait that dissolves into the React, TypeScript and code logos, next to a system-info panel.">
 </picture>
 
-<div align="center">
+<br>
 
-<a href="https://www.linkedin.com/in/erenkadiroglu"><img src="https://img.shields.io/badge/LinkedIn-0b0d10?style=for-the-badge&labelColor=0b0d10&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2M4YTk2YSI%2BPHBhdGggZD0iTTIwLjQ0NyAyMC40NTJoLTMuNTU0di01LjU2OWMwLTEuMzI4LS4wMjctMy4wMzctMS44NTItMy4wMzctMS44NTMgMC0yLjEzNiAxLjQ0NS0yLjEzNiAyLjkzOXY1LjY2N0g5LjM1MVY5aDMuNDE0djEuNTYxaC4wNDZjLjQ3Ny0uOSAxLjYzNy0xLjg1IDMuMzctMS44NSAzLjYwMSAwIDQuMjY3IDIuMzcgNC4yNjcgNS40NTV2Ni4yODZ6TTUuMzM3IDcuNDMzYy0xLjE0NCAwLTIuMDYzLS45MjYtMi4wNjMtMi4wNjUgMC0xLjEzOC45Mi0yLjA2MyAyLjA2My0yLjA2MyAxLjE0IDAgMi4wNjQuOTI1IDIuMDY0IDIuMDYzIDAgMS4xMzktLjkyNSAyLjA2NS0yLjA2NCAyLjA2NXptMS43ODIgMTMuMDE5SDMuNTU1VjloMy41NjR2MTEuNDUyek0yMi4yMjUgMEgxLjc3MUMuNzkyIDAgMCAuNzc0IDAgMS43Mjl2MjAuNTQyQzAgMjMuMjI3Ljc5MiAyNCAxLjc3MSAyNGgyMC40NTFDMjMuMiAyNCAyNCAyMy4yMjcgMjQgMjIuMjcxVjEuNzI5QzI0IC43NzQgMjMuMiAwIDIyLjIyMiAwaC4wMDN6Ii8%2BPC9zdmc%2B" alt="LinkedIn: in/erenkadiroglu"></a>&nbsp;&nbsp;
-<a href="https://erenkadiroglu.com"><img src="https://img.shields.io/badge/Portfolio-0b0d10?style=for-the-badge&labelColor=0b0d10&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzhhOTZhIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI%2BPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iOSIvPjxwYXRoIGQ9Ik0zIDEyaDE4Ii8%2BPHBhdGggZD0iTTEyIDNjMi42IDIuNiAzLjkgNS42IDMuOSA5cy0xLjMgNi40LTMuOSA5Yy0yLjYtMi42LTMuOS01LjYtMy45LTlTOS40IDUuNiAxMiAzeiIvPjwvc3ZnPg%3D%3D" alt="Portfolio: erenkadiroglu.com"></a>&nbsp;&nbsp;
-<a href="mailto:erenkdroglu@gmail.com"><img src="https://img.shields.io/badge/Email-0b0d10?style=for-the-badge&labelColor=0b0d10&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2M4YTk2YSI%2BPHBhdGggZD0iTTI0IDUuNDU3djEzLjkwOWMwIC45MDQtLjczMiAxLjYzNi0xLjYzNiAxLjYzNmgtMy44MTlWMTEuNzNMMTIgMTYuNjRsLTYuNTQ1LTQuOTF2OS4yNzNIMS42MzZBMS42MzYgMS42MzYgMCAwIDEgMCAxOS4zNjZWNS40NTdjMC0yLjAyMyAyLjMwOS0zLjE3OCAzLjkyNy0xLjk2NEw1LjQ1NSA0LjY0IDEyIDkuNTQ4bDYuNTQ1LTQuOTEgMS41MjgtMS4xNDVDMjEuNjkgMi4yOCAyNCAzLjQzNCAyNCA1LjQ1N3oiLz48L3N2Zz4%3D" alt="Email: erenkdroglu@gmail.com"></a>&nbsp;&nbsp;
-<a href="https://www.instagram.com/eren_kdroglu"><img src="https://img.shields.io/badge/Instagram-0b0d10?style=for-the-badge&labelColor=0b0d10&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2M4YTk2YSI%2BPHBhdGggZD0iTTcuMDMwMS4wODRjLTEuMjc2OC4wNjAyLTIuMTQ4Ny4yNjQtMi45MTEuNTYzNC0uNzg4OC4zMDc1LTEuNDU3NS43Mi0yLjEyMjggMS4zODc3LS42NjUyLjY2NzctMS4wNzUgMS4zMzY4LTEuMzgwMiAyLjEyNy0uMjk1NC43NjM4LS40OTU2IDEuNjM2NS0uNTUyIDIuOTE0LS4wNTY0IDEuMjc3NS0uMDY4OSAxLjY4ODItLjA2MjYgNC45NDcuMDA2MiAzLjI1ODYuMDIwNiAzLjY2NzEuMDgyNSA0Ljk0NzMuMDYxIDEuMjc2NS4yNjQgMi4xNDgyLjU2MzUgMi45MTA3LjMwOC43ODg5LjcyIDEuNDU3MyAxLjM4OCAyLjEyMjguNjY3OS42NjU1IDEuMzM2NSAxLjA3NDMgMi4xMjg1IDEuMzguNzYzMi4yOTUgMS42MzYxLjQ5NjEgMi45MTM0LjU1MiAxLjI3NzMuMDU2IDEuNjg4NC4wNjkgNC45NDYyLjA2MjcgMy4yNTc4LS4wMDYyIDMuNjY4LS4wMjA3IDQuOTQ3OC0uMDgxNCAxLjI4LS4wNjA3IDIuMTQ3LS4yNjUyIDIuOTA5OC0uNTYzMy43ODg5LS4zMDg2IDEuNDU3OC0uNzIgMi4xMjI4LTEuMzg4MS42NjUtLjY2ODIgMS4wNzQ1LTEuMzM3OCAxLjM3OTUtMi4xMjg0LjI5NTctLjc2MzIuNDk2Ni0xLjYzNi41NTItMi45MTI0LjA1Ni0xLjI4MDkuMDY5Mi0xLjY4OTguMDYzLTQuOTQ4LS4wMDYzLTMuMjU4My0uMDIxLTMuNjY2OC0uMDgxNy00Ljk0NjUtLjA2MDctMS4yNzk3LS4yNjQtMi4xNDg3LS41NjMzLTIuOTExNy0uMzA4NC0uNzg4OS0uNzItMS40NTY4LTEuMzg3Ni0yLjEyMjhDMjEuMjk4MiAxLjMzIDIwLjYyOC45MjA4IDE5LjgzNzguNjE2NSAxOS4wNzQuMzIxIDE4LjIwMTcuMTE5NyAxNi45MjQ0LjA2NDUgMTUuNjQ3MS4wMDkzIDE1LjIzNi0uMDA1IDExLjk3Ny4wMDE0IDguNzE4LjAwNzYgOC4zMS4wMjE1IDcuMDMwMS4wODM5bS4xNDAyIDIxLjY5MzJjLTEuMTctLjA1MDktMS44MDUzLS4yNDUzLTIuMjI4Ny0uNDA4LS41NjA2LS4yMTYtLjk2LS40NzcxLTEuMzgxOS0uODk1LS40MjItLjQxNzgtLjY4MTEtLjgxODYtLjktMS4zNzgtLjE2NDQtLjQyMzQtLjM2MjQtMS4wNTgtLjQxNzEtMi4yMjgtLjA1OTUtMS4yNjQ1LS4wNzItMS42NDQyLS4wNzktNC44NDgtLjAwNy0zLjIwMzcuMDA1My0zLjU4My4wNjA3LTQuODQ4LjA1LTEuMTY5LjI0NTYtMS44MDUuNDA4LTIuMjI4Mi4yMTYtLjU2MTMuNDc2Mi0uOTYuODk1LTEuMzgxNi40MTg4LS40MjE3LjgxODQtLjY4MTQgMS4zNzgzLS45MDAzLjQyMy0uMTY1MSAxLjA1NzUtLjM2MTQgMi4yMjctLjQxNzEgMS4yNjU1LS4wNiAxLjY0NDctLjA3MiA0Ljg0OC0uMDc5IDMuMjAzMy0uMDA3IDMuNTgzNS4wMDUgNC44NDk1LjA2MDggMS4xNjkuMDUwOCAxLjgwNTMuMjQ0NSAyLjIyOC40MDguNTYwOC4yMTYuOTYuNDc1NCAxLjM4MTYuODk1LjQyMTcuNDE5NC42ODE2LjgxNzYuOTAwNSAxLjM3ODcuMTY1My40MjE3LjM2MTcgMS4wNTYuNDE2OSAyLjIyNjMuMDYwMiAxLjI2NTUuMDczOSAxLjY0NS4wNzk2IDQuODQ4LjAwNTggMy4yMDMtLjAwNTUgMy41ODM0LS4wNjEgNC44NDgtLjA1MSAxLjE3LS4yNDUgMS44MDU1LS40MDggMi4yMjk0LS4yMTYuNTYwNC0uNDc2My45Ni0uODk1NCAxLjM4MTQtLjQxOS40MjE1LS44MTgxLjY4MTEtMS4zNzgzLjktLjQyMjQuMTY0OS0xLjA1NzcuMzYxNy0yLjIyNjIuNDE3NC0xLjI2NTYuMDU5NS0xLjY0NDguMDcyLTQuODQ5My4wNzktMy4yMDQ1LjAwNy0zLjU4MjUtLjAwNi00Ljg0OC0uMDYwOE0xNi45NTMgNS41ODY0QTEuNDQgMS40NCAwIDEgMCAxOC4zOSA0LjE0NGExLjQ0IDEuNDQgMCAwIDAtMS40MzcgMS40NDI0TTUuODM4NSAxMi4wMTJjLjAwNjcgMy40MDMyIDIuNzcwNiA2LjE1NTcgNi4xNzMgNi4xNDkzIDMuNDAyNi0uMDA2NSA2LjE1Ny0yLjc3MDEgNi4xNTA2LTYuMTczMy0uMDA2NS0zLjQwMzItMi43NzEtNi4xNTY1LTYuMTc0LTYuMTQ5OC0zLjQwMy4wMDY3LTYuMTU2IDIuNzcxLTYuMTQ5NiA2LjE3MzhNOCAxMi4wMDc3YTQgNCAwIDEgMSA0LjAwOCAzLjk5MjFBMy45OTk2IDMuOTk5NiAwIDAgMSA4IDEyLjAwNzciLz48L3N2Zz4%3D" alt="Instagram: eren_kdroglu"></a>
+<p align="center">
+<a href="https://www.linkedin.com/in/erenkadiroglu"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-linkedin-dark.svg">
+  <img src="assets/contact-linkedin-light.svg" width="24%" alt="LinkedIn: in/erenkadiroglu">
+</picture></a>
+<a href="https://erenkadiroglu.com"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-portfolio-dark.svg">
+  <img src="assets/contact-portfolio-light.svg" width="24%" alt="Portfolio: erenkadiroglu.com">
+</picture></a>
+<a href="mailto:erenkdroglu@gmail.com"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-email-dark.svg">
+  <img src="assets/contact-email-light.svg" width="24%" alt="Email: erenkdroglu@gmail.com">
+</picture></a>
+<a href="https://www.instagram.com/eren_kdroglu"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-instagram-dark.svg">
+  <img src="assets/contact-instagram-light.svg" width="24%" alt="Instagram: @eren_kdroglu">
+</picture></a>
+</p>
 
-</div>
+<br>
 
 ## About
 
@@ -29,11 +43,27 @@
 ## Featured work
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/projects-dark.svg">
-  <img src="assets/projects-light.svg" width="100%" alt="SahaRez (private · in development): Booking and matchmaking platform for sports facilities: a player web app, a facility management panel and an AI service for demand forecasting and price suggestions. Graduation project, piloting in Eskişehir. FileConvert (private · in development): Free, privacy-first mobile app that converts, merges, edits and compresses PDFs entirely on the device — no server, no account, no tracking. PathWords (private · in development): Path-tracing word puzzle that teaches English–Turkish vocabulary, with a procedural generator for endless levels. erenkadiroglu.com (live): Personal portfolio with a JSON-driven content model and an admin panel; static and fast on GitHub Pages. Minesweeper (open source): Console strategy game in C: steer a path across a minefield while tracking each mine's zone of influence.">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/project-saharez-dark.svg">
+  <img src="assets/project-saharez-light.svg" width="100%" alt="SahaRez — private · in development. Booking and matchmaking platform for sports facilities: a player web app, a facility management panel and an AI service for demand forecasting and price suggestions. Graduation project, piloting in Eskişehir.">
 </picture>
 
-<p align="right"><sub>Links: &nbsp;<a href="https://erenkadiroglu.com">erenkadiroglu.com ↗</a> &nbsp;·&nbsp; <a href="https://github.com/erenkadiroglu/minesweeper-c-project">Minesweeper ↗</a></sub></p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/project-fileconvert-dark.svg">
+  <img src="assets/project-fileconvert-light.svg" width="49%" alt="FileConvert — private · in development. Free, privacy-first mobile app that converts, merges, edits and compresses PDFs entirely on the device — no server, no account, no tracking.">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/project-pathwords-dark.svg">
+  <img src="assets/project-pathwords-light.svg" width="49%" alt="PathWords — private · in development. Path-tracing word puzzle that teaches English–Turkish vocabulary, with a procedural generator for endless levels.">
+</picture>
+
+<a href="https://erenkadiroglu.com"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/project-portfolio-dark.svg">
+  <img src="assets/project-portfolio-light.svg" width="49%" alt="erenkadiroglu.com — live. Personal portfolio with a JSON-driven content model and an admin panel; static and fast on GitHub Pages.">
+</picture></a>
+<a href="https://github.com/erenkadiroglu/minesweeper-c-project"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/project-minesweeper-dark.svg">
+  <img src="assets/project-minesweeper-light.svg" width="49%" alt="Minesweeper — open source. Console strategy game in C: steer a path across a minefield while tracking each mine's zone of influence.">
+</picture></a>
 
 ## Experience
 

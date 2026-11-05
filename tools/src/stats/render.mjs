@@ -189,7 +189,7 @@ export function renderLanguages(s, theme, { t }) {
     height: HALF_H,
     theme,
     title: t.langs.title,
-    meta: t.langs.meta,
+    meta: t.langs.meta[s?.privateRepos ? 'all' : 'public'],
     docTitle: t.langs.doc,
     desc: langs.length ? langs.map((l) => `${l.name} ${(l.share * 100).toFixed(1)}%`).join(', ') : t.pending,
     body: parts.join('\n'),

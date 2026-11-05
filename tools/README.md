@@ -13,7 +13,7 @@ tools/
 │   ├── i18n.mjs         English / Turkish labels for every generated card
 │   ├── theme.mjs        "Graphite & Ivory" tokens for GitHub light / dark
 │   ├── build-static.mjs tech-stack strip
-│   ├── badges.mjs       prints the shields.io badge row (logos as base64)
+│   ├── copy.mjs         ← About / Projects / Experience / Contact copy in both languages
 │   ├── stats/           GraphQL client, pure aggregation, streak / stats / language / trail cards
 │   └── icons.mjs        vendored brand marks (simple-icons CC0, devicon MIT)
 └── test/                node:test suites + synthetic fixture
@@ -26,12 +26,13 @@ tools/
 | `npm run stats` | Fetches live data (needs `GITHUB_TOKEN`) and writes `assets/generated/` |
 | `npm run preview` | Renders the stats cards from the synthetic fixture into `.preview/stats/` |
 | `npm test` | SVG well-formedness, WCAG AA contrast, stale-asset and README reference checks |
-| `node src/badges.mjs [en\|tr]` | Prints the badge HTML (also used by `readme.mjs`) |
 
 ## Notes
 
-- **Private activity.** The workflows fall back to `GITHUB_TOKEN`, which only sees public data. Add a personal
-  access token as the repository secret `STATS_TOKEN` to include private repositories and contributions.
+- **Contribution calendar** is read from the profile page GitHub renders, so it matches the real graph and includes
+  private work when the profile shows it. **Languages** need the API: without the `STATS_TOKEN` secret only public
+  repositories are counted, and the card says so.
+- **Links.** An image cannot hold several links, so every project card and contact button is its own SVG wrapped in a link.
 - **Language share** sums `sqrt(bytes)` per repository, so one large codebase cannot drown out everything else.
   Notebook output is excluded in CI because it is stored as JSON and inflates byte counts.
 - **Two languages.** Every visual is rendered twice; Turkish files carry a `.tr` suffix. The profile shows

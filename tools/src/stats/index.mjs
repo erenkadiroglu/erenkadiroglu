@@ -56,7 +56,7 @@ if (!values.placeholder) {
       calendar = recent = null;
     }
   }
-  stats = summarize(user, { today, exclude, calendar, recent });
+  stats = { ...summarize(user, { today, exclude, calendar, recent }), privateRepos: values.private };
 }
 
 // Skip rewrites where only the date stamp would change: no noise commits.

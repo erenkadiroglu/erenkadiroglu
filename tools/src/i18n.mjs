@@ -27,7 +27,7 @@ export const locales = {
       rows: ['Stars earned', 'Commits', 'Pull requests', 'Issues', 'Repositories'],
       doc: 'GitHub stats',
     },
-    langs: { title: 'LANG.DIST', meta: 'by repository · sqrt(bytes)', other: 'Other', doc: 'Most used languages' },
+    langs: { title: 'LANG.DIST', meta: { public: 'public repositories only', all: 'all repositories · sqrt(bytes)' }, other: 'Other', doc: 'Most used languages' },
     trail: {
       title: 'CONTRIB.TRAIL',
       meta: 'last 12 months',
@@ -43,7 +43,6 @@ export const locales = {
       doc: 'Tech stack',
       labels: { languages: 'LANGUAGES', frontend: 'FRONTEND', mobile: 'MOBILE', backend: 'BACKEND', data: 'DATA', infra: 'INFRA & TOOLS' },
     },
-    badges: { linkedin: 'LinkedIn', portfolio: 'Portfolio', email: 'Email', instagram: 'Instagram' },
   },
   tr: {
     code: 'tr',
@@ -69,7 +68,7 @@ export const locales = {
       rows: ['Kazanılan yıldız', 'Commit', 'Pull request', 'Issue', 'Depo'],
       doc: 'GitHub istatistikleri',
     },
-    langs: { title: 'DİL.DAĞILIMI', meta: 'depo bazında · sqrt(bayt)', other: 'Diğer', doc: 'En çok kullanılan diller' },
+    langs: { title: 'DİL.DAĞILIMI', meta: { public: 'yalnızca public depolar', all: 'tüm depolar · sqrt(bayt)' }, other: 'Diğer', doc: 'En çok kullanılan diller' },
     trail: {
       title: 'KATKI.İZİ',
       meta: 'son 12 ay',
@@ -85,6 +84,5 @@ export const locales = {
       doc: 'Teknoloji yığını',
       labels: { languages: 'DİLLER', frontend: 'FRONTEND', mobile: 'MOBİL', backend: 'BACKEND', data: 'VERİ', infra: 'ALTYAPI & ARAÇLAR' },
     },
-    badges: { linkedin: 'LinkedIn', portfolio: 'Portfolyo', email: 'E-posta', instagram: 'Instagram' },
   },
 };

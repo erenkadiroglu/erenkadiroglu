@@ -8,7 +8,6 @@
  */
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { badgeRow } from './badges.mjs';
 import { copy } from './copy.mjs';
 
 const root = (p) => fileURLToPath(new URL(`../../${p}`, import.meta.url));
@@ -24,7 +23,6 @@ const ui = {
     switch: `${flag('gb')}&nbsp; <b>English</b> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="README.tr.md">${flag('tr')}&nbsp; Türkçe</a>`,
     bannerAlt: 'Eren Kadiroğlu — Mobile &amp; Web Developer. A dithered portrait that dissolves into the React, TypeScript and code logos, next to a system-info panel.',
     h: { about: 'About', work: 'Featured work', experience: 'Experience', stack: 'Tech stack', activity: 'GitHub activity' },
-    links: 'Links',
     stackAlt: 'Languages: TypeScript, JavaScript, Python, C++, Java. Frontend: React, Next.js, Tailwind, Vite. Mobile: React Native, Expo, Android Studio. Backend: Node.js, NestJS, FastAPI, Socket.IO. Data: PostgreSQL, Prisma, Redis, SQLite. Infra and tools: Docker, GitHub Actions, Git, VS Code.',
     alts: {
       streak: 'Contribution streak: total contributions, current streak and longest streak.',
@@ -43,7 +41,6 @@ const ui = {
     switch: `<a href="README.md">${flag('gb')}&nbsp; English</a> &nbsp;&nbsp;|&nbsp;&nbsp; ${flag('tr')}&nbsp; <b>Türkçe</b>`,
     bannerAlt: 'Eren Kadiroğlu — Mobil &amp; Web Geliştirici. Dağılıp React, TypeScript ve kod logolarına dönüşen noktalı bir portre ve yanında sistem bilgisi paneli.',
     h: { about: 'Hakkımda', work: 'Öne çıkan projeler', experience: 'Deneyim', stack: 'Teknoloji yığını', activity: 'GitHub aktivitesi' },
-    links: 'Bağlantılar',
     stackAlt: 'Diller: TypeScript, JavaScript, Python, C++, Java. Frontend: React, Next.js, Tailwind, Vite. Mobil: React Native, Expo, Android Studio. Backend: Node.js, NestJS, FastAPI, Socket.IO. Veri: PostgreSQL, Prisma, Redis, SQLite. Altyapı ve araçlar: Docker, GitHub Actions, Git, VS Code.',
     alts: {
       streak: 'Katkı serisi: toplam katkı, güncel seri ve en uzun seri.',
@@ -74,12 +71,17 @@ export function render(lang) {
   const c = copy[lang];
   const s = u.suffix;
   const aboutAlt = escAttr(`${c.about.paragraphs.join(' ')} ${c.about.principles.join('. ')}. ${c.about.open}.`);
-  const workAlt = escAttr(c.projects.items.map((p) => `${p.name} (${c.projects.status[p.status]}): ${p.desc}`).join(' '));
   const expAlt = escAttr(c.experience.items.map((e) => `${e.period} — ${e.role}, ${e.org}: ${e.points.join('; ')}.`).join(' '));
-  const links = c.projects.items
-    .filter((p) => p.link)
-    .map((p) => `<a href="${p.link}">${p.name} ↗</a>`)
-    .join(' &nbsp;·&nbsp; ');
+  const card = (p, width) => {
+    const pic = picture(`project-${p.slug}`, s, escAttr(`${p.name} — ${c.projects.status[p.status]}. ${p.desc}`), width);
+    return p.link ? `<a href="${p.link}">${pic}</a>` : pic;
+  };
+  const [lead, ...rest] = c.projects.items;
+  const grid = [card(lead, '100%')];
+  for (let k = 0; k < rest.length; k += 2) grid.push(rest.slice(k, k + 2).map((p) => card(p, '49%')).join('\n'));
+  const contact = c.contact
+    .map((it) => `<a href="${it.href}">${picture(`contact-${it.slug}`, s, escAttr(`${it.label}: ${it.sub}`), '24%')}</a>`)
+    .join('\n');
   const years = manifest().years.filter((y) => y.total > 0 || y.year === manifest().years[0]?.year);
   const yearBlocks = years
     .map(
@@ -97,11 +99,13 @@ export function render(lang) {
 
 ${picture('banner', s, u.bannerAlt)}
 
-<div align="center">
+<br>
 
-${badgeRow(lang)}
+<p align="center">
+${contact}
+</p>
 
-</div>
+<br>
 
 ## ${u.h.about}
 
@@ -109,9 +113,7 @@ ${picture('about', s, aboutAlt)}
 
 ## ${u.h.work}
 
-${picture('projects', s, workAlt)}
-
-<p align="right"><sub>${u.links}: &nbsp;${links}</sub></p>
+${grid.join('\n\n')}
 
 ## ${u.h.experience}
 

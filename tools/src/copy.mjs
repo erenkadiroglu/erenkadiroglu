@@ -20,26 +20,33 @@ export const copy = {
       title: 'PROJECT.INDEX',
       meta: (n, p) => `${n} projects · ${p} private`,
       status: { private: 'private · in development', live: 'live', public: 'open source' },
+      cta: { live: 'Visit site', public: 'View on GitHub' },
+      highlightsTitle: 'MODULES',
+      highlights: ['Player web app', 'Facility management panel', 'AI demand forecasting', 'Live booking & payments'],
       items: [
         {
+          slug: 'saharez',
           name: 'SahaRez',
           status: 'private',
           desc: 'Booking and matchmaking platform for sports facilities: a player web app, a facility management panel and an AI service for demand forecasting and price suggestions. Graduation project, piloting in Eskişehir.',
           stack: ['NestJS', 'Next.js', 'React', 'FastAPI', 'PostgreSQL', 'PostGIS', 'Redis', 'Socket.IO'],
         },
         {
+          slug: 'fileconvert',
           name: 'FileConvert',
           status: 'private',
           desc: 'Free, privacy-first mobile app that converts, merges, edits and compresses PDFs entirely on the device — no server, no account, no tracking.',
           stack: ['React Native', 'Expo', 'TypeScript', 'Kotlin', 'Skia'],
         },
         {
+          slug: 'pathwords',
           name: 'PathWords',
           status: 'private',
           desc: 'Path-tracing word puzzle that teaches English–Turkish vocabulary, with a procedural generator for endless levels.',
           stack: ['React Native', 'Expo', 'TypeScript'],
         },
         {
+          slug: 'portfolio',
           name: 'erenkadiroglu.com',
           status: 'live',
           link: 'https://erenkadiroglu.com',
@@ -48,6 +55,7 @@ export const copy = {
           stack: ['JavaScript', 'Node.js', 'Express', 'GitHub Pages'],
         },
         {
+          slug: 'minesweeper',
           name: 'Minesweeper',
           status: 'public',
           link: 'https://github.com/erenkadiroglu/minesweeper-c-project',
@@ -56,8 +64,13 @@ export const copy = {
           stack: ['C'],
         },
       ],
-      links: 'Links',
     },
+    contact: [
+      { slug: 'linkedin', label: 'LinkedIn', sub: 'in/erenkadiroglu', href: 'https://www.linkedin.com/in/erenkadiroglu', icon: 'linkedin' },
+      { slug: 'portfolio', label: 'Portfolio', sub: 'erenkadiroglu.com', href: 'https://erenkadiroglu.com', glyph: 'globe' },
+      { slug: 'email', label: 'Email', sub: 'erenkdroglu@gmail.com', href: 'mailto:erenkdroglu@gmail.com', glyph: 'mail' },
+      { slug: 'instagram', label: 'Instagram', sub: '@eren_kdroglu', href: 'https://www.instagram.com/eren_kdroglu', icon: 'instagram' },
+    ],
     experience: {
       title: 'EXPERIENCE.LOG',
       meta: (n) => `${n} internships`,
@@ -111,26 +124,33 @@ export const copy = {
       title: 'PROJE.DİZİNİ',
       meta: (n, p) => `${n} proje · ${p} özel`,
       status: { private: 'özel · geliştiriliyor', live: 'yayında', public: 'açık kaynak' },
+      cta: { live: 'Siteyi aç', public: "GitHub'da incele" },
+      highlightsTitle: 'MODÜLLER',
+      highlights: ['Oyuncu web sitesi', 'Tesis yönetim paneli', 'Yapay zekâ talep tahmini', 'Canlı rezervasyon ve ödeme'],
       items: [
         {
+          slug: 'saharez',
           name: 'SahaRez',
           status: 'private',
           desc: 'Spor tesisleri ile oyuncuları buluşturan rezervasyon ve eşleştirme platformu: oyuncu web sitesi, tesis yönetim paneli ve talep tahmini ile fiyat önerisi yapan bir yapay zekâ servisi. Bitirme projesi, pilot şehir Eskişehir.',
           stack: ['NestJS', 'Next.js', 'React', 'FastAPI', 'PostgreSQL', 'PostGIS', 'Redis', 'Socket.IO'],
         },
         {
+          slug: 'fileconvert',
           name: 'FileConvert',
           status: 'private',
           desc: "PDF'leri cihazdan çıkarmadan dönüştüren, birleştiren, düzenleyen ve sıkıştıran ücretsiz mobil uygulama — sunucu, hesap ve takip yok.",
           stack: ['React Native', 'Expo', 'TypeScript', 'Kotlin', 'Skia'],
         },
         {
+          slug: 'pathwords',
           name: 'PathWords',
           status: 'private',
           desc: 'İngilizce–Türkçe kelime öğreten, patika çizerek oynanan kelime bulmacası; sonsuz seviye üreten prosedürel bir motorla.',
           stack: ['React Native', 'Expo', 'TypeScript'],
         },
         {
+          slug: 'portfolio',
           name: 'erenkadiroglu.com',
           status: 'live',
           link: 'https://erenkadiroglu.com',
@@ -139,6 +159,7 @@ export const copy = {
           stack: ['JavaScript', 'Node.js', 'Express', 'GitHub Pages'],
         },
         {
+          slug: 'minesweeper',
           name: 'Mayın Tarlası',
           status: 'public',
           link: 'https://github.com/erenkadiroglu/minesweeper-c-project',
@@ -147,8 +168,13 @@ export const copy = {
           stack: ['C'],
         },
       ],
-      links: 'Bağlantılar',
     },
+    contact: [
+      { slug: 'linkedin', label: 'LinkedIn', sub: 'in/erenkadiroglu', href: 'https://www.linkedin.com/in/erenkadiroglu', icon: 'linkedin' },
+      { slug: 'portfolio', label: 'Portfolyo', sub: 'erenkadiroglu.com', href: 'https://erenkadiroglu.com', glyph: 'globe' },
+      { slug: 'email', label: 'E-posta', sub: 'erenkdroglu@gmail.com', href: 'mailto:erenkdroglu@gmail.com', glyph: 'mail' },
+      { slug: 'instagram', label: 'Instagram', sub: '@eren_kdroglu', href: 'https://www.instagram.com/eren_kdroglu', icon: 'instagram' },
+    ],
     experience: {
       title: 'DENEYİM.KAYDI',
       meta: (n) => `${n} staj`,
