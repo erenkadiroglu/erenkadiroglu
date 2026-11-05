@@ -69,31 +69,52 @@ export function languages(repos, { limit = 8, exclude = [] } = {}) {
   return top;
 }
 
-/**
- * The last 53 calendar weeks (Sunday first) with GitHub-style levels:
- * quartiles of the non-zero days in the window.
- */
-export function trailWeeks(days, today) {
-  const byDate = new Map(days.map((d) => [d.date, d.count]));
-  const end = new Date(`${today}T00:00:00Z`);
-  const start = new Date(end);
-  start.setUTCDate(start.getUTCDate() - 52 * 7 - start.getUTCDay());
-  const window = [];
-  for (const d = new Date(start); d <= end; d.setUTCDate(d.getUTCDate() + 1)) {
-    const date = d.toISOString().slice(0, 10);
-    window.push({ date, count: byDate.get(date) ?? 0 });
-  }
-  const nz = window.map((d) => d.count).filter((c) => c > 0).sort((a, b) => a - b);
+/** Quartile levels like GitHub's, for days that do not carry one. */
+function levelFor(days) {
+  const nz = days.map((d) => d.count).filter((c) => c > 0).sort((a, b) => a - b);
   const q = (p) => nz[Math.min(nz.length - 1, Math.floor(p * nz.length))] ?? 0;
   const [q1, q2, q3] = [q(0.25), q(0.5), q(0.75)];
-  const level = (c) => (c === 0 ? 0 : c <= q1 ? 1 : c <= q2 ? 2 : c <= q3 ? 3 : 4);
-  const weeks = [];
-  for (let i = 0; i < window.length; i += 7) weeks.push(window.slice(i, i + 7).map((d) => ({ ...d, level: level(d.count) })));
-  return { weeks, total: window.reduce((a, d) => a + d.count, 0) };
+  return (c) => (c === 0 ? 0 : c <= q1 ? 1 : c <= q2 ? 2 : c <= q3 ? 3 : 4);
 }
 
-export function summarize(user, { today = new Date().toISOString().slice(0, 10), exclude = [] } = {}) {
-  const days = allDays(user.years, today);
+/** Days from `from` to `to` (inclusive) grouped into Sunday-first calendar columns. */
+export function calendarWeeks(days, from, to) {
+  const byDate = new Map(days.map((d) => [d.date, d]));
+  const span = [];
+  for (const d = new Date(`${from}T00:00:00Z`); d.toISOString().slice(0, 10) <= to; d.setUTCDate(d.getUTCDate() + 1)) {
+    const date = d.toISOString().slice(0, 10);
+    const known = byDate.get(date);
+    span.push({ date, count: known?.count ?? 0, level: known?.level });
+  }
+  const level = levelFor(span);
+  const weeks = [];
+  let week = [];
+  for (const d of span) {
+    week.push({ ...d, level: d.level ?? level(d.count) });
+    if (new Date(`${d.date}T00:00:00Z`).getUTCDay() === 6) {
+      weeks.push(week);
+      week = [];
+    }
+  }
+  if (week.length) weeks.push(week);
+  return { weeks, total: span.reduce((a, d) => a + d.count, 0) };
+}
+
+/** The last 53 calendar weeks ending today, as on the profile. */
+export function trailWeeks(days, today) {
+  const start = new Date(`${today}T00:00:00Z`);
+  start.setUTCDate(start.getUTCDate() - 52 * 7 - start.getUTCDay());
+  return calendarWeeks(days, start.toISOString().slice(0, 10), today);
+}
+
+/**
+ * `calendar` — days scraped from the profile (see calendar.mjs). When present it
+ * is the source of truth for every contribution number, so the cards match the
+ * graph GitHub shows; otherwise the GraphQL calendar is used. `recent` — the
+ * profile's default last-12-months view, whose levels drive the main trail card.
+ */
+export function summarize(user, { today = new Date().toISOString().slice(0, 10), exclude = [], calendar = null, recent = null } = {}) {
+  const days = calendar ? calendar.filter((d) => d.date <= today) : allDays(user.years, today);
   const first = days.find((d) => d.count > 0)?.date ?? null;
   const last = days.findLast((d) => d.count > 0)?.date ?? null;
   const repos = user.repositories.nodes;
@@ -102,7 +123,10 @@ export function summarize(user, { today = new Date().toISOString().slice(0, 10),
     generatedAt: today,
     firstContribution: first,
     lastContribution: last,
-    totalContributions: user.years.reduce((acc, y) => acc + (y.contributionCalendar?.totalContributions ?? 0), 0),
+    totalContributions: calendar
+      ? days.reduce((acc, d) => acc + d.count, 0)
+      : user.years.reduce((acc, y) => acc + (y.contributionCalendar?.totalContributions ?? 0), 0),
+    source: calendar ? 'profile' : 'graphql',
     commits: user.years.reduce((acc, y) => acc + (y.totalCommitContributions ?? 0), 0),
     pullRequests: user.pullRequests.totalCount,
     issues: user.issues.totalCount,
@@ -110,6 +134,14 @@ export function summarize(user, { today = new Date().toISOString().slice(0, 10),
     stars: repos.reduce((acc, r) => acc + r.stargazerCount, 0),
     ...streaks(days, today),
     languages: languages(repos, { exclude }),
-    ...(({ weeks, total }) => ({ trail: weeks, trailTotal: total }))(trailWeeks(days, today)),
+    ...(({ weeks, total }) => ({ trail: weeks, trailTotal: total }))(trailWeeks(recent ?? days, today)),
+    years: [...new Set(days.map((d) => d.date.slice(0, 4)))]
+      .sort()
+      .reverse()
+      .map((year) => {
+        const end = `${year}-12-31` < today ? `${year}-12-31` : today;
+        const { weeks, total } = calendarWeeks(days, `${year}-01-01`, end);
+        return { year: Number(year), weeks, total };
+      }),
   };
 }

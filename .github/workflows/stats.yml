@@ -1,6 +1,7 @@
 name: stats
 
-# Re-renders assets/generated/{streak,stats,langs}-*.svg from the GitHub GraphQL API.
+# Re-renders the stats cards and contribution calendars (assets/generated/) and
+# the two READMEs, which list one expandable calendar per contribution year.
 on:
   schedule:
     - cron: '23 4 * * *' # daily, off the top of the hour
@@ -41,9 +42,13 @@ jobs:
           EXCLUDE_LANGUAGES: Jupyter Notebook
         run: node src/stats/index.mjs
 
+      - name: Regenerate READMEs
+        working-directory: tools
+        run: node src/readme.mjs
+
       - name: Commit changes
         run: |
-          git add assets/generated
+          git add assets/generated README.md README.tr.md
           if git diff --cached --quiet; then
             echo "Stats cards unchanged."
             exit 0

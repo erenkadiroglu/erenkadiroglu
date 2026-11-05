@@ -7,7 +7,9 @@ import { themes } from '../src/theme.mjs';
 import { summarize } from '../src/stats/compute.mjs';
 import { _internals, renderLanguages, renderStats, renderStreak, renderTrail } from '../src/stats/render.mjs';
 import { locales } from '../src/i18n.mjs';
-import { files as readmes } from '../src/readme.mjs';
+import { files } from '../src/readme.mjs';
+
+const readmes = files();
 import { buildAll } from '../src/build-static.mjs';
 import { contrast } from '../src/color.mjs';
 import { assertWellFormed } from './helpers.mjs';

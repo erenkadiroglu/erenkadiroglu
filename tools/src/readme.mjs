@@ -2,112 +2,59 @@
 /**
  * Writes README.md (English, shown on the profile) and README.tr.md (Turkish)
  * from one template, so both languages always share the same structure.
+ * Year calendars are listed from assets/generated/manifest.json.
  *
  *   node src/readme.mjs
  */
-import { writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { badgeRow } from './badges.mjs';
+import { copy } from './copy.mjs';
 
-const REPO = 'https://github.com/erenkadiroglu/erenkadiroglu';
-const PROFILE = 'https://github.com/erenkadiroglu';
+const root = (p) => fileURLToPath(new URL(`../../${p}`, import.meta.url));
 
-const copy = {
+// Flags share one 3:2 box so both read the same size.
+const flag = (code) => `<img src="assets/flags/${code}.svg" width="21" height="14" alt="">`;
+
+const ui = {
   en: {
     file: 'README.md',
     suffix: '',
-    switch: `<img src="assets/flags/gb.svg" height="13" alt=""> <b>English</b> &nbsp;|&nbsp; <a href="${REPO}/blob/main/README.tr.md"><img src="assets/flags/tr.svg" height="13" alt=""> Türkçe</a>`,
+    // Relative links resolve on the profile, in the repository and on any branch.
+    switch: `${flag('gb')}&nbsp; <b>English</b> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="README.tr.md">${flag('tr')}&nbsp; Türkçe</a>`,
     bannerAlt: 'Eren Kadiroğlu — Mobile &amp; Web Developer. A dithered portrait that dissolves into the React, TypeScript and code logos, next to a system-info panel.',
-    about: {
-      h: 'About',
-      body: [
-        "Final-year Computer Engineering student at **Kahramanmaraş Sütçü İmam University**, based in Eskişehir. I build mobile and web products end to end: React Native apps, React and Next.js frontends, and the TypeScript and Python services behind them. I care about clear architecture, privacy, and software that keeps working when the network doesn't, and I use AI tooling as an everyday part of my engineering workflow.",
-        'Currently open to internships, collaborations and new opportunities.',
-      ],
+    h: { about: 'About', work: 'Featured work', experience: 'Experience', stack: 'Tech stack', activity: 'GitHub activity' },
+    links: 'Links',
+    stackAlt: 'Languages: TypeScript, JavaScript, Python, C++, Java. Frontend: React, Next.js, Tailwind, Vite. Mobile: React Native, Expo, Android Studio. Backend: Node.js, NestJS, FastAPI, Socket.IO. Data: PostgreSQL, Prisma, Redis, SQLite. Infra and tools: Docker, GitHub Actions, Git, VS Code.',
+    alts: {
+      streak: 'Contribution streak: total contributions, current streak and longest streak.',
+      stats: 'GitHub stats: stars, commits, pull requests, issues and repositories.',
+      langs: 'Most used languages across repositories.',
+      trail: 'Contribution graph for the last 12 months with a snake weaving between the cells.',
+      year: (y) => `Contribution graph for ${y}.`,
     },
-    work: {
-      h: 'Featured work',
-      cols: ['Project', 'What it is', 'Built with', 'Status'],
-      private: '`private` · in development',
-      rows: [
-        ['**SahaRez**', 'Booking and matchmaking platform for sports facilities: a player web app, a facility management panel and an AI service for demand forecasting and price suggestions. Graduation project, piloting in Eskişehir.', 'NestJS · Next.js · React · FastAPI · PostgreSQL / PostGIS · Redis', 'private'],
-        ['**FileConvert**', 'Free, privacy-first mobile app that converts, merges, edits and compresses PDFs entirely on the device — no server, no account, no tracking.', 'React Native · Expo · TypeScript · Kotlin native module', 'private'],
-        ['**PathWords**', 'Path-tracing word puzzle that teaches English–Turkish vocabulary, with a procedural generator for endless levels.', 'React Native · Expo · TypeScript', 'private'],
-        ['**[erenkadiroglu.com](https://erenkadiroglu.com)**', 'Personal portfolio with a JSON-driven content model and an admin panel; static and fast on GitHub Pages.', 'JavaScript · Node.js · Express', 'live'],
-        ['**[Minesweeper](https://github.com/erenkadiroglu/minesweeper-c-project)**', "Console strategy game in C: steer a path across a minefield while tracking each mine's zone of influence.", 'C', 'public'],
-      ],
-    },
-    experience: {
-      h: 'Experience',
-      cols: ['When', 'Role', 'Where'],
-      rows: [
-        ['Aug – Sep 2026', '**Software Engineering Intern** — web interfaces, REST API integration and PostgreSQL for the *Eskişehir Encyclopedia* digital library', 'Anadolu University BAUM · Eskişehir'],
-        ['Feb – Apr 2026', '**International Project Management Intern** — led a brand launch end to end, from strategy document to website', 'TNC Group & Human Ports · Belgrade'],
-        ['Jul – Aug 2025', '**IT Intern** — Python task manager and Excel sales dashboards; selected for the Belgrade programme', 'TNC Group · Remote'],
-      ],
-    },
-    stack: {
-      h: 'Tech stack',
-      alt: 'Languages: TypeScript, JavaScript, Python, C++, Java. Frontend: React, Next.js, Tailwind, Vite. Mobile: React Native, Expo, Android Studio. Backend: Node.js, NestJS, FastAPI, Socket.IO. Data: PostgreSQL, Prisma, Redis, SQLite. Infra and tools: Docker, GitHub Actions, Git, VS Code.',
-    },
-    activity: {
-      h: 'GitHub activity',
-      alts: {
-        streak: 'Contribution streak: total contributions, current streak and longest streak.',
-        stats: 'GitHub stats: stars, commits, pull requests, issues and repositories.',
-        langs: 'Most used languages across repositories.',
-        trail: 'Contribution graph with a snake weaving between the cells.',
-      },
-      note: 'Cards are rendered daily by a GitHub Action in this repository, straight from the GraphQL API — no third-party stats services.',
-    },
+    years: 'Browse by year',
+    yearLabel: (y, n) => `${y} · ${n.toLocaleString('en-US')} contribution${n === 1 ? '' : 's'}`,
+    note: 'Cards and calendars are rendered daily by a GitHub Action in this repository from the same contribution graph GitHub shows on the profile — no third-party stats services.',
   },
   tr: {
     file: 'README.tr.md',
     suffix: '.tr',
-    switch: `<a href="${PROFILE}"><img src="assets/flags/gb.svg" height="13" alt=""> English</a> &nbsp;|&nbsp; <img src="assets/flags/tr.svg" height="13" alt=""> <b>Türkçe</b>`,
+    switch: `<a href="README.md">${flag('gb')}&nbsp; English</a> &nbsp;&nbsp;|&nbsp;&nbsp; ${flag('tr')}&nbsp; <b>Türkçe</b>`,
     bannerAlt: 'Eren Kadiroğlu — Mobil &amp; Web Geliştirici. Dağılıp React, TypeScript ve kod logolarına dönüşen noktalı bir portre ve yanında sistem bilgisi paneli.',
-    about: {
-      h: 'Hakkımda',
-      body: [
-        "**Kahramanmaraş Sütçü İmam Üniversitesi** Bilgisayar Mühendisliği 4. sınıf öğrencisiyim ve Eskişehir'de yaşıyorum. Mobil ve web ürünlerini uçtan uca geliştiriyorum: React Native uygulamaları, React ve Next.js arayüzleri ve bunların arkasındaki TypeScript ve Python servisleri. Anlaşılır mimariye, gizliliğe ve ağ olmadığında da çalışmaya devam eden yazılıma önem veriyorum; yapay zekâ araçlarını mühendislik akışımın günlük bir parçası olarak kullanıyorum.",
-        'Staj, iş birliği ve yeni fırsatlara açığım.',
-      ],
+    h: { about: 'Hakkımda', work: 'Öne çıkan projeler', experience: 'Deneyim', stack: 'Teknoloji yığını', activity: 'GitHub aktivitesi' },
+    links: 'Bağlantılar',
+    stackAlt: 'Diller: TypeScript, JavaScript, Python, C++, Java. Frontend: React, Next.js, Tailwind, Vite. Mobil: React Native, Expo, Android Studio. Backend: Node.js, NestJS, FastAPI, Socket.IO. Veri: PostgreSQL, Prisma, Redis, SQLite. Altyapı ve araçlar: Docker, GitHub Actions, Git, VS Code.',
+    alts: {
+      streak: 'Katkı serisi: toplam katkı, güncel seri ve en uzun seri.',
+      stats: 'GitHub istatistikleri: yıldız, commit, pull request, issue ve depo sayısı.',
+      langs: 'Depolarda en çok kullanılan diller.',
+      trail: 'Son 12 ayın katkı grafiği ve hücrelerin arasında kıvrılan bir yılan.',
+      year: (y) => `${y} yılının katkı grafiği.`,
     },
-    work: {
-      h: 'Öne çıkan projeler',
-      cols: ['Proje', 'Nedir?', 'Teknolojiler', 'Durum'],
-      private: '`özel` · geliştiriliyor',
-      rows: [
-        ['**SahaRez**', 'Spor tesisleri ile oyuncuları buluşturan rezervasyon ve eşleştirme platformu: oyuncu web sitesi, tesis yönetim paneli ve talep tahmini ile fiyat önerisi yapan bir yapay zekâ servisi. Bitirme projesi, pilot şehir Eskişehir.', 'NestJS · Next.js · React · FastAPI · PostgreSQL / PostGIS · Redis', 'private'],
-        ['**FileConvert**', "PDF'leri cihazdan çıkarmadan dönüştüren, birleştiren, düzenleyen ve sıkıştıran ücretsiz mobil uygulama — sunucu, hesap ve takip yok.", 'React Native · Expo · TypeScript · Kotlin yerel modül', 'private'],
-        ['**PathWords**', 'İngilizce–Türkçe kelime öğreten, patika çizerek oynanan kelime bulmacası; sonsuz seviye üreten prosedürel bir motorla.', 'React Native · Expo · TypeScript', 'private'],
-        ['**[erenkadiroglu.com](https://erenkadiroglu.com)**', "İçeriği JSON'dan yönetilen, yönetim panelli kişisel portföy; GitHub Pages'te statik ve hızlı.", 'JavaScript · Node.js · Express', 'yayında'],
-        ['**[Mayın Tarlası](https://github.com/erenkadiroglu/minesweeper-c-project)**', 'C ile yazılmış konsol tabanlı strateji oyunu: mayınların etki alanlarını takip ederek tarlada yol bulma.', 'C', 'açık kaynak'],
-      ],
-    },
-    experience: {
-      h: 'Deneyim',
-      cols: ['Dönem', 'Görev', 'Kurum'],
-      rows: [
-        ['Ağu – Eyl 2026', '**Yazılım Mühendisliği Stajyeri** — *Eskişehir Ansiklopedisi* dijital kütüphanesinde web arayüzleri, REST API entegrasyonu ve PostgreSQL', 'Anadolu Üniversitesi BAUM · Eskişehir'],
-        ['Şub – Nis 2026', '**Uluslararası Proje Yönetimi Stajyeri** — bir marka lansmanını strateji belgesinden web sitesine kadar uçtan uca yönettim', 'TNC Group & Human Ports · Belgrad'],
-        ['Tem – Ağu 2025', '**Bilgi Teknolojileri Stajyeri** — Python görev yönetimi uygulaması ve Excel satış panoları; Belgrad programına seçildim', 'TNC Group · Uzaktan'],
-      ],
-    },
-    stack: {
-      h: 'Teknoloji yığını',
-      alt: 'Diller: TypeScript, JavaScript, Python, C++, Java. Frontend: React, Next.js, Tailwind, Vite. Mobil: React Native, Expo, Android Studio. Backend: Node.js, NestJS, FastAPI, Socket.IO. Veri: PostgreSQL, Prisma, Redis, SQLite. Altyapı ve araçlar: Docker, GitHub Actions, Git, VS Code.',
-    },
-    activity: {
-      h: 'GitHub aktivitesi',
-      alts: {
-        streak: 'Katkı serisi: toplam katkı, güncel seri ve en uzun seri.',
-        stats: 'GitHub istatistikleri: yıldız, commit, pull request, issue ve depo sayısı.',
-        langs: 'Depolarda en çok kullanılan diller.',
-        trail: 'Hücrelerin arasında kıvrılan bir yılanla katkı grafiği.',
-      },
-      note: "Kartlar bu repodaki bir GitHub Action tarafından her gün doğrudan GraphQL API'sinden üretilir; üçüncü parti istatistik servisi kullanılmaz.",
-    },
+    years: 'Yıla göre göz at',
+    yearLabel: (y, n) => `${y} · ${n.toLocaleString('tr-TR')} katkı`,
+    note: "Kartlar ve takvimler, GitHub'ın profilde gösterdiği katkı grafiğinin aynısından, bu repodaki bir GitHub Action tarafından her gün üretilir; üçüncü parti istatistik servisi kullanılmaz.",
   },
 };
 
@@ -115,21 +62,40 @@ const picture = (name, suffix, alt, width = '100%') =>
   `<picture>\n  <source media="(prefers-color-scheme: dark)" srcset="assets/${name}-dark${suffix}.svg">\n` +
   `  <img src="assets/${name}-light${suffix}.svg" width="${width}" alt="${alt}">\n</picture>`;
 
-const table = (cols, rows) =>
-  [`| ${cols.join(' | ')} |`, `| ${cols.map(() => ':--').join(' | ')} |`, ...rows.map((r) => `| ${r.join(' | ')} |`)].join('\n');
+const escAttr = (s) => s.replace(/\*\*/g, '').replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+
+function manifest() {
+  const file = root('assets/generated/manifest.json');
+  return existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) : { years: [] };
+}
 
 export function render(lang) {
+  const u = ui[lang];
   const c = copy[lang];
-  const s = c.suffix;
-  const workRows = c.work.rows.map(([a, b, d, status]) => [a, b, d, status === 'private' ? c.work.private : status]);
+  const s = u.suffix;
+  const aboutAlt = escAttr(`${c.about.paragraphs.join(' ')} ${c.about.principles.join('. ')}. ${c.about.open}.`);
+  const workAlt = escAttr(c.projects.items.map((p) => `${p.name} (${c.projects.status[p.status]}): ${p.desc}`).join(' '));
+  const expAlt = escAttr(c.experience.items.map((e) => `${e.period} — ${e.role}, ${e.org}: ${e.points.join('; ')}.`).join(' '));
+  const links = c.projects.items
+    .filter((p) => p.link)
+    .map((p) => `<a href="${p.link}">${p.name} ↗</a>`)
+    .join(' &nbsp;·&nbsp; ');
+  const years = manifest().years.filter((y) => y.total > 0 || y.year === manifest().years[0]?.year);
+  const yearBlocks = years
+    .map(
+      (y) =>
+        `<details>\n<summary><b>${u.yearLabel(y.year, y.total)}</b></summary>\n<br>\n\n${picture(`generated/trail-${y.year}`, s, u.alts.year(y.year))}\n\n</details>`,
+    )
+    .join('\n');
+
   return `<!--
-  Generated by tools/src/readme.mjs — edit there, then run \`npm run readme\` in tools/.
+  Generated by tools/src/readme.mjs — edit tools/src/copy.mjs or readme.mjs, then run \`npm run readme\` in tools/.
   Visuals: tools/banner/build.py · tools/src/build-static.mjs · .github/workflows/stats.yml
 -->
 
-<p align="center">${c.switch}</p>
+<p align="center">${u.switch}</p>
 
-${picture('banner', s, c.bannerAlt)}
+${picture('banner', s, u.bannerAlt)}
 
 <div align="center">
 
@@ -137,39 +103,41 @@ ${badgeRow(lang)}
 
 </div>
 
-## ${c.about.h}
+## ${u.h.about}
 
-${c.about.body.join('\n\n')}
+${picture('about', s, aboutAlt)}
 
-## ${c.work.h}
+## ${u.h.work}
 
-${table(c.work.cols, workRows)}
+${picture('projects', s, workAlt)}
 
-## ${c.experience.h}
+<p align="right"><sub>${u.links}: &nbsp;${links}</sub></p>
 
-${table(c.experience.cols, c.experience.rows)}
+## ${u.h.experience}
 
-## ${c.stack.h}
+${picture('experience', s, expAlt)}
 
-${picture('stack', s, c.stack.alt)}
+## ${u.h.stack}
 
-## ${c.activity.h}
+${picture('stack', s, u.stackAlt)}
 
-${picture('generated/streak', s, c.activity.alts.streak)}
-${picture('generated/stats', s, c.activity.alts.stats, '49%')}
-${picture('generated/langs', s, c.activity.alts.langs, '49%')}
+## ${u.h.activity}
 
-${picture('generated/trail', s, c.activity.alts.trail)}
+${picture('generated/streak', s, u.alts.streak)}
+${picture('generated/stats', s, u.alts.stats, '49%')}
+${picture('generated/langs', s, u.alts.langs, '49%')}
 
-<sub>${c.activity.note}</sub>
+${picture('generated/trail', s, u.alts.trail)}
+${yearBlocks ? `\n<sub><b>${u.years}</b></sub>\n\n${yearBlocks}\n` : ''}
+<sub>${u.note}</sub>
 `;
 }
 
-export const files = Object.fromEntries(Object.keys(copy).map((lang) => [copy[lang].file, render(lang)]));
+export const files = () => Object.fromEntries(Object.keys(ui).map((lang) => [ui[lang].file, render(lang)]));
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  for (const [name, md] of Object.entries(files)) {
-    writeFileSync(fileURLToPath(new URL(`../../${name}`, import.meta.url)), md);
+  for (const [name, md] of Object.entries(files())) {
+    writeFileSync(root(name), md);
     console.log(`wrote ${name}`);
   }
 }

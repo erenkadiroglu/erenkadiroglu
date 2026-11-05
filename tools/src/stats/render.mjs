@@ -202,10 +202,10 @@ export function renderLanguages(s, theme, { t }) {
  * cells — down one gutter, round a half-turn, up the next — and lights every
  * contribution as its head passes. Nothing is eaten; the graph stays intact.
  */
-export function renderTrail(s, theme, { today, t }) {
+export function renderTrail(s, theme, { today, t, year = null }) {
   const W = 1180;
   const H = 300;
-  const weeks = s?.trail ?? emptyWeeks(today);
+  const weeks = year ? year.weeks : s?.trail ?? emptyWeeks(today);
   const cell = 15;
   const gap = 5;
   const step = cell + gap;
@@ -316,9 +316,9 @@ export function renderTrail(s, theme, { today, t }) {
     height: H,
     theme,
     title: t.trail.title,
-    meta: t.trail.meta,
+    meta: year ? t.trail.year(year.year, year.total) : t.trail.meta,
     docTitle: t.trail.doc,
-    desc: s ? `${t.trail.doc}. ${t.streak.total}: ${s.trailTotal}.` : t.pending,
+    desc: s ? `${t.trail.doc}. ${t.streak.total}: ${year ? year.total : s.trailTotal}.` : t.pending,
     body: parts.join('\n'),
   });
 }

@@ -36,6 +36,7 @@ export const locales = {
       caption: 'a snake weaving between commits, lighting each one as it passes',
       doc: 'Contribution graph with a snake weaving between the cells',
       cell: (n, date) => `${n} contribution${n === 1 ? '' : 's'} on ${date}`,
+      year: (y, n) => `${y} · ${n.toLocaleString('en-US')} contribution${n === 1 ? '' : 's'}`,
     },
     pending: 'awaiting first workflow run',
     stack: {
@@ -77,6 +78,7 @@ export const locales = {
       caption: "commit'lerin arasında kıvrılan, geçtiği her katkıyı aydınlatan bir yılan",
       doc: 'Hücrelerin arasında kıvrılan bir yılanla katkı grafiği',
       cell: (n, date) => `${date} tarihinde ${n} katkı`,
+      year: (y, n) => `${y} · ${n.toLocaleString('tr-TR')} katkı`,
     },
     pending: 'ilk iş akışı bekleniyor',
     stack: {
