@@ -67,20 +67,20 @@
 
 <p align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/generated/streak-dark.tr.svg">
-  <img src="assets/generated/streak-light.tr.svg" width="100%" alt="Katkı serisi: toplam katkı, güncel seri ve en uzun seri.">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/streak-dark.tr.svg">
+  <img src="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/streak-light.tr.svg" width="100%" alt="Katkı serisi: toplam katkı, güncel seri ve en uzun seri.">
 </picture>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/generated/stats-dark.tr.svg">
-  <img src="assets/generated/stats-light.tr.svg" width="49%" alt="GitHub istatistikleri: yıldız, commit, pull request, issue ve depo sayısı.">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/stats-dark.tr.svg">
+  <img src="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/stats-light.tr.svg" width="49%" alt="GitHub istatistikleri: yıldız, commit, pull request, issue ve depo sayısı.">
 </picture>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/generated/langs-dark.tr.svg">
-  <img src="assets/generated/langs-light.tr.svg" width="49%" alt="Depolarda en çok kullanılan diller.">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/langs-dark.tr.svg">
+  <img src="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/langs-light.tr.svg" width="49%" alt="Depolarda en çok kullanılan diller.">
 </picture>
 </p>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/generated/trail-dark.tr.svg">
-  <img src="assets/generated/trail-light.tr.svg" width="100%" alt="Son 12 ayın katkı grafiği ve hücrelerin arasında kıvrılan bir yılan.">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/trail-dark.tr.svg">
+  <img src="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/trail-light.tr.svg" width="100%" alt="Son 12 ayın katkı grafiği ve hücrelerin arasında kıvrılan bir yılan.">
 </picture>

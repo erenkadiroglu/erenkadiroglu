@@ -23,7 +23,7 @@ tools/
 | --- | --- |
 | `npm run readme` | Regenerates `README.md` and `README.tr.md` from one template |
 | `npm run build` | Regenerates `assets/stack-*.svg` |
-| `npm run stats` | Fetches live data (needs `GITHUB_TOKEN`) and writes `assets/generated/` |
+| `npm run stats` | Fetches live data (needs `GITHUB_TOKEN`) and writes the cards to `.preview/stats/` (CI publishes them to the `stats` branch) |
 | `npm run preview` | Renders the stats cards from the synthetic fixture into `.preview/stats/` |
 | `npm test` | SVG well-formedness, WCAG AA contrast, stale-asset and README reference checks |
 

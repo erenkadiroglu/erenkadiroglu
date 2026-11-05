@@ -1,6 +1,8 @@
 name: stats
 
-# Re-renders the stats cards and the contribution trail (assets/generated/).
+# Renders the stats cards and the contribution trail into the `stats` branch.
+# That branch is a single commit replaced on every change, so the default
+# branch's history stays clean and nothing counts towards the contribution graph.
 on:
   schedule:
     - cron: '23 4 * * *' # daily, off the top of the hour
@@ -15,13 +17,15 @@ permissions:
   contents: write
 
 concurrency:
-  group: stats-${{ github.ref }}
+  group: stats
   cancel-in-progress: false
 
 jobs:
   render:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      REMOTE: https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git
     steps:
       - uses: actions/checkout@v4
 
@@ -29,26 +33,35 @@ jobs:
         with:
           node-version: 22
 
-      - name: Render stats cards
+      - name: Fetch the current cards
+        run: git clone --quiet --depth 1 --branch stats "$REMOTE" ../stats-out || mkdir -p ../stats-out
+
+      - name: Render cards
         working-directory: tools
         env:
-          # GITHUB_TOKEN only sees public activity. Add a personal access token
-          # as the STATS_TOKEN secret to count private repositories too.
+          # GITHUB_TOKEN only sees public repositories. Add a personal access token
+          # as the STATS_TOKEN secret to count private repositories' languages too.
           GITHUB_TOKEN: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}
           INCLUDE_PRIVATE: ${{ secrets.STATS_TOKEN != '' && 'true' || 'false' }}
           GITHUB_USER: ${{ github.repository_owner }}
           # Notebooks store outputs as JSON, which inflates their byte counts.
           EXCLUDE_LANGUAGES: Jupyter Notebook
-        run: node src/stats/index.mjs
+        run: node src/stats/index.mjs --out ../../stats-out
 
-      - name: Commit changes
+      - name: Publish to the stats branch
+        working-directory: ../stats-out
         run: |
-          git add -A assets/generated
-          if git diff --cached --quiet; then
-            echo "Stats cards unchanged."
-            exit 0
+          if [ ! -d .git ]; then
+            git init --quiet --initial-branch stats
+            git remote add origin "$REMOTE"
           fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'chore(stats): refresh stats cards'
-          git push
+          git config user.name 'Eren KADİROĞLU'
+          git config user.email '154251984+erenkadiroglu@users.noreply.github.com'
+          git add -A
+          if git rev-parse --quiet --verify HEAD >/dev/null; then
+            if git diff --cached --quiet; then echo "Cards unchanged."; exit 0; fi
+            git commit --quiet --amend --no-edit
+          else
+            git commit --quiet -m 'Kartları güncelle'
+          fi
+          git push --quiet --force origin stats

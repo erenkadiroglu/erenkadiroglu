@@ -67,20 +67,20 @@
 
 <p align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/generated/streak-dark.svg">
-  <img src="assets/generated/streak-light.svg" width="100%" alt="Contribution streak: total contributions, current streak and longest streak.">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/streak-dark.svg">
+  <img src="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/streak-light.svg" width="100%" alt="Contribution streak: total contributions, current streak and longest streak.">
 </picture>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/generated/stats-dark.svg">
-  <img src="assets/generated/stats-light.svg" width="49%" alt="GitHub stats: stars, commits, pull requests, issues and repositories.">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/stats-dark.svg">
+  <img src="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/stats-light.svg" width="49%" alt="GitHub stats: stars, commits, pull requests, issues and repositories.">
 </picture>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/generated/langs-dark.svg">
-  <img src="assets/generated/langs-light.svg" width="49%" alt="Most used languages across repositories.">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/langs-dark.svg">
+  <img src="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/langs-light.svg" width="49%" alt="Most used languages across repositories.">
 </picture>
 </p>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/generated/trail-dark.svg">
-  <img src="assets/generated/trail-light.svg" width="100%" alt="Contribution graph for the last 12 months with a snake weaving between the cells.">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/trail-dark.svg">
+  <img src="https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats/trail-light.svg" width="100%" alt="Contribution graph for the last 12 months with a snake weaving between the cells.">
 </picture>

@@ -8,7 +8,7 @@ weight around 5 KB once inlined. To regenerate (requires `fonttools` and `brotli
 
 ```bash
 TEXT="$(python3 -c "print(''.join(map(chr, range(32, 127))) + 'ğĞüÜşŞıİöÖçÇâÂîÎûÛ·—–→←↑↓↔▸▪■●○❯█…✓×≈°')")"
-for w in Regular Bold ExtraBold; do
+for w in Regular Bold; do
   pyftsubset "JetBrainsMono-$w.ttf" --text="$TEXT" --flavor=woff2 --layout-features='' \
     --no-hinting --desubroutinize --output-file="JetBrainsMono-$w.subset.woff2"
 done

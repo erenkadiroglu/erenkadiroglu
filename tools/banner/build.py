@@ -152,7 +152,6 @@ def build_portraits(photo: Path) -> None:
     DATA.mkdir(exist_ok=True)
     np.save(DATA / "portrait-dark.npy", dark)
     np.save(DATA / "portrait-light.npy", light)
-    np.save(DATA / "mask.npy", mask)
     print(f"portrait dots: dark={int(dark.sum())} light={int(light.sum())} mask={mask.mean():.2%}")
 
 

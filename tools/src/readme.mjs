@@ -46,9 +46,16 @@ const ui = {
   },
 };
 
-const picture = (name, suffix, alt, width = '100%') =>
-  `<picture>\n  <source media="(prefers-color-scheme: dark)" srcset="assets/${name}-dark${suffix}.svg">\n` +
-  `  <img src="assets/${name}-light${suffix}.svg" width="${width}" alt="${alt}">\n</picture>`;
+// Cards rendered by the stats workflow live on the `stats` branch, not in this one.
+export const STATS_BASE = 'https://raw.githubusercontent.com/erenkadiroglu/erenkadiroglu/stats';
+
+const picture = (name, suffix, alt, width = '100%') => {
+  const base = name.startsWith('generated/') ? `${STATS_BASE}/${name.slice('generated/'.length)}` : `assets/${name}`;
+  return (
+    `<picture>\n  <source media="(prefers-color-scheme: dark)" srcset="${base}-dark${suffix}.svg">\n` +
+    `  <img src="${base}-light${suffix}.svg" width="${width}" alt="${alt}">\n</picture>`
+  );
+};
 
 const escAttr = (s) => s.replace(/\*\*/g, '').replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 

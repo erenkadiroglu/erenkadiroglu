@@ -4,7 +4,7 @@ import { CHAR_WIDTH, fontStack } from './theme.mjs';
 import { icons } from './icons.mjs';
 
 const fontDir = fileURLToPath(new URL('../fonts/', import.meta.url));
-const WEIGHTS = { Regular: 400, Bold: 700, ExtraBold: 800 };
+const WEIGHTS = { Regular: 400, Bold: 700 };
 const fontCache = new Map();
 
 /** Subsetted JetBrains Mono, inlined so the SVG renders identically everywhere. */
@@ -77,21 +77,4 @@ export function icon(name, x, y, size, color) {
 
 export function frame({ width, height, theme, fill = theme.surface, radius = 12 }) {
   return `<rect x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="${radius}" fill="${fill}" stroke="${theme.border}"/>`;
-}
-
-/** Wraps text to a maximum number of monospace columns. */
-export function wrap(value, columns) {
-  const words = value.split(/\s+/);
-  const lines = [];
-  let line = '';
-  for (const word of words) {
-    if (!line) line = word;
-    else if ((line + ' ' + word).length <= columns) line += ' ' + word;
-    else {
-      lines.push(line);
-      line = word;
-    }
-  }
-  if (line) lines.push(line);
-  return lines;
 }

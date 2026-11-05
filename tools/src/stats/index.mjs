@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Builds assets/generated/{streak,stats,langs,trail}-{dark,light}[.tr].svg.
+ * Builds {streak,stats,langs,trail}-{dark,light}[.tr].svg (CI publishes them to the `stats` branch).
  *
  *   GITHUB_TOKEN=... node src/stats/index.mjs [--user <login>] [--private]
  *   node src/stats/index.mjs --fixture test/fixtures/user.json --out ../.preview
@@ -21,7 +21,7 @@ import { locales } from '../i18n.mjs';
 const { values } = parseArgs({
   options: {
     user: { type: 'string', default: process.env.GITHUB_USER || profile.handle },
-    out: { type: 'string', default: fileURLToPath(new URL('../../../assets/generated/', import.meta.url)) },
+    out: { type: 'string', default: fileURLToPath(new URL('../../../.preview/stats/', import.meta.url)) },
     fixture: { type: 'string' },
     today: { type: 'string' },
     exclude: { type: 'string', default: process.env.EXCLUDE_LANGUAGES ?? '' },
