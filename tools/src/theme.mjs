@@ -1,40 +1,44 @@
 /**
- * Design tokens shared by every generated asset.
- * Both palettes are tuned against GitHub's own page backgrounds so the
- * cards sit on the profile page instead of floating on top of it.
+ * Design tokens shared by every generated asset — palette "Graphite & Ivory".
+ * Keep in sync with THEMES in tools/banner/build.py.
  */
 export const themes = {
   dark: {
     name: 'dark',
     page: '#0d1117',
-    surface: '#0d1117',
-    raised: '#161b22',
-    border: '#30363d',
-    divider: '#21262d',
-    fg: '#e6edf3',
-    muted: '#9ea7b3',
-    subtle: '#7d8590',
-    accent: '#5eead4',
-    accentText: '#5eead4',
-    accentSoft: 'rgba(94, 234, 212, 0.12)',
-    chip: '#161b22',
-    heat: ['#161b22', '#0f3d39', '#11665e', '#1f9e8f', '#5eead4'],
+    surface: '#0b0d10',
+    raised: '#101318',
+    border: '#262b33',
+    divider: '#1c2027',
+    fg: '#e6e2d8',
+    muted: '#a3a9b2',
+    subtle: '#868d97',
+    leader: '#3a4049',
+    ink: '#e8dcc4',
+    accent: '#c8a96a',
+    accentText: '#c8a96a',
+    accentSoft: 'rgba(200, 169, 106, 0.10)',
+    live: '#d0574b',
+    // first entry is the empty cell: a visible slate, never near-black
+    heat: ['#23272e', '#4a3f2a', '#7a6438', '#ad8d52', '#e0c58e'],
   },
   light: {
     name: 'light',
     page: '#ffffff',
-    surface: '#ffffff',
-    raised: '#f6f8fa',
-    border: '#d0d7de',
-    divider: '#e4e8ec',
-    fg: '#1f2328',
-    muted: '#59636e',
-    subtle: '#646e79',
-    accent: '#0d9488',
-    accentText: '#0f766e',
-    accentSoft: 'rgba(13, 148, 136, 0.10)',
-    chip: '#f6f8fa',
-    heat: ['#eff2f5', '#b4ebe2', '#5fcfbe', '#14a394', '#0f6b63'],
+    surface: '#fbfaf7',
+    raised: '#f3f1ec',
+    border: '#dcd8cf',
+    divider: '#e8e4dc',
+    fg: '#1c1f24',
+    muted: '#555c66',
+    subtle: '#646a73',
+    leader: '#c4beb3',
+    ink: '#2a241b',
+    accent: '#8a6a2c',
+    accentText: '#7a5d25',
+    accentSoft: 'rgba(138, 106, 44, 0.08)',
+    live: '#b3372d',
+    heat: ['#ebe8e1', '#e6d6b0', '#ccb077', '#9e7e40', '#6e5420'],
   },
 };
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
- * Builds assets/generated/activity-{dark,light}.svg.
+ * Builds assets/generated/{streak,stats,langs}-{dark,light}.svg.
  *
- *   GITHUB_TOKEN=... node src/stats/index.mjs [--user <login>]
+ *   GITHUB_TOKEN=... node src/stats/index.mjs [--user <login>] [--private]
  *   node src/stats/index.mjs --fixture test/fixtures/user.json --out ../.preview
  *   node src/stats/index.mjs --placeholder
  */
@@ -14,7 +14,7 @@ import { themes } from '../theme.mjs';
 import { profile } from '../content.mjs';
 import { fetchUser } from './github.mjs';
 import { summarize } from './compute.mjs';
-import { renderActivity } from './render.mjs';
+import { renderLanguages, renderStats, renderStreak } from './render.mjs';
 
 const { values } = parseArgs({
   options: {
@@ -23,6 +23,7 @@ const { values } = parseArgs({
     fixture: { type: 'string' },
     today: { type: 'string' },
     exclude: { type: 'string', default: process.env.EXCLUDE_LANGUAGES ?? '' },
+    private: { type: 'boolean', default: process.env.INCLUDE_PRIVATE === 'true' },
     placeholder: { type: 'boolean', default: false },
   },
 });
@@ -34,24 +35,29 @@ let stats = null;
 if (!values.placeholder) {
   const user = values.fixture
     ? JSON.parse(readFileSync(values.fixture, 'utf8'))
-    : await fetchUser(values.user, process.env.GITHUB_TOKEN);
+    : await fetchUser(values.user, process.env.GITHUB_TOKEN, { includePrivate: values.private });
   stats = summarize(user, { today, exclude });
 }
 
+// Skip rewrites where only the "updated" stamp would change: no noise commits.
+const stamp = /updated \d{4}-\d{2}-\d{2}/g;
 mkdirSync(values.out, { recursive: true });
 for (const theme of Object.values(themes)) {
-  const file = join(values.out, `activity-${theme.name}.svg`);
-  const svg = renderActivity(stats, theme, { today });
-  // Skip rewrites where only the "updated" stamp would change: no noise commits.
-  const stamp = /updated \d{4}-\d{2}-\d{2}/g;
-  if (existsSync(file) && readFileSync(file, 'utf8').replace(stamp, '') === svg.replace(stamp, '')) {
-    console.log(`unchanged ${file}`);
-    continue;
+  const cards = {
+    streak: renderStreak(stats, theme, { today }),
+    stats: renderStats(stats, theme, { today }),
+    langs: renderLanguages(stats, theme),
+  };
+  for (const [name, svg] of Object.entries(cards)) {
+    const file = join(values.out, `${name}-${theme.name}.svg`);
+    if (existsSync(file) && readFileSync(file, 'utf8').replace(stamp, '') === svg.replace(stamp, '')) {
+      console.log(`unchanged ${file}`);
+      continue;
+    }
+    writeFileSync(file, svg);
+    console.log(`wrote ${file}`);
   }
-  writeFileSync(file, svg);
-  console.log(`wrote ${file}`);
 }
 if (stats) {
-  const { weeks, ...summary } = stats;
-  console.log(JSON.stringify({ ...summary, languages: summary.languages.map((l) => `${l.name} ${(l.share * 100).toFixed(1)}%`) }, null, 2));
+  console.log(JSON.stringify({ ...stats, languages: stats.languages.map((l) => `${l.name} ${(l.share * 100).toFixed(1)}%`) }, null, 2));
 }

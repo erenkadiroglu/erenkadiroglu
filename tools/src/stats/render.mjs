@@ -1,178 +1,208 @@
-import { legible } from '../color.mjs';
-import { document, esc, frame, r, text, textWidth, windowChrome } from '../svg.mjs';
+import { document, frame, r, text, textWidth } from '../svg.mjs';
+import { glyph } from '../glyphs.mjs';
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const W = 880;
-const H = 412;
-const PAD = 28;
-
 const fmt = (n) => (n == null ? '—' : n.toLocaleString('en-US'));
+const CSS =
+  '.in{animation:in .7s cubic-bezier(.2,.7,.2,1) both}' +
+  '@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}' +
+  '@media (prefers-reduced-motion:reduce){.in{animation:none}}';
 
-function kpis(stats, theme) {
-  const items = [
-    [fmt(stats?.contributions), 'contributions', 'last 12 months'],
-    [fmt(stats?.commits), 'commits', 'last 12 months'],
-    [fmt(stats?.stars), 'stars earned', 'public repos'],
-    [stats ? `${stats.current}d` : '—', 'current streak', 'consecutive days'],
-    [stats ? `${stats.longest}d` : '—', 'longest streak', 'last 12 months'],
-    [fmt(stats?.repositories), 'repositories', 'public, non-fork'],
-  ];
-  const colW = 146;
-  return items
-    .map(([value, label, hint], i) => {
-      const x = PAD + (i % 3) * colW;
-      const y = 96 + Math.floor(i / 3) * 76;
-      return (
-        `<g class="fade" style="animation-delay:${r(0.05 * i)}s">` +
-        text(x, y, value, { size: 26, weight: 800 }) +
-        text(x, y + 21, label, { size: 12 }) +
-        text(x, y + 37, hint, { size: 10.5, cls: 's' }) +
-        `</g>`
-      );
-    })
-    .join('');
+function day(date, withYear) {
+  const d = new Date(`${date}T00:00:00Z`);
+  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}${withYear ? `, ${d.getUTCFullYear()}` : ''}`;
 }
 
-function languagePanel(stats, theme) {
-  const x0 = 486;
-  const width = W - PAD - x0;
-  const parts = [text(x0, 74, 'languages · by repository', { size: 11, cls: 's' })];
-  const barY = 88;
-  const langs = stats?.languages ?? [];
-
-  parts.push(
-    `<clipPath id="bar"><rect x="${x0}" y="${barY}" width="${width}" height="10" rx="5"/></clipPath>`,
-    `<rect x="${x0}" y="${barY}" width="${width}" height="10" rx="5" fill="${theme.divider}"/>`,
-  );
-  if (!langs.length) {
-    parts.push(text(x0, 134, 'awaiting first workflow run', { size: 12, cls: 'm' }));
-    return parts.join('');
-  }
-
-  const colors = langs.map((l) => (l.color ? legible(l.color, theme.surface, 2.2) : theme.subtle));
-  let x = x0;
-  const segs = [];
-  langs.forEach((l, i) => {
-    const w = i === langs.length - 1 ? x0 + width - x : l.share * width;
-    segs.push(`<rect x="${r(x)}" y="${barY}" width="${r(Math.max(0, w - 2))}" height="10" fill="${colors[i]}"/>`);
-    x += w;
-  });
-  parts.push(`<g clip-path="url(#bar)">${segs.join('')}</g>`);
-
-  const colW = width / 2;
-  langs.forEach((l, i) => {
-    const cx = x0 + (i % 2) * colW;
-    const cy = 130 + Math.floor(i / 2) * 27;
-    const pct = `${(l.share * 100).toFixed(1)}%`;
-    const maxName = Math.floor((colW - 24 - textWidth(pct, 11.5) - 14) / (12 * 0.6));
-    const name = l.name.length > maxName ? l.name.slice(0, maxName - 1) + '…' : l.name;
-    parts.push(
-      `<circle cx="${r(cx + 5)}" cy="${cy - 4}" r="4.5" fill="${colors[i]}"/>`,
-      text(cx + 16, cy, name, { size: 12 }),
-      text(cx + colW - 14, cy, pct, { size: 11.5, cls: 'm', anchor: 'end' }),
-    );
-  });
-  return parts.join('');
+function monthYear(date) {
+  const d = new Date(`${date}T00:00:00Z`);
+  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
 
-function placeholderWeeks(today) {
-  const end = new Date(`${today}T00:00:00Z`);
-  const start = new Date(end);
-  start.setUTCDate(start.getUTCDate() - 364 - start.getUTCDay());
-  const weeks = [];
-  for (let d = new Date(start); d <= end; ) {
-    const week = [];
-    for (let i = 0; i < 7 && d <= end; i++) {
-      week.push({ date: d.toISOString().slice(0, 10), count: 0, level: 0 });
-      d.setUTCDate(d.getUTCDate() + 1);
-    }
-    weeks.push(week);
-  }
-  return weeks;
+function range(start, end, today) {
+  if (!start) return 'no activity yet';
+  const year = today.slice(0, 4);
+  const cross = start.slice(0, 4) !== year || end.slice(0, 4) !== year;
+  if (start === end) return day(start, cross);
+  return `${day(start, cross)} – ${end === today ? 'Today' : day(end, cross)}`;
 }
 
-function heatmap(weeks, theme) {
-  const top = 268;
-  const dayLabelW = 34;
-  const gap = 3;
-  const x0 = PAD + dayLabelW;
-  const cell = Math.min(12, (W - PAD - x0 + gap) / weeks.length - gap);
-  const step = cell + gap;
-  const parts = [];
-
-  let lastMonth = -1;
-  let lastLabelCol = -10;
-  weeks.forEach((week, col) => {
-    const month = new Date(`${week[0].date}T00:00:00Z`).getUTCMonth();
-    if (month !== lastMonth) {
-      if (col - lastLabelCol >= 3 && col < weeks.length - 2) {
-        parts.push(text(x0 + col * step, top - 9, MONTHS[month], { size: 10.5, cls: 's' }));
-        lastLabelCol = col;
-      }
-      lastMonth = month;
-    }
-  });
-  ['Mon', 'Wed', 'Fri'].forEach((d, i) => parts.push(text(PAD, top + (1 + i * 2) * step + cell - 2, d, { size: 10.5, cls: 's' })));
-
-  weeks.forEach((week, col) => {
-    const cells = week.map((day) => {
-      const row = new Date(`${day.date}T00:00:00Z`).getUTCDay();
-      const title = `${day.count} contribution${day.count === 1 ? '' : 's'} on ${day.date}`;
-      return (
-        `<rect x="${r(x0 + col * step)}" y="${r(top + row * step)}" width="${r(cell)}" height="${r(cell)}" rx="2.5" ` +
-        `fill="${theme.heat[day.level] ?? theme.heat[0]}"><title>${esc(title)}</title></rect>`
-      );
-    });
-    parts.push(`<g class="fade" style="animation-delay:${r(0.3 + col * 0.012)}s">${cells.join('')}</g>`);
-  });
-
-  const legendY = top + 7 * step + 22;
-  const moreW = textWidth('more', 10.5);
-  const legendX = W - PAD - moreW - 6 - 5 * step + gap;
-  parts.push(text(legendX - 6, legendY, 'less', { size: 10.5, cls: 's', anchor: 'end' }));
-  theme.heat.forEach((c, i) =>
-    parts.push(`<rect x="${r(legendX + i * step)}" y="${r(legendY - cell + 2)}" width="${r(cell)}" height="${r(cell)}" rx="2.5" fill="${c}"/>`),
-  );
-  parts.push(text(W - PAD, legendY, 'more', { size: 10.5, cls: 's', anchor: 'end' }));
-  return { svg: parts.join(''), legendY };
-}
-
-/** Renders the activity card. `stats` may be null to produce a placeholder. */
-export function renderActivity(stats, theme, { today = new Date().toISOString().slice(0, 10) } = {}) {
-  const updated = stats?.generatedAt ?? today;
-  const weeks = stats?.weeks?.length ? stats.weeks : placeholderWeeks(today);
-  const map = heatmap(weeks, theme);
-  const footer = stats
-    ? `${fmt(stats.pullRequests)} pull requests · ${fmt(stats.issues)} issues · public data via GitHub GraphQL API`
-    : 'generated by .github/workflows/activity.yml';
-
-  const desc = stats
-    ? `${stats.contributions} contributions and ${stats.commits} commits in the last 12 months; current streak ${stats.current} days, ` +
-      `longest ${stats.longest} days; ${stats.repositories} public repositories with ${stats.stars} stars. Top languages: ` +
-      stats.languages.map((l) => `${l.name} ${(l.share * 100).toFixed(1)}%`).join(', ') +
-      '.'
-    : 'Activity statistics will appear after the first scheduled workflow run.';
-
+/** Card chrome shared by all three: frame, small-caps title, meta, rule. */
+function card({ width, height, theme, title, meta, body, desc, docTitle }) {
   return document({
-    width: W,
-    height: H,
+    width,
+    height,
     theme,
-    weights: ['Regular', 'Bold', 'ExtraBold'],
-    title: `GitHub activity for ${stats?.login ?? 'this profile'} — updated ${updated}`,
+    weights: ['Regular', 'Bold'],
+    title: docTitle,
     desc,
-    css:
-      '.fade{animation:fade .6s cubic-bezier(.2,.7,.2,1) both}' +
-      '@keyframes fade{from{opacity:0}to{opacity:1}}' +
-      '@media (prefers-reduced-motion:reduce){.fade{animation:none}}',
+    css: CSS,
     body: [
-      frame({ width: W, height: H, theme }),
-      windowChrome({ width: W, theme, title: `git log --since="12 months ago" · updated ${updated}` }),
-      kpis(stats, theme),
-      `<path d="M466 66V218" stroke="${theme.divider}"/>`,
-      languagePanel(stats, theme),
-      `<path d="M${PAD} 234H${W - PAD}" stroke="${theme.divider}"/>`,
-      map.svg,
-      text(PAD, map.legendY, footer, { size: 10.5, cls: 's' }),
+      frame({ width, height, theme, radius: 12 }),
+      text(26, 36, title, { size: 12, weight: 700, extra: `fill="${theme.fg}" letter-spacing="1.6"` }),
+      text(width - 26, 36, meta, { size: 11, cls: 's', anchor: 'end' }),
+      `<path d="M26 52H${width - 26}" stroke="${theme.divider}"/>`,
+      body,
     ].join('\n'),
   });
 }
+
+/* ------------------------------------------------------------------ streak */
+
+export function renderStreak(stats, theme, { today }) {
+  const W = 1180;
+  const H = 236;
+  const colW = (W - 52) / 3;
+  const cx = (i) => 26 + colW * i + colW / 2;
+  const s = stats;
+  const parts = [];
+
+  const column = (i, value, label, sub, delay) =>
+    `<g class="in" style="animation-delay:${delay}s">` +
+    text(cx(i), 140, value, { size: 38, weight: 700, anchor: 'middle' }) +
+    text(cx(i), 176, label, { size: 13, anchor: 'middle', extra: `fill="${theme.accentText}" font-weight="700"` }) +
+    text(cx(i), 200, sub, { size: 11.5, cls: 's', anchor: 'middle' }) +
+    `</g>`;
+
+  parts.push(
+    column(0, fmt(s?.totalContributions), 'Total Contributions', s?.firstContribution ? `${monthYear(s.firstContribution)} – Present` : '—', 0),
+  );
+  parts.push(column(2, s ? fmt(s.longest.length) : '—', 'Longest Streak', s ? range(s.longest.start, s.longest.end, today) : '—', 0.16));
+
+  // centre: ring + flame + current streak
+  const ry = 112;
+  const R = 44;
+  const C = 2 * Math.PI * R;
+  parts.push(
+    `<g class="in" style="animation-delay:.08s">` +
+      `<circle cx="${r(cx(1))}" cy="${ry}" r="${R}" stroke="${theme.border}" stroke-width="3"/>` +
+      `<circle cx="${r(cx(1))}" cy="${ry}" r="${R}" stroke="${theme.accent}" stroke-width="3" stroke-linecap="round" ` +
+      `stroke-dasharray="${r(C)}" stroke-dashoffset="${r(C)}" transform="rotate(-90 ${r(cx(1))} ${ry})">` +
+      `<animate attributeName="stroke-dashoffset" values="${r(C)};${r(C * 0.06)}" dur="1.4s" begin=".2s" fill="freeze" calcMode="spline" keySplines=".3 0 .2 1" keyTimes="0;1"/></circle>` +
+      `<rect x="${r(cx(1) - 13)}" y="${ry - R - 13}" width="26" height="26" fill="${theme.surface}"/>` +
+      glyph('flame', cx(1) - 10, ry - R - 11, 20, theme.accent, 1.7) +
+      text(cx(1), ry + 13, s ? fmt(s.current.length) : '—', { size: 36, weight: 700, anchor: 'middle' }) +
+      text(cx(1), 182, 'Current Streak', { size: 13, anchor: 'middle', extra: `fill="${theme.accentText}" font-weight="700"` }) +
+      text(cx(1), 204, s ? range(s.current.start, s.current.end, today) : '—', { size: 11.5, cls: 's', anchor: 'middle' }) +
+      `</g>`,
+  );
+  parts.push(`<path d="M${r(26 + colW)} 76V210M${r(26 + 2 * colW)} 76V210" stroke="${theme.divider}"/>`);
+
+  return card({
+    width: W,
+    height: H,
+    theme,
+    title: 'CONTRIB.STREAK',
+    meta: `updated ${s?.generatedAt ?? today}`,
+    docTitle: 'GitHub contribution streak',
+    desc: s
+      ? `${s.totalContributions} total contributions; current streak ${s.current.length} days; longest streak ${s.longest.length} days.`
+      : 'Contribution streak will appear after the first workflow run.',
+    body: parts.join('\n'),
+  });
+}
+
+/* ------------------------------------------------------------------- stats */
+
+const HALF_W = 580;
+const HALF_H = 240;
+
+export function renderStats(stats, theme, { today }) {
+  const s = stats;
+  const rows = [
+    ['star', 'Stars earned', s?.stars],
+    ['commit', 'Commits', s?.commits],
+    ['pull', 'Pull requests', s?.pullRequests],
+    ['issue', 'Issues', s?.issues],
+    ['repo', 'Repositories', s?.repositories],
+  ];
+  const x0 = 26;
+  const x1 = HALF_W - 26;
+  const cw = 13.5 * 0.6;
+  const parts = rows.map(([g, label, value], i) => {
+    const y = 88 + i * 30;
+    const v = fmt(value);
+    const lx = x0 + 28 + textWidth(label, 13.5) + 8;
+    const vx = x1 - textWidth(v, 13.5) - 8;
+    const dots = Math.max(2, Math.floor((vx - lx) / cw));
+    return (
+      `<g class="in" style="animation-delay:${r(0.06 * i)}s">` +
+      glyph(g, x0, y - 13, 17, theme.accent, 1.6) +
+      text(x0 + 28, y, label, { size: 13.5, cls: 'm' }) +
+      `<text x="${r(lx)}" y="${y}" font-size="13.5" fill="${theme.leader}" textLength="${r(dots * cw)}" lengthAdjust="spacingAndGlyphs">${'.'.repeat(dots)}</text>` +
+      text(x1, y, v, { size: 13.5, weight: 700, anchor: 'end' }) +
+      `</g>`
+    );
+  });
+  return card({
+    width: HALF_W,
+    height: HALF_H,
+    theme,
+    title: 'GIT.STATS',
+    meta: 'all time',
+    docTitle: 'GitHub stats',
+    desc: s
+      ? `${s.stars} stars, ${s.commits} commits, ${s.pullRequests} pull requests, ${s.issues} issues, ${s.repositories} repositories.`
+      : 'Stats will appear after the first workflow run.',
+    body: parts.join('\n'),
+  });
+}
+
+/* --------------------------------------------------------------- languages */
+
+export function renderLanguages(stats, theme) {
+  const langs = stats?.languages ?? [];
+  const x0 = 26;
+  const width = HALF_W - 52;
+  const barY = 74;
+  const parts = [
+    `<clipPath id="bar"><rect x="${x0}" y="${barY}" width="${width}" height="8" rx="4"/></clipPath>`,
+    `<rect x="${x0}" y="${barY}" width="${width}" height="8" rx="4" fill="${theme.divider}"/>`,
+  ];
+  if (!langs.length) {
+    parts.push(text(x0, 120, 'awaiting first workflow run', { size: 12.5, cls: 'm' }));
+  } else {
+    // Palette-bound: a single gold ramp keeps the card as calm as the banner.
+    const shades = langs.map((_, i) => (i === langs.length - 1 && langs[i].name === 'Other' ? theme.subtle : rampShade(theme, i, langs.length)));
+    let x = x0;
+    const segs = langs.map((l, i) => {
+      const w = i === langs.length - 1 ? x0 + width - x : l.share * width;
+      const seg = `<rect x="${r(x)}" y="${barY}" width="${r(Math.max(0, w - 2))}" height="8" fill="${shades[i]}"/>`;
+      x += w;
+      return seg;
+    });
+    parts.push(`<g clip-path="url(#bar)" class="in">${segs.join('')}</g>`);
+    const colW = width / 2;
+    langs.forEach((l, i) => {
+      const cx = x0 + (i % 2) * (colW + 12);
+      const cy = 116 + Math.floor(i / 2) * 27;
+      const pct = `${(l.share * 100).toFixed(1)}%`;
+      parts.push(
+        `<g class="in" style="animation-delay:${r(0.05 * i)}s">` +
+          `<rect x="${r(cx)}" y="${cy - 9}" width="9" height="9" rx="2" fill="${shades[i]}"/>` +
+          text(cx + 18, cy, l.name, { size: 12.5 }) +
+          text(cx + colW - 22, cy, pct, { size: 12, cls: 's', anchor: 'end' }) +
+          `</g>`,
+      );
+    });
+  }
+  return card({
+    width: HALF_W,
+    height: HALF_H,
+    theme,
+    title: 'LANG.DIST',
+    meta: 'by repository · sqrt(bytes)',
+    docTitle: 'Most used languages',
+    desc: langs.length ? langs.map((l) => `${l.name} ${(l.share * 100).toFixed(1)}%`).join(', ') : 'Languages will appear after the first workflow run.',
+    body: parts.join('\n'),
+  });
+}
+
+/** Evenly spaced steps from the accent toward the muted ink. */
+function rampShade(theme, i, n) {
+  const stops = theme.name === 'dark'
+    ? ['#e0c58e', '#c8a96a', '#ad8d52', '#8f7443', '#d8d2c4', '#a3a9b2', '#7d848e', '#5f6670']
+    : ['#6e5420', '#8a6a2c', '#a8894e', '#c4a76c', '#2a241b', '#555c66', '#7d848e', '#a39e94'];
+  return stops[i % stops.length];
+}
+
+export const _internals = { range, monthYear };

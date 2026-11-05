@@ -2,7 +2,6 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { CHAR_WIDTH, fontStack } from './theme.mjs';
 import { icons } from './icons.mjs';
-import { legible } from './color.mjs';
 
 const fontDir = fileURLToPath(new URL('../fonts/', import.meta.url));
 const WEIGHTS = { Regular: 400, Bold: 700, ExtraBold: 800 };
@@ -38,10 +37,10 @@ export const r = (n) => Math.round(n * 100) / 100;
 export function document({ width, height, title, desc, theme, css = '', body, weights = ['Regular', 'Bold'] }) {
   const style = [
     ...weights.map(fontFace),
-    `text{font-family:${fontStack};fill:${theme.fg}}`,
-    '.m{fill:' + theme.muted + '}',
-    '.s{fill:' + theme.subtle + '}',
-    '.a{fill:' + theme.accentText + '}',
+    `text{font-family:${fontStack}}text:not([fill]){fill:${theme.fg}}`,
+    'text.m{fill:' + theme.muted + '}',
+    'text.s{fill:' + theme.subtle + '}',
+    'text.a{fill:' + theme.accentText + '}',
     '.b{font-weight:700}',
     css,
   ].join('');
@@ -66,26 +65,14 @@ export function text(x, y, value, { size = 13, cls = '', weight, anchor, extra =
   return `<text ${attrs.join(' ')}>${esc(value)}</text>`;
 }
 
-/** Brand icon scaled into a size x size box at (x, y). */
-export function icon(name, x, y, size, theme, color) {
+/** Monochrome brand icon scaled into a size x size box at (x, y). */
+export function icon(name, x, y, size, color) {
   const ic = icons[name];
   if (!ic) throw new Error(`Unknown icon: ${name}`);
   const [, , w, h] = ic.viewBox.split(/\s+/).map(Number);
   const scale = size / Math.max(w, h);
-  const fill = color ?? legible(ic.hex, theme.chip, 2.6);
+  const fill = color;
   return `<g transform="translate(${r(x)} ${r(y)}) scale(${r(scale * 1000) / 1000})" fill="${fill}">${ic.body}</g>`;
-}
-
-/** The three-dot title bar used by "terminal" style cards. */
-export function windowChrome({ width, theme, title, height = 38 }) {
-  const dots = [0, 1, 2]
-    .map((i) => `<circle cx="${22 + i * 18}" cy="${height / 2}" r="5.5" fill="${theme.border}"/>`)
-    .join('');
-  return (
-    `<path d="M1 ${height}H${width - 1}" stroke="${theme.border}"/>` +
-    dots +
-    text(width / 2, height / 2 + 4, title, { size: 12, cls: 's', anchor: 'middle' })
-  );
 }
 
 export function frame({ width, height, theme, fill = theme.surface, radius = 12 }) {

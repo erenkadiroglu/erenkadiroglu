@@ -1,31 +1,47 @@
 /** Pure functions that turn the raw GraphQL payload into card-ready numbers. */
 
-const LEVELS = { NONE: 0, FIRST_QUARTILE: 1, SECOND_QUARTILE: 2, THIRD_QUARTILE: 3, FOURTH_QUARTILE: 4 };
-
-export function flattenDays(calendar) {
-  return calendar.weeks.flatMap((w) => w.contributionDays).sort((a, b) => a.date.localeCompare(b.date));
+/** Every calendar day across all contribution years, sorted, never past `today`. */
+export function allDays(years, today) {
+  const seen = new Map();
+  for (const y of years) {
+    for (const w of y.contributionCalendar?.weeks ?? []) {
+      for (const d of w.contributionDays) {
+        if (d.date <= today) seen.set(d.date, d.contributionCount);
+      }
+    }
+  }
+  return [...seen.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([date, count]) => ({ date, count }));
 }
 
+const shift = (date, days) => {
+  const d = new Date(`${date}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+};
+
 /**
- * Current streak counts back from `today`. A quiet *today* does not break the
- * streak (the day is not over yet), so counting may start from yesterday.
+ * Longest run and the run ending today. A quiet *today* does not break the
+ * current streak (the day is not over yet), so it may end yesterday.
  */
 export function streaks(days, today) {
-  const byDate = new Map(days.map((d) => [d.date, d.contributionCount]));
-  let longest = 0;
-  let run = 0;
+  let longest = { length: 0, start: null, end: null };
+  let run = null;
   for (const d of days) {
-    run = d.contributionCount > 0 ? run + 1 : 0;
-    longest = Math.max(longest, run);
+    if (d.count > 0) {
+      run = run ? { ...run, length: run.length + 1, end: d.date } : { length: 1, start: d.date, end: d.date };
+      if (run.length > longest.length) longest = run;
+    } else {
+      run = null;
+    }
   }
-  const cursor = new Date(`${today}T00:00:00Z`);
-  if (!byDate.get(today)) cursor.setUTCDate(cursor.getUTCDate() - 1);
-  let current = 0;
-  for (;;) {
-    const key = cursor.toISOString().slice(0, 10);
-    if (!byDate.get(key)) break;
-    current += 1;
-    cursor.setUTCDate(cursor.getUTCDate() - 1);
+  const byDate = new Map(days.map((d) => [d.date, d.count]));
+  let end = byDate.get(today) ? today : shift(today, -1);
+  let current = { length: 0, start: null, end: null };
+  if (byDate.get(end)) {
+    let start = end;
+    while (byDate.get(shift(start, -1))) start = shift(start, -1);
+    const length = Math.round((Date.parse(end) - Date.parse(start)) / 86_400_000) + 1;
+    current = { length, start, end };
   }
   return { current, longest };
 }
@@ -33,14 +49,14 @@ export function streaks(days, today) {
 /**
  * Language share across repositories. Each repository contributes
  * sqrt(bytes) per language, which keeps one large or generated codebase
- * (e.g. notebooks with embedded output) from drowning out everything else.
+ * from drowning out everything else.
  */
-export function languages(repos, { limit = 6, exclude = [] } = {}) {
+export function languages(repos, { limit = 8, exclude = [] } = {}) {
   const totals = new Map();
   for (const repo of repos) {
     for (const { size, node } of repo.languages?.edges ?? []) {
       if (exclude.includes(node.name) || size <= 0) continue;
-      const prev = totals.get(node.name) ?? { name: node.name, color: node.color ?? '#8b949e', score: 0 };
+      const prev = totals.get(node.name) ?? { name: node.name, color: node.color ?? null, score: 0 };
       prev.score += Math.sqrt(size);
       totals.set(node.name, prev);
     }
@@ -53,28 +69,21 @@ export function languages(repos, { limit = 6, exclude = [] } = {}) {
   return top;
 }
 
-export function level(day) {
-  if (day.contributionLevel in LEVELS) return LEVELS[day.contributionLevel];
-  return day.contributionCount === 0 ? 0 : Math.min(4, Math.ceil(day.contributionCount / 3));
-}
-
 export function summarize(user, { today = new Date().toISOString().slice(0, 10), exclude = [] } = {}) {
-  const cc = user.contributionsCollection;
-  const days = flattenDays(cc.contributionCalendar);
+  const days = allDays(user.years, today);
+  const first = days.find((d) => d.count > 0)?.date ?? null;
   const repos = user.repositories.nodes;
   return {
     login: user.login,
     generatedAt: today,
-    contributions: cc.contributionCalendar.totalContributions,
-    commits: cc.totalCommitContributions,
-    pullRequests: cc.totalPullRequestContributions,
-    issues: cc.totalIssueContributions,
+    firstContribution: first,
+    totalContributions: user.years.reduce((acc, y) => acc + (y.contributionCalendar?.totalContributions ?? 0), 0),
+    commits: user.years.reduce((acc, y) => acc + (y.totalCommitContributions ?? 0), 0),
+    pullRequests: user.pullRequests.totalCount,
+    issues: user.issues.totalCount,
     repositories: user.repositories.totalCount,
     stars: repos.reduce((acc, r) => acc + r.stargazerCount, 0),
     ...streaks(days, today),
     languages: languages(repos, { exclude }),
-    weeks: cc.contributionCalendar.weeks.map((w) =>
-      w.contributionDays.map((d) => ({ date: d.date, count: d.contributionCount, level: level(d) })),
-    ),
   };
 }

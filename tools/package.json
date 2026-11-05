@@ -8,9 +8,9 @@
   },
   "scripts": {
     "build": "node src/build-static.mjs",
-    "activity": "node src/stats/index.mjs",
-    "activity:placeholder": "node src/stats/index.mjs --placeholder",
-    "preview": "node src/stats/index.mjs --fixture test/fixtures/user.json --out ../.preview",
+    "stats": "node src/stats/index.mjs",
+    "stats:placeholder": "node src/stats/index.mjs --placeholder",
+    "preview": "node src/stats/index.mjs --fixture test/fixtures/user.json --today 2026-11-04 --exclude 'Jupyter Notebook' --out ../.preview/stats",
     "test": "node --test \"test/*.test.mjs\""
   }
 }

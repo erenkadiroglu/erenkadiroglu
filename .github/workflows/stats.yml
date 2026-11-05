@@ -1,6 +1,6 @@
-name: activity
+name: stats
 
-# Re-renders assets/generated/activity-*.svg from the GitHub GraphQL API.
+# Re-renders assets/generated/{streak,stats,langs}-*.svg from the GitHub GraphQL API.
 on:
   schedule:
     - cron: '23 4 * * *' # daily, off the top of the hour
@@ -9,13 +9,13 @@ on:
     paths:
       - 'tools/src/**'
       - 'tools/fonts/**'
-      - '.github/workflows/activity.yml'
+      - '.github/workflows/stats.yml'
 
 permissions:
   contents: write
 
 concurrency:
-  group: activity-${{ github.ref }}
+  group: stats-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -29,12 +29,13 @@ jobs:
         with:
           node-version: 22
 
-      - name: Render activity card
+      - name: Render stats cards
         working-directory: tools
         env:
-          # GITHUB_TOKEN sees public activity. Add a fine-grained PAT as the
-          # STATS_TOKEN secret to also count private contributions.
+          # GITHUB_TOKEN only sees public activity. Add a personal access token
+          # as the STATS_TOKEN secret to count private repositories too.
           GITHUB_TOKEN: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}
+          INCLUDE_PRIVATE: ${{ secrets.STATS_TOKEN != '' && 'true' || 'false' }}
           GITHUB_USER: ${{ github.repository_owner }}
           # Notebooks store outputs as JSON, which inflates their byte counts.
           EXCLUDE_LANGUAGES: Jupyter Notebook
@@ -42,12 +43,12 @@ jobs:
 
       - name: Commit changes
         run: |
-          if git diff --quiet -- assets/generated; then
-            echo "Activity card unchanged."
+          git add assets/generated
+          if git diff --cached --quiet; then
+            echo "Stats cards unchanged."
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/generated
-          git commit -m 'chore(activity): refresh activity card'
+          git commit -m 'chore(stats): refresh stats cards'
           git push
