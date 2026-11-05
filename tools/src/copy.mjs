@@ -19,30 +19,28 @@ export const copy = {
     projects: {
       title: 'PROJECT.INDEX',
       meta: (n, p) => `${n} projects · ${p} private`,
-      status: { private: 'private · in development', live: 'live', public: 'open source' },
+      status: { private: 'private', live: 'live', public: 'open source' },
       cta: { live: 'Visit site', public: 'View on GitHub' },
-      highlightsTitle: 'MODULES',
-      highlights: ['Player web app', 'Facility management panel', 'AI demand forecasting', 'Live booking & payments'],
       items: [
         {
           slug: 'saharez',
           name: 'SahaRez',
           status: 'private',
-          desc: 'Booking and matchmaking platform for sports facilities: a player web app, a facility management panel and an AI service for demand forecasting and price suggestions. Graduation project, piloting in Eskişehir.',
-          stack: ['NestJS', 'Next.js', 'React', 'FastAPI', 'PostgreSQL', 'PostGIS', 'Redis', 'Socket.IO'],
+          desc: 'Booking and matchmaking platform for sports facilities, with AI demand forecasting. Graduation project.',
+          stack: ['NestJS', 'Next.js', 'FastAPI'],
         },
         {
           slug: 'fileconvert',
           name: 'FileConvert',
           status: 'private',
-          desc: 'Free, privacy-first mobile app that converts, merges, edits and compresses PDFs entirely on the device — no server, no account, no tracking.',
-          stack: ['React Native', 'Expo', 'TypeScript', 'Kotlin', 'Skia'],
+          desc: 'On-device PDF converter and editor for mobile — no server, no account, no tracking.',
+          stack: ['React Native', 'Expo', 'Kotlin'],
         },
         {
           slug: 'pathwords',
           name: 'PathWords',
           status: 'private',
-          desc: 'Path-tracing word puzzle that teaches English–Turkish vocabulary, with a procedural generator for endless levels.',
+          desc: 'Path-tracing word puzzle that teaches English–Turkish vocabulary, with endless levels.',
           stack: ['React Native', 'Expo', 'TypeScript'],
         },
         {
@@ -123,30 +121,28 @@ export const copy = {
     projects: {
       title: 'PROJE.DİZİNİ',
       meta: (n, p) => `${n} proje · ${p} özel`,
-      status: { private: 'özel · geliştiriliyor', live: 'yayında', public: 'açık kaynak' },
+      status: { private: 'özel', live: 'yayında', public: 'açık kaynak' },
       cta: { live: 'Siteyi aç', public: "GitHub'da incele" },
-      highlightsTitle: 'MODÜLLER',
-      highlights: ['Oyuncu web sitesi', 'Tesis yönetim paneli', 'Yapay zekâ talep tahmini', 'Canlı rezervasyon ve ödeme'],
       items: [
         {
           slug: 'saharez',
           name: 'SahaRez',
           status: 'private',
-          desc: 'Spor tesisleri ile oyuncuları buluşturan rezervasyon ve eşleştirme platformu: oyuncu web sitesi, tesis yönetim paneli ve talep tahmini ile fiyat önerisi yapan bir yapay zekâ servisi. Bitirme projesi, pilot şehir Eskişehir.',
-          stack: ['NestJS', 'Next.js', 'React', 'FastAPI', 'PostgreSQL', 'PostGIS', 'Redis', 'Socket.IO'],
+          desc: 'Spor tesisleri için yapay zekâ destekli rezervasyon ve eşleştirme platformu. Bitirme projesi.',
+          stack: ['NestJS', 'Next.js', 'FastAPI'],
         },
         {
           slug: 'fileconvert',
           name: 'FileConvert',
           status: 'private',
-          desc: "PDF'leri cihazdan çıkarmadan dönüştüren, birleştiren, düzenleyen ve sıkıştıran ücretsiz mobil uygulama — sunucu, hesap ve takip yok.",
-          stack: ['React Native', 'Expo', 'TypeScript', 'Kotlin', 'Skia'],
+          desc: "Cihaz içinde çalışan mobil PDF dönüştürücü ve düzenleyici — sunucu, hesap ve takip yok.",
+          stack: ['React Native', 'Expo', 'Kotlin'],
         },
         {
           slug: 'pathwords',
           name: 'PathWords',
           status: 'private',
-          desc: 'İngilizce–Türkçe kelime öğreten, patika çizerek oynanan kelime bulmacası; sonsuz seviye üreten prosedürel bir motorla.',
+          desc: 'İngilizce–Türkçe kelime öğreten, patika çizerek oynanan sonsuz seviyeli kelime bulmacası.',
           stack: ['React Native', 'Expo', 'TypeScript'],
         },
         {

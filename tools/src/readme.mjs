@@ -72,15 +72,23 @@ export function render(lang) {
   const s = u.suffix;
   const aboutAlt = escAttr(`${c.about.paragraphs.join(' ')} ${c.about.principles.join('. ')}. ${c.about.open}.`);
   const expAlt = escAttr(c.experience.items.map((e) => `${e.period} — ${e.role}, ${e.org}: ${e.points.join('; ')}.`).join(' '));
-  const card = (p, width) => {
-    const pic = picture(`project-${p.slug}`, s, escAttr(`${p.name} — ${c.projects.status[p.status]}. ${p.desc}`), width);
-    return p.link ? `<a href="${p.link}">${pic}</a>` : pic;
-  };
-  const [lead, ...rest] = c.projects.items;
-  const grid = [card(lead, '100%')];
-  for (let k = 0; k < rest.length; k += 2) grid.push(rest.slice(k, k + 2).map((p) => card(p, '49%')).join('\n'));
+  // A <picture> inside a link loses its theme switch on GitHub, so linked images
+  // use the #gh-dark-mode-only / #gh-light-mode-only pair instead.
+  const themed = (name, alt, width) =>
+    `<img src="assets/${name}-dark${s}.svg#gh-dark-mode-only" width="${width}" alt="${alt}">` +
+    `<img src="assets/${name}-light${s}.svg#gh-light-mode-only" width="${width}" alt="${alt}">`;
+  const projectAlt = (p) => escAttr(`${p.name} — ${c.projects.status[p.status]}. ${p.desc}`);
+  const privateRow = c.projects.items
+    .filter((p) => !p.link)
+    .map((p) => picture(`project-${p.slug}`, s, projectAlt(p), '32.5%'))
+    .join('\n');
+  const linkedRow = c.projects.items
+    .filter((p) => p.link)
+    .map((p) => `<a href="${p.link}">${themed(`project-${p.slug}`, projectAlt(p), '49%')}</a>`)
+    .join('\n');
+  const grid = [privateRow, `<p>\n${linkedRow}\n</p>`];
   const contact = c.contact
-    .map((it) => `<a href="${it.href}">${picture(`contact-${it.slug}`, s, escAttr(`${it.label}: ${it.sub}`), '24%')}</a>`)
+    .map((it) => `<a href="${it.href}">${themed(`contact-${it.slug}`, escAttr(`${it.label}: ${it.sub}`), '24%')}</a>`)
     .join('\n');
   const years = manifest().years.filter((y) => y.total > 0 || y.year === manifest().years[0]?.year);
   const yearBlocks = years

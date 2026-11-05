@@ -202,43 +202,38 @@ function chips(list, x, y, theme, maxX) {
   return { svg: out.join(''), bottom: cy + 22 };
 }
 
-function projectCard(p, i, theme, c, wide) {
-  const width = wide ? W : HALF;
-  const x0 = PAD;
-  const x1 = width - PAD;
+const THIRD = 380;
+
+/**
+ * One project card. Private projects get a compact card (three per row);
+ * linked projects a half-width card with an accent border and a CTA.
+ */
+function projectCard(p, i, theme, c) {
   const linked = Boolean(p.link);
+  const width = linked ? HALF : THIRD;
+  const pad = linked ? PAD : 24;
+  const x0 = pad;
+  const x1 = width - pad;
   const parts = [];
   parts.push(text(x0, 44, String(i + 1).padStart(2, '0'), { size: 13, weight: 700, extra: `fill="${theme.accentText}"` }));
-  parts.push(text(x0 + 34, 45, p.name, { size: 19, weight: 700 }));
+  parts.push(text(x0 + 32, 45, p.name, { size: linked ? 19 : 17, weight: 700 }));
   parts.push(statusPill(p, c, theme, x1, 27));
-  const textRight = wide ? width * 0.64 : x1;
-  const cols = Math.floor((textRight - x0) / (13 * 0.6));
+  const cols = Math.floor((x1 - x0) / (13 * 0.6));
   const lines = richLines(p.desc, cols, theme);
-  lines.forEach((l, li) => parts.push(`<text x="${x0}" y="${84 + li * 21}" font-size="13" fill="${theme.muted}">${l}</text>`));
-  const ch = chips(p.stack, x0, 84 + lines.length * 21 + 2, theme, textRight);
-  parts.push(ch.svg);
-  let bottom = ch.bottom;
-  if (wide && c.highlights) {
-    const hx = width * 0.68;
-    parts.push(`<path d="M${r(hx - 24)} 70V${bottom}" stroke="${theme.divider}"/>`);
-    parts.push(text(hx, 84, c.highlightsTitle, { size: 11, weight: 700, extra: `fill="${theme.accentText}" letter-spacing="1.6"` }));
-    c.highlights.forEach((h, k) => {
-      parts.push(glyph('diamond', hx, 100 + k * 28, 13, theme.accent, 1.6));
-      parts.push(text(hx + 24, 111 + k * 28, h, { size: 13 }));
-    });
-    bottom = Math.max(bottom, 100 + c.highlights.length * 28);
-  }
-  if (linked) {
-    parts.push(text(x0, bottom + 40, p.linkLabel, { size: 12, cls: 's' }));
-    parts.push(cta(c.cta[p.status], theme, x1, bottom + 18));
-    bottom += 50;
-  }
-  const minH = wide ? 0 : 0;
-  const height = Math.max(minH, bottom + PAD);
+  lines.forEach((l, li) => parts.push(`<text x="${x0}" y="${82 + li * 21}" font-size="13" fill="${theme.muted}">${l}</text>`));
   return {
-    height,
-    render: (h) =>
-      document({
+    lines: lines.length,
+    render: (descLines) => {
+      const ch = chips(p.stack, x0, 82 + descLines * 21 + 2, theme, x1);
+      let bottom = ch.bottom;
+      const extra = [];
+      if (linked) {
+        extra.push(text(x0, bottom + 40, p.linkLabel, { size: 12, cls: 's' }));
+        extra.push(cta(c.cta[p.status], theme, x1, bottom + 18));
+        bottom += 50;
+      }
+      const h = bottom + pad;
+      return document({
         width,
         height: h,
         theme,
@@ -248,21 +243,22 @@ function projectCard(p, i, theme, c, wide) {
         body: [
           `<rect x=".5" y=".5" width="${width - 1}" height="${h - 1}" rx="12" fill="${theme.surface}" stroke="${linked ? theme.accent : theme.border}" stroke-opacity="${linked ? 0.55 : 1}"/>`,
           ...parts,
+          ch.svg,
+          ...extra,
         ].join('\n'),
-      }),
+      });
+    },
   };
 }
 
-/** Featured card full width, the rest as equal-height pairs. */
+/** Private projects in one row of three, linked ones as a pair; each row shares one height. */
 function projectCards(theme, t, c) {
   const out = {};
-  const [first, ...rest] = c.items;
-  const lead = projectCard(first, 0, theme, c, true);
-  out[first.slug] = lead.render(lead.height);
-  for (let k = 0; k < rest.length; k += 2) {
-    const pair = rest.slice(k, k + 2).map((p, j) => [p, projectCard(p, k + j + 1, theme, c, false)]);
-    const h = Math.max(...pair.map(([, card]) => card.height));
-    for (const [p, card] of pair) out[p.slug] = card.render(h);
+  const rows = [c.items.filter((p) => !p.link), c.items.filter((p) => p.link)];
+  for (const row of rows) {
+    const cards = row.map((p) => [p, projectCard(p, c.items.indexOf(p), theme, c)]);
+    const lines = Math.max(...cards.map(([, card]) => card.lines));
+    for (const [p, card] of cards) out[p.slug] = card.render(lines);
   }
   return out;
 }

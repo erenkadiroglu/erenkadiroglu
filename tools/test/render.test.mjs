@@ -67,13 +67,13 @@ for (const [name, md] of Object.entries(readmes)) {
   });
 
   test(`${name} only references local assets that exist`, () => {
-    const refs = [...md.matchAll(/(?:src|srcset)="\.?\/?(assets\/[^"]+)"/g)].map((m) => m[1]);
+    const refs = [...md.matchAll(/(?:src|srcset)="\.?\/?(assets\/[^"#]+)/g)].map((m) => m[1]);
     assert.ok(refs.length >= 14, `only ${refs.length} asset references`);
     for (const ref of refs) assert.ok(existsSync(join(root, ref)), `missing ${ref}`);
   });
 }
 
 test('the Turkish README uses Turkish assets throughout', () => {
-  const refs = [...readmes['README.tr.md'].matchAll(/(?:src|srcset)="(assets\/(?!flags)[^"]+)"/g)].map((m) => m[1]);
+  const refs = [...readmes['README.tr.md'].matchAll(/(?:src|srcset)="(assets\/(?!flags)[^"#]+)/g)].map((m) => m[1]);
   for (const ref of refs) assert.match(ref, /\.tr\.svg$/, ref);
 });
