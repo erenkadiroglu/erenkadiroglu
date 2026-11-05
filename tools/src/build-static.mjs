@@ -263,6 +263,58 @@ function projectCards(theme, t, c) {
   return out;
 }
 
+/* -------------------------------------------------------------- languages */
+
+/** Flags drawn inline (ids prefixed so they never clash inside one document). */
+const FLAGS = {
+  en: {
+    viewBox: '0 0 60 30',
+    body:
+      '<clipPath id="gb-t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath>' +
+      '<path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>' +
+      '<path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#gb-t)" stroke="#C8102E" stroke-width="4"/>' +
+      '<path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>',
+  },
+  tr: {
+    viewBox: '0 -30000 90000 60000',
+    body:
+      '<path fill="#e30a17" d="m0-30000h90000v60000H0z"/>' +
+      '<path fill="#fff" d="m41750 0 13568-4408-8386 11541V-7133l8386 11541zm925 8021a15000 15000 0 1 1 0-16042 12000 12000 0 1 0 0 16042z"/>',
+  },
+};
+
+export const LANGUAGES = [
+  { code: 'en', label: 'English', sub: 'EN' },
+  { code: 'tr', label: 'Türkçe', sub: 'TR' },
+];
+
+/** One half of the language switch; the current language is the filled one. */
+function languageButton(lang, active, theme) {
+  const w = 168;
+  const h = 48;
+  const fx = 16;
+  const fy = 15;
+  const fw = 27;
+  const fh = 18;
+  return document({
+    width: w,
+    height: h,
+    theme,
+    title: lang.label,
+    desc: active ? `${lang.label} (current)` : lang.label,
+    body: [
+      `<rect x=".5" y=".5" width="${w - 1}" height="${h - 1}" rx="12" fill="${active ? theme.accentSoft : theme.surface}" stroke="${active ? theme.accent : theme.border}" stroke-opacity="${active ? 0.7 : 1}"/>`,
+      `<clipPath id="flag"><rect x="${fx}" y="${fy}" width="${fw}" height="${fh}" rx="3"/></clipPath>`,
+      `<g clip-path="url(#flag)"><svg x="${fx}" y="${fy}" width="${fw}" height="${fh}" viewBox="${FLAGS[lang.code].viewBox}" preserveAspectRatio="xMidYMid slice">${FLAGS[lang.code].body}</svg></g>`,
+      `<rect x="${fx + 0.5}" y="${fy + 0.5}" width="${fw - 1}" height="${fh - 1}" rx="2.5" stroke="${theme.border}" stroke-opacity=".6"/>`,
+      text(fx + fw + 14, 29.5, lang.label, { size: 14, weight: 700, extra: active ? `fill="${theme.fg}"` : `fill="${theme.muted}"` }),
+      active
+        ? `<circle cx="${w - 22}" cy="${h / 2}" r="4" fill="${theme.accent}"/>`
+        : text(w - 18, 29, lang.sub, { size: 11, cls: 's', anchor: 'end', extra: 'letter-spacing="1"' }),
+    ].join('\n'),
+  });
+}
+
 /* ------------------------------------------------------------------ contact */
 
 function contactButton(item, theme) {
@@ -370,6 +422,11 @@ function techStack(theme, t) {
 
 export function buildAll() {
   const files = {};
+  for (const theme of Object.values(themes)) {
+    for (const lang of LANGUAGES) {
+      for (const active of [true, false]) files[`lang-${lang.code}-${active ? 'on' : 'off'}-${theme.name}.svg`] = languageButton(lang, active, theme);
+    }
+  }
   for (const t of Object.values(locales)) {
     const c = copy[t.code];
     for (const theme of Object.values(themes)) {
