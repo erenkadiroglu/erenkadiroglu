@@ -127,7 +127,9 @@ export function summarize(user, { today = new Date().toISOString().slice(0, 10),
       ? days.reduce((acc, d) => acc + d.count, 0)
       : user.years.reduce((acc, y) => acc + (y.contributionCalendar?.totalContributions ?? 0), 0),
     source: calendar ? 'profile' : 'graphql',
-    commits: user.years.reduce((acc, y) => acc + (y.totalCommitContributions ?? 0), 0),
+    // Private work the token cannot itemise arrives as restrictedContributionsCount;
+    // for a solo developer that is almost entirely commits, so it is counted here.
+    commits: user.years.reduce((acc, y) => acc + (y.totalCommitContributions ?? 0) + (y.restrictedContributionsCount ?? 0), 0),
     pullRequests: user.pullRequests.totalCount,
     issues: user.issues.totalCount,
     repositories: user.repositories.totalCount,
