@@ -69,4 +69,37 @@
   <img src="assets/generated/trail-light.tr.svg" width="100%" alt="Son 12 ayın katkı grafiği ve hücrelerin arasında kıvrılan bir yılan.">
 </picture>
 
+<sub><b>Yıla göre göz at</b></sub>
+
+<details>
+<summary><b>2026 · 19 katkı</b></summary>
+<br>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/generated/trail-2026-dark.tr.svg">
+  <img src="assets/generated/trail-2026-light.tr.svg" width="100%" alt="2026 yılının katkı grafiği.">
+</picture>
+
+</details>
+<details>
+<summary><b>2025 · 39 katkı</b></summary>
+<br>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/generated/trail-2025-dark.tr.svg">
+  <img src="assets/generated/trail-2025-light.tr.svg" width="100%" alt="2025 yılının katkı grafiği.">
+</picture>
+
+</details>
+<details>
+<summary><b>2023 · 1 katkı</b></summary>
+<br>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/generated/trail-2023-dark.tr.svg">
+  <img src="assets/generated/trail-2023-light.tr.svg" width="100%" alt="2023 yılının katkı grafiği.">
+</picture>
+
+</details>
+
 <sub>Kartlar ve takvimler, GitHub'ın profilde gösterdiği katkı grafiğinin aynısından, bu repodaki bir GitHub Action tarafından her gün üretilir; üçüncü parti istatistik servisi kullanılmaz.</sub>
