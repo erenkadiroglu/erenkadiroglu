@@ -1,0 +1,32 @@
+{
+  "name": "Eren Kadiroğlu",
+  "role": "Mobile & Web Developer",
+  "handle": "@erenkadiroglu",
+  "coords": "39.7767° N · 30.5206° E",
+  "footnote": "source: tools/banner/build.py",
+  "rows": [
+    [
+      ["Subject", "Eren Kadiroğlu"],
+      ["Role", "Mobile & Web Developer"],
+      ["Origin", "Eskişehir, Türkiye"],
+      ["Education", "Computer Eng. @ KSÜ"],
+      ["Status", "Building · Learning · Shipping"],
+      ["Availability", "Open to opportunities", "accent"]
+    ],
+    [
+      ["Core.Lang", "TypeScript · JavaScript · Python · C/C++ · Java"],
+      ["Core.Frontend", "React · Next.js · Tailwind CSS · Vite"],
+      ["Core.Mobile", "React Native · Expo"],
+      ["Core.Backend", "Node.js · NestJS · FastAPI · Socket.IO"],
+      ["Core.Database", "PostgreSQL · Prisma · Redis · SQLite"],
+      ["Core.Infra", "Docker · GitHub Actions"],
+      ["ToolChain", "VS Code · Git · Android Studio"]
+    ],
+    [
+      ["Grid.Mail", "erenkdroglu@gmail.com"],
+      ["Grid.Portfolio", "erenkadiroglu.com"],
+      ["Grid.LinkedIn", "in/erenkadiroglu"],
+      ["Grid.GitHub", "github.com/erenkadiroglu"]
+    ]
+  ]
+}
