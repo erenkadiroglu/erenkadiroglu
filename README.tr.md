@@ -72,7 +72,7 @@
 <p><sub><b>Yıla göre göz at</b></sub></p>
 
 <details>
-<summary><b>2026 · 19 katkı</b></summary>
+<summary><b>2026 · 581 katkı</b></summary>
 <br>
 
 <picture>
@@ -82,7 +82,7 @@
 
 </details>
 <details>
-<summary><b>2025 · 39 katkı</b></summary>
+<summary><b>2025 · 59 katkı</b></summary>
 <br>
 
 <picture>

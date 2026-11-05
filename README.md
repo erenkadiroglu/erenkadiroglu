@@ -72,7 +72,7 @@
 <p><sub><b>Browse by year</b></sub></p>
 
 <details>
-<summary><b>2026 · 19 contributions</b></summary>
+<summary><b>2026 · 581 contributions</b></summary>
 <br>
 
 <picture>
@@ -82,7 +82,7 @@
 
 </details>
 <details>
-<summary><b>2025 · 39 contributions</b></summary>
+<summary><b>2025 · 59 contributions</b></summary>
 <br>
 
 <picture>
