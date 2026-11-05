@@ -5,33 +5,20 @@
 
 <p align="center"><a href="README.md"><img src="assets/flags/gb.svg" width="21" height="14" alt="">&nbsp; English</a> &nbsp;&nbsp;|&nbsp;&nbsp; <img src="assets/flags/tr.svg" width="21" height="14" alt="">&nbsp; <b>Türkçe</b></p>
 
+<p align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.tr.svg">
   <img src="assets/banner-light.tr.svg" width="100%" alt="Eren Kadiroğlu — Mobil &amp; Web Geliştirici. Dağılıp React, TypeScript ve kod logolarına dönüşen noktalı bir portre ve yanında sistem bilgisi paneli.">
 </picture>
-
-<br>
-
-<p align="center">
-<a href="https://www.linkedin.com/in/erenkadiroglu"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-linkedin-dark.tr.svg">
-  <img src="assets/contact-linkedin-light.tr.svg" width="23.5%" alt="LinkedIn: in/erenkadiroglu">
-</picture></a>
-<a href="https://erenkadiroglu.com"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-portfolio-dark.tr.svg">
-  <img src="assets/contact-portfolio-light.tr.svg" width="23.5%" alt="Portfolyo: erenkadiroglu.com">
-</picture></a>
-<a href="mailto:erenkdroglu@gmail.com"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-email-dark.tr.svg">
-  <img src="assets/contact-email-light.tr.svg" width="23.5%" alt="E-posta: erenkdroglu@gmail.com">
-</picture></a>
-<a href="https://www.instagram.com/eren_kdroglu"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-instagram-dark.tr.svg">
-  <img src="assets/contact-instagram-light.tr.svg" width="23.5%" alt="Instagram: @eren_kdroglu">
-</picture></a>
 </p>
 
+<p align="center">
 <br>
+<a href="https://www.linkedin.com/in/erenkadiroglu"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-linkedin-dark.tr.svg"><img src="assets/contact-linkedin-light.tr.svg" width="23.5%" alt="LinkedIn: in/erenkadiroglu"></picture></a>
+<a href="https://erenkadiroglu.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-portfolio-dark.tr.svg"><img src="assets/contact-portfolio-light.tr.svg" width="23.5%" alt="Portfolyo: erenkadiroglu.com"></picture></a>
+<a href="mailto:erenkdroglu@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-email-dark.tr.svg"><img src="assets/contact-email-light.tr.svg" width="23.5%" alt="E-posta: erenkdroglu@gmail.com"></picture></a>
+<a href="https://www.instagram.com/eren_kdroglu"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-instagram-dark.tr.svg"><img src="assets/contact-instagram-light.tr.svg" width="23.5%" alt="Instagram: @eren_kdroglu"></picture></a>
+</p>
 
 ## Hakkımda
 
@@ -58,14 +45,8 @@
 </p>
 
 <p align="center">
-<a href="https://erenkadiroglu.com"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/project-portfolio-dark.tr.svg">
-  <img src="assets/project-portfolio-light.tr.svg" width="49%" alt="erenkadiroglu.com — yayında. İçeriği JSON'dan yönetilen, yönetim panelli kişisel portföy; GitHub Pages'te statik ve hızlı.">
-</picture></a>
-<a href="https://github.com/erenkadiroglu/minesweeper-c-project"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/project-minesweeper-dark.tr.svg">
-  <img src="assets/project-minesweeper-light.tr.svg" width="49%" alt="Mayın Tarlası — açık kaynak. C ile yazılmış konsol tabanlı strateji oyunu: mayınların etki alanlarını takip ederek tarlada yol bulma.">
-</picture></a>
+<a href="https://erenkadiroglu.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-portfolio-dark.tr.svg"><img src="assets/project-portfolio-light.tr.svg" width="49%" alt="erenkadiroglu.com — yayında. İçeriği JSON'dan yönetilen, yönetim panelli kişisel portföy; GitHub Pages'te statik ve hızlı."></picture></a>
+<a href="https://github.com/erenkadiroglu/minesweeper-c-project"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-minesweeper-dark.tr.svg"><img src="assets/project-minesweeper-light.tr.svg" width="49%" alt="Mayın Tarlası — açık kaynak. C ile yazılmış konsol tabanlı strateji oyunu: mayınların etki alanlarını takip ederek tarlada yol bulma."></picture></a>
 </p>
 
 ## Deneyim

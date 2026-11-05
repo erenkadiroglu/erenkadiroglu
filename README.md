@@ -5,33 +5,20 @@
 
 <p align="center"><img src="assets/flags/gb.svg" width="21" height="14" alt="">&nbsp; <b>English</b> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="README.tr.md"><img src="assets/flags/tr.svg" width="21" height="14" alt="">&nbsp; Türkçe</a></p>
 
+<p align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
   <img src="assets/banner-light.svg" width="100%" alt="Eren Kadiroğlu — Mobile &amp; Web Developer. A dithered portrait that dissolves into the React, TypeScript and code logos, next to a system-info panel.">
 </picture>
-
-<br>
-
-<p align="center">
-<a href="https://www.linkedin.com/in/erenkadiroglu"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-linkedin-dark.svg">
-  <img src="assets/contact-linkedin-light.svg" width="23.5%" alt="LinkedIn: in/erenkadiroglu">
-</picture></a>
-<a href="https://erenkadiroglu.com"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-portfolio-dark.svg">
-  <img src="assets/contact-portfolio-light.svg" width="23.5%" alt="Portfolio: erenkadiroglu.com">
-</picture></a>
-<a href="mailto:erenkdroglu@gmail.com"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-email-dark.svg">
-  <img src="assets/contact-email-light.svg" width="23.5%" alt="Email: erenkdroglu@gmail.com">
-</picture></a>
-<a href="https://www.instagram.com/eren_kdroglu"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-instagram-dark.svg">
-  <img src="assets/contact-instagram-light.svg" width="23.5%" alt="Instagram: @eren_kdroglu">
-</picture></a>
 </p>
 
+<p align="center">
 <br>
+<a href="https://www.linkedin.com/in/erenkadiroglu"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-linkedin-dark.svg"><img src="assets/contact-linkedin-light.svg" width="23.5%" alt="LinkedIn: in/erenkadiroglu"></picture></a>
+<a href="https://erenkadiroglu.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-portfolio-dark.svg"><img src="assets/contact-portfolio-light.svg" width="23.5%" alt="Portfolio: erenkadiroglu.com"></picture></a>
+<a href="mailto:erenkdroglu@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-email-dark.svg"><img src="assets/contact-email-light.svg" width="23.5%" alt="Email: erenkdroglu@gmail.com"></picture></a>
+<a href="https://www.instagram.com/eren_kdroglu"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-instagram-dark.svg"><img src="assets/contact-instagram-light.svg" width="23.5%" alt="Instagram: @eren_kdroglu"></picture></a>
+</p>
 
 ## About
 
@@ -58,14 +45,8 @@
 </p>
 
 <p align="center">
-<a href="https://erenkadiroglu.com"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/project-portfolio-dark.svg">
-  <img src="assets/project-portfolio-light.svg" width="49%" alt="erenkadiroglu.com — live. Personal portfolio with a JSON-driven content model and an admin panel; static and fast on GitHub Pages.">
-</picture></a>
-<a href="https://github.com/erenkadiroglu/minesweeper-c-project"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/project-minesweeper-dark.svg">
-  <img src="assets/project-minesweeper-light.svg" width="49%" alt="Minesweeper — open source. Console strategy game in C: steer a path across a minefield while tracking each mine's zone of influence.">
-</picture></a>
+<a href="https://erenkadiroglu.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-portfolio-dark.svg"><img src="assets/project-portfolio-light.svg" width="49%" alt="erenkadiroglu.com — live. Personal portfolio with a JSON-driven content model and an admin panel; static and fast on GitHub Pages."></picture></a>
+<a href="https://github.com/erenkadiroglu/minesweeper-c-project"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-minesweeper-dark.svg"><img src="assets/project-minesweeper-light.svg" width="49%" alt="Minesweeper — open source. Console strategy game in C: steer a path across a minefield while tracking each mine's zone of influence."></picture></a>
 </p>
 
 ## Experience

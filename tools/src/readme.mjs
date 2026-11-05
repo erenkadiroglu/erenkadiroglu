@@ -74,7 +74,8 @@ export function render(lang) {
   const expAlt = escAttr(c.experience.items.map((e) => `${e.period} — ${e.role}, ${e.org}: ${e.points.join('; ')}.`).join(' '));
   // Every row of images is one raw HTML block (no blank lines inside): outside
   // a block, GitHub's Markdown parser splits a linked <picture> apart.
-  const linked = (href, pic) => `<a href="${href}">${pic}</a>`;
+  // No whitespace inside a link: GitHub underlines it, leaving blue dashes under the image.
+  const linked = (href, pic) => `<a href="${href}">${pic.replace(/\n\s*/g, '')}</a>`;
   const projectAlt = (p) => escAttr(`${p.name} — ${c.projects.status[p.status]}. ${p.desc}`);
   const card = (p, width) => {
     const pic = picture(`project-${p.slug}`, s, projectAlt(p), width);
@@ -102,15 +103,12 @@ export function render(lang) {
 
 <p align="center">${u.switch}</p>
 
-${picture('banner', s, u.bannerAlt)}
-
-<br>
+${block([picture('banner', s, u.bannerAlt)])}
 
 <p align="center">
+<br>
 ${contact}
 </p>
-
-<br>
 
 ## ${u.h.about}
 
