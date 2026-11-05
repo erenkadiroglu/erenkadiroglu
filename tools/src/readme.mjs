@@ -81,11 +81,11 @@ export function render(lang) {
     return p.link ? linked(p.link, pic) : pic;
   };
   const block = (items) => `<p align="center">\n${items.join('\n')}\n</p>`;
-  const privateRow = block(c.projects.items.filter((p) => !p.link).map((p) => card(p, '32.5%')));
+  const privateRow = block(c.projects.items.filter((p) => !p.link).map((p) => card(p, '32%')));
   const linkedRow = block(c.projects.items.filter((p) => p.link).map((p) => card(p, '49%')));
   const grid = [privateRow, linkedRow];
   const contact = c.contact
-    .map((it) => linked(it.href, picture(`contact-${it.slug}`, s, escAttr(`${it.label}: ${it.sub}`), '24%')))
+    .map((it) => linked(it.href, picture(`contact-${it.slug}`, s, escAttr(`${it.label}: ${it.sub}`), '23.5%')))
     .join('\n');
   const years = manifest().years.filter((y) => y.total > 0 || y.year === manifest().years[0]?.year);
   const yearBlocks = years

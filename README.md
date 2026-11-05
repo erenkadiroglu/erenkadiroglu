@@ -15,19 +15,19 @@
 <p align="center">
 <a href="https://www.linkedin.com/in/erenkadiroglu"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/contact-linkedin-dark.svg">
-  <img src="assets/contact-linkedin-light.svg" width="24%" alt="LinkedIn: in/erenkadiroglu">
+  <img src="assets/contact-linkedin-light.svg" width="23.5%" alt="LinkedIn: in/erenkadiroglu">
 </picture></a>
 <a href="https://erenkadiroglu.com"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/contact-portfolio-dark.svg">
-  <img src="assets/contact-portfolio-light.svg" width="24%" alt="Portfolio: erenkadiroglu.com">
+  <img src="assets/contact-portfolio-light.svg" width="23.5%" alt="Portfolio: erenkadiroglu.com">
 </picture></a>
 <a href="mailto:erenkdroglu@gmail.com"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/contact-email-dark.svg">
-  <img src="assets/contact-email-light.svg" width="24%" alt="Email: erenkdroglu@gmail.com">
+  <img src="assets/contact-email-light.svg" width="23.5%" alt="Email: erenkdroglu@gmail.com">
 </picture></a>
 <a href="https://www.instagram.com/eren_kdroglu"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/contact-instagram-dark.svg">
-  <img src="assets/contact-instagram-light.svg" width="24%" alt="Instagram: @eren_kdroglu">
+  <img src="assets/contact-instagram-light.svg" width="23.5%" alt="Instagram: @eren_kdroglu">
 </picture></a>
 </p>
 
@@ -45,15 +45,15 @@
 <p align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/project-saharez-dark.svg">
-  <img src="assets/project-saharez-light.svg" width="32.5%" alt="SahaRez — private. Booking and matchmaking platform for sports facilities, with AI demand forecasting. Graduation project.">
+  <img src="assets/project-saharez-light.svg" width="32%" alt="SahaRez — private. Booking and matchmaking platform for sports facilities, with AI demand forecasting. Graduation project.">
 </picture>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/project-fileconvert-dark.svg">
-  <img src="assets/project-fileconvert-light.svg" width="32.5%" alt="FileConvert — private. On-device PDF converter and editor for mobile — no server, no account, no tracking.">
+  <img src="assets/project-fileconvert-light.svg" width="32%" alt="FileConvert — private. On-device PDF converter and editor for mobile — no server, no account, no tracking.">
 </picture>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/project-pathwords-dark.svg">
-  <img src="assets/project-pathwords-light.svg" width="32.5%" alt="PathWords — private. Path-tracing word puzzle that teaches English–Turkish vocabulary, with endless levels.">
+  <img src="assets/project-pathwords-light.svg" width="32%" alt="PathWords — private. Path-tracing word puzzle that teaches English–Turkish vocabulary, with endless levels.">
 </picture>
 </p>
 

@@ -15,19 +15,19 @@
 <p align="center">
 <a href="https://www.linkedin.com/in/erenkadiroglu"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/contact-linkedin-dark.tr.svg">
-  <img src="assets/contact-linkedin-light.tr.svg" width="24%" alt="LinkedIn: in/erenkadiroglu">
+  <img src="assets/contact-linkedin-light.tr.svg" width="23.5%" alt="LinkedIn: in/erenkadiroglu">
 </picture></a>
 <a href="https://erenkadiroglu.com"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/contact-portfolio-dark.tr.svg">
-  <img src="assets/contact-portfolio-light.tr.svg" width="24%" alt="Portfolyo: erenkadiroglu.com">
+  <img src="assets/contact-portfolio-light.tr.svg" width="23.5%" alt="Portfolyo: erenkadiroglu.com">
 </picture></a>
 <a href="mailto:erenkdroglu@gmail.com"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/contact-email-dark.tr.svg">
-  <img src="assets/contact-email-light.tr.svg" width="24%" alt="E-posta: erenkdroglu@gmail.com">
+  <img src="assets/contact-email-light.tr.svg" width="23.5%" alt="E-posta: erenkdroglu@gmail.com">
 </picture></a>
 <a href="https://www.instagram.com/eren_kdroglu"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/contact-instagram-dark.tr.svg">
-  <img src="assets/contact-instagram-light.tr.svg" width="24%" alt="Instagram: @eren_kdroglu">
+  <img src="assets/contact-instagram-light.tr.svg" width="23.5%" alt="Instagram: @eren_kdroglu">
 </picture></a>
 </p>
 
@@ -45,15 +45,15 @@
 <p align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/project-saharez-dark.tr.svg">
-  <img src="assets/project-saharez-light.tr.svg" width="32.5%" alt="SahaRez — özel. Spor tesisleri için yapay zekâ destekli rezervasyon ve eşleştirme platformu. Bitirme projesi.">
+  <img src="assets/project-saharez-light.tr.svg" width="32%" alt="SahaRez — özel. Spor tesisleri için yapay zekâ destekli rezervasyon ve eşleştirme platformu. Bitirme projesi.">
 </picture>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/project-fileconvert-dark.tr.svg">
-  <img src="assets/project-fileconvert-light.tr.svg" width="32.5%" alt="FileConvert — özel. Cihaz içinde çalışan mobil PDF dönüştürücü ve düzenleyici — sunucu, hesap ve takip yok.">
+  <img src="assets/project-fileconvert-light.tr.svg" width="32%" alt="FileConvert — özel. Cihaz içinde çalışan mobil PDF dönüştürücü ve düzenleyici — sunucu, hesap ve takip yok.">
 </picture>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/project-pathwords-dark.tr.svg">
-  <img src="assets/project-pathwords-light.tr.svg" width="32.5%" alt="PathWords — özel. İngilizce–Türkçe kelime öğreten, patika çizerek oynanan sonsuz seviyeli kelime bulmacası.">
+  <img src="assets/project-pathwords-light.tr.svg" width="32%" alt="PathWords — özel. İngilizce–Türkçe kelime öğreten, patika çizerek oynanan sonsuz seviyeli kelime bulmacası.">
 </picture>
 </p>
 
