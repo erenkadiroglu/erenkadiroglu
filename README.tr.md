@@ -69,7 +69,7 @@
   <img src="assets/generated/trail-light.tr.svg" width="100%" alt="Son 12 ayın katkı grafiği ve hücrelerin arasında kıvrılan bir yılan.">
 </picture>
 
-<sub><b>Yıla göre göz at</b></sub>
+<p><sub><b>Yıla göre göz at</b></sub></p>
 
 <details>
 <summary><b>2026 · 19 katkı</b></summary>
@@ -102,4 +102,6 @@
 
 </details>
 
-<sub>Kartlar ve takvimler, GitHub'ın profilde gösterdiği katkı grafiğinin aynısından, bu repodaki bir GitHub Action tarafından her gün üretilir; üçüncü parti istatistik servisi kullanılmaz.</sub>
+<br>
+
+<p><sub>Kartlar ve takvimler, GitHub'ın profilde gösterdiği katkı grafiğinin aynısından, bu repodaki bir GitHub Action tarafından her gün üretilir; üçüncü parti istatistik servisi kullanılmaz.</sub></p>

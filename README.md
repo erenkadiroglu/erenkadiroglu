@@ -69,7 +69,7 @@
   <img src="assets/generated/trail-light.svg" width="100%" alt="Contribution graph for the last 12 months with a snake weaving between the cells.">
 </picture>
 
-<sub><b>Browse by year</b></sub>
+<p><sub><b>Browse by year</b></sub></p>
 
 <details>
 <summary><b>2026 · 19 contributions</b></summary>
@@ -102,4 +102,6 @@
 
 </details>
 
-<sub>Cards and calendars are rendered daily by a GitHub Action in this repository from the same contribution graph GitHub shows on the profile — no third-party stats services.</sub>
+<br>
+
+<p><sub>Cards and calendars are rendered daily by a GitHub Action in this repository from the same contribution graph GitHub shows on the profile — no third-party stats services.</sub></p>

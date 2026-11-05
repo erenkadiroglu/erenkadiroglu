@@ -128,8 +128,10 @@ ${picture('generated/stats', s, u.alts.stats, '49%')}
 ${picture('generated/langs', s, u.alts.langs, '49%')}
 
 ${picture('generated/trail', s, u.alts.trail)}
-${yearBlocks ? `\n<sub><b>${u.years}</b></sub>\n\n${yearBlocks}\n` : ''}
-<sub>${u.note}</sub>
+${yearBlocks ? `\n<p><sub><b>${u.years}</b></sub></p>\n\n${yearBlocks}\n` : ''}
+<br>
+
+<p><sub>${u.note}</sub></p>
 `;
 }
 

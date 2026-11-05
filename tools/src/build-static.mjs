@@ -22,7 +22,8 @@ const W = 1180;
 const PAD = 28;
 const CSS =
   '.in{animation:in .7s cubic-bezier(.2,.7,.2,1) both}' +
-  '@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}' +
+  // motion only — content is never hidden, so static renderers still show everything
+  '@keyframes in{from{transform:translateY(4px)}to{transform:none}}' +
   '.pulse{animation:pulse 1.8s ease-in-out infinite}@keyframes pulse{50%{opacity:.25}}' +
   '@media (prefers-reduced-motion:reduce){.in,.pulse{animation:none}}';
 
@@ -50,14 +51,17 @@ function panel({ height, theme, title, meta, body, docTitle, desc }) {
 /** Word-wraps text with **bold** spans to `cols` monospace columns; returns tspans per line. */
 function richLines(source, cols, theme) {
   const words = [];
+  let prevEndsWithSpace = true;
   source.split(/(\*\*[^*]+\*\*)/).forEach((part) => {
+    if (!part) return;
     const bold = part.startsWith('**');
     const clean = part.replace(/\*\*/g, '');
     clean.split(/\s+/).filter(Boolean).forEach((w, i) => {
-      // punctuation glued to the previous span ("**Uni**.") keeps no space
-      const glue = i === 0 && words.length > 0 && !/^\s/.test(clean);
+      // a span that touches the previous one ("**Uni**.") keeps no space between them
+      const glue = i === 0 && words.length > 0 && !prevEndsWithSpace && !/^\s/.test(clean);
       words.push({ w, bold, glue });
     });
+    prevEndsWithSpace = /\s$/.test(clean);
   });
   const lines = [];
   let line = [];

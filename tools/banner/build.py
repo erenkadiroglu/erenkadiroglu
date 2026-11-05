@@ -211,6 +211,17 @@ def font_face() -> str:
     return "".join(faces)
 
 
+def delayed_fade(begin: float, dur: float) -> str:
+    """Fade-in that starts at t=0 and holds 0 until `begin`. The element's base
+    state stays fully visible, so renderers that do not animate (or capture the
+    first frame) still show the finished banner — and browsers never flicker."""
+    total = begin + dur
+    return (
+        f'<animate attributeName="opacity" values="0;0;1" keyTimes="0;{begin / total:.4f};1" '
+        f'dur="{total:.2f}s" begin="0s" fill="freeze"/>'
+    )
+
+
 def kt(*seconds: float) -> str:
     return ";".join(f"{s / PERIOD:.4f}".rstrip("0").rstrip(".") if s else "0" for s in seconds)
 
@@ -229,10 +240,7 @@ def portrait_layers(cells: np.ndarray, theme: Theme, logo_centroid: np.ndarray) 
         sel = np.zeros_like(cells)
         sel[ys[group == g], xs[group == g]] = True
         begin = 0.25 + 2.0 * g / N_INTRO_GROUPS + RNG.uniform(0, 0.08)
-        intro.append(
-            f'<path d="{runs_path(sel)}" opacity="0"><animate attributeName="opacity" values="0;1" '
-            f'begin="{begin:.2f}s" dur="0.55s" fill="freeze"/></path>'
-        )
+        intro.append(f'<path d="{runs_path(sel)}">{delayed_fade(begin, 0.55)}</path>')
 
     # Loop: drift bands. Grouping happens on noisy positions; without the noise
     # the quantised linear drift recreates a square grid (blocky dissolve).
@@ -361,7 +369,7 @@ def info_panel(theme: Theme, P: dict) -> str:
             vx = x1 - len(value) * cw
             delay = 0.35 + i * 0.07
             out.append(
-                f'<g opacity="0"><animate attributeName="opacity" values="0;1" begin="{delay:.2f}s" dur=".45s" fill="freeze"/>'
+                f'<g>{delayed_fade(delay, 0.45)}'
                 f'<text x="{x0}" y="{y}" font-size="14" fill="{theme.label}">{esc(label)}</text>'
                 f'<text x="{x0 + (len(label) + 1) * cw:.1f}" y="{y}" font-size="14" fill="{theme.leader}" '
                 f'textLength="{dots * cw:.1f}" lengthAdjust="spacingAndGlyphs">{"." * dots}</text>'
@@ -376,7 +384,7 @@ def info_panel(theme: Theme, P: dict) -> str:
     pw = len(handle) * cw + 32
     py = y + 2
     out.append(
-        f'<g opacity="0"><animate attributeName="opacity" values="0;1" begin="{0.35 + i * 0.07:.2f}s" dur=".45s" fill="freeze"/>'
+        f'<g>{delayed_fade(0.35 + i * 0.07, 0.45)}'
         f'<rect x="{x0}" y="{py}" width="{pw:.1f}" height="30" rx="15" fill="{theme.accent_soft}" stroke="{theme.accent}" stroke-opacity=".7"/>'
         f'<text x="{x0 + 16}" y="{py + 20}" font-size="14" fill="{theme.accent}" font-weight="700">{esc(handle)}</text>'
         f'<text x="{x1}" y="{py + 20}" font-size="11.5" fill="{theme.label}" text-anchor="end">{esc(P["ui"]["footnote"])}</text></g>'

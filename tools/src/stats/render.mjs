@@ -3,7 +3,8 @@ import { glyph } from '../glyphs.mjs';
 
 const CSS =
   '.in{animation:in .7s cubic-bezier(.2,.7,.2,1) both}' +
-  '@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}' +
+  // motion only — content is never hidden, so static renderers still show everything
+  '@keyframes in{from{transform:translateY(4px)}to{transform:none}}' +
   '@media (prefers-reduced-motion:reduce){.in{animation:none}}';
 
 const fmt = (n, t) => (n == null ? '—' : n.toLocaleString(t.numberLocale));
@@ -80,8 +81,8 @@ export function renderStreak(s, theme, { today, t }) {
     `<g class="in" style="animation-delay:.08s">` +
       `<circle cx="${r(cx(1))}" cy="${ry}" r="${R}" stroke="${theme.border}" stroke-width="3"/>` +
       `<circle cx="${r(cx(1))}" cy="${ry}" r="${R}" stroke="${theme.accent}" stroke-width="3" stroke-linecap="round" ` +
-      `stroke-dasharray="${r(C)}" stroke-dashoffset="${r(C)}" transform="rotate(-90 ${r(cx(1))} ${ry})">` +
-      `<animate attributeName="stroke-dashoffset" values="${r(C)};${r(C * 0.06)}" dur="1.4s" begin=".2s" fill="freeze" calcMode="spline" keySplines=".3 0 .2 1" keyTimes="0;1"/></circle>` +
+      `stroke-dasharray="${r(C)}" stroke-dashoffset="${r(C * 0.06)}" transform="rotate(-90 ${r(cx(1))} ${ry})">` +
+      `<animate attributeName="stroke-dashoffset" values="${r(C)};${r(C * 0.06)}" dur="1.4s" begin="0s" fill="freeze" calcMode="spline" keySplines=".3 0 .2 1" keyTimes="0;1"/></circle>` +
       `<rect x="${r(cx(1) - 13)}" y="${ry - R - 13}" width="26" height="26" fill="${theme.surface}"/>` +
       glyph('flame', cx(1) - 10, ry - R - 11, 20, theme.accent, 1.7) +
       text(cx(1), ry + 13, s ? fmt(s.current.length, t) : '—', { size: 36, weight: 700, anchor: 'middle' }) +
