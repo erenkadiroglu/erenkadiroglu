@@ -2,11 +2,10 @@
 /**
  * Writes README.md (English, shown on the profile) and README.tr.md (Turkish)
  * from one template, so both languages always share the same structure.
- * Year calendars are listed from assets/generated/manifest.json.
  *
  *   node src/readme.mjs
  */
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { copy } from './copy.mjs';
 
@@ -29,11 +28,7 @@ const ui = {
       stats: 'GitHub stats: stars, commits, pull requests, issues and repositories.',
       langs: 'Most used languages across repositories.',
       trail: 'Contribution graph for the last 12 months with a snake weaving between the cells.',
-      year: (y) => `Contribution graph for ${y}.`,
     },
-    years: 'Browse by year',
-    yearLabel: (y, n) => `${y} · ${n.toLocaleString('en-US')} contribution${n === 1 ? '' : 's'}`,
-    note: 'Cards and calendars are rendered daily by a GitHub Action in this repository from the same contribution graph GitHub shows on the profile — no third-party stats services.',
   },
   tr: {
     file: 'README.tr.md',
@@ -47,11 +42,7 @@ const ui = {
       stats: 'GitHub istatistikleri: yıldız, commit, pull request, issue ve depo sayısı.',
       langs: 'Depolarda en çok kullanılan diller.',
       trail: 'Son 12 ayın katkı grafiği ve hücrelerin arasında kıvrılan bir yılan.',
-      year: (y) => `${y} yılının katkı grafiği.`,
     },
-    years: 'Yıla göre göz at',
-    yearLabel: (y, n) => `${y} · ${n.toLocaleString('tr-TR')} katkı`,
-    note: "Kartlar ve takvimler, GitHub'ın profilde gösterdiği katkı grafiğinin aynısından, bu repodaki bir GitHub Action tarafından her gün üretilir; üçüncü parti istatistik servisi kullanılmaz.",
   },
 };
 
@@ -61,10 +52,6 @@ const picture = (name, suffix, alt, width = '100%') =>
 
 const escAttr = (s) => s.replace(/\*\*/g, '').replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 
-function manifest() {
-  const file = root('assets/generated/manifest.json');
-  return existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) : { years: [] };
-}
 
 export function render(lang) {
   const u = ui[lang];
@@ -87,13 +74,6 @@ export function render(lang) {
   const grid = [privateRow, linkedRow];
   const contact = c.contact
     .map((it) => linked(it.href, picture(`contact-${it.slug}`, s, escAttr(`${it.label}: ${it.sub}`), '23.5%')))
-    .join('\n');
-  const years = manifest().years.filter((y) => y.total > 0 || y.year === manifest().years[0]?.year);
-  const yearBlocks = years
-    .map(
-      (y) =>
-        `<details>\n<summary><b>${u.yearLabel(y.year, y.total)}</b></summary>\n<br>\n\n${picture(`generated/trail-${y.year}`, s, u.alts.year(y.year))}\n\n</details>`,
-    )
     .join('\n');
 
   return `<!--
@@ -131,10 +111,6 @@ ${picture('stack', s, u.stackAlt)}
 ${block([picture('generated/streak', s, u.alts.streak), picture('generated/stats', s, u.alts.stats, '49%'), picture('generated/langs', s, u.alts.langs, '49%')])}
 
 ${picture('generated/trail', s, u.alts.trail)}
-${yearBlocks ? `\n<p><sub><b>${u.years}</b></sub></p>\n\n${yearBlocks}\n` : ''}
-<br>
-
-<p><sub>${u.note}</sub></p>
 `;
 }
 

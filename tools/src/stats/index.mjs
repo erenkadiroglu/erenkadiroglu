@@ -70,7 +70,6 @@ for (const t of Object.values(locales)) {
       langs: renderLanguages(stats, theme, { today, t }),
       trail: renderTrail(stats, theme, { today, t }),
     };
-    for (const year of stats?.years ?? []) cards[`trail-${year.year}`] = renderTrail(stats, theme, { today, t, year });
     for (const [name, svg] of Object.entries(cards)) {
       const file = join(values.out, `${name}-${theme.name}${t.suffix}.svg`);
       if (existsSync(file) && readFileSync(file, 'utf8').replace(stamp, '') === svg.replace(stamp, '')) {
@@ -82,12 +81,6 @@ for (const t of Object.values(locales)) {
     }
   }
 }
-// The README generator reads this to list one expandable calendar per year.
-const manifest = { years: (stats?.years ?? []).map(({ year, total }) => ({ year, total })) };
-const manifestFile = join(values.out, 'manifest.json');
-const manifestJson = JSON.stringify(manifest, null, 2) + '\n';
-if (!existsSync(manifestFile) || readFileSync(manifestFile, 'utf8') !== manifestJson) writeFileSync(manifestFile, manifestJson);
-
 if (stats) {
   const { trail, years, ...summary } = stats;
   console.log(JSON.stringify({ ...summary, languages: summary.languages.map((l) => `${l.name} ${(l.share * 100).toFixed(1)}%`), years: years.map((y) => `${y.year}: ${y.total}`) }, null, 2));
