@@ -77,3 +77,16 @@ test('the Turkish README uses Turkish assets throughout', () => {
   const refs = [...readmes['README.tr.md'].matchAll(/(?:src|srcset)="(assets\/(?!flags)[^"#]+)/g)].map((m) => m[1]);
   for (const ref of refs) assert.match(ref, /\.tr\.svg$/, ref);
 });
+
+for (const [name, md] of Object.entries(readmes)) {
+  test(`${name}: linked pictures sit inside one HTML block (GitHub splits them otherwise)`, () => {
+    // A blank line ends a raw HTML block; a <picture> after it is parsed as Markdown and breaks.
+    for (const block of md.split(/\n\s*\n/)) {
+      const opens = (block.match(/<picture>/g) ?? []).length;
+      const closes = (block.match(/<\/picture>/g) ?? []).length;
+      assert.equal(opens, closes, `unbalanced <picture> in block:\n${block.slice(0, 200)}`);
+      if (/<a href=[^>]*><picture>/.test(block)) assert.match(block.trimStart(), /^<(p|div)\b/, `linked picture outside an HTML block:\n${block.slice(0, 200)}`);
+    }
+    assert.doesNotMatch(md, /#gh-(dark|light)-mode-only/, 'GitHub no longer hides #gh-*-mode-only images');
+  });
+}

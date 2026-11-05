@@ -72,23 +72,20 @@ export function render(lang) {
   const s = u.suffix;
   const aboutAlt = escAttr(`${c.about.paragraphs.join(' ')} ${c.about.principles.join('. ')}. ${c.about.open}.`);
   const expAlt = escAttr(c.experience.items.map((e) => `${e.period} — ${e.role}, ${e.org}: ${e.points.join('; ')}.`).join(' '));
-  // A <picture> inside a link loses its theme switch on GitHub, so linked images
-  // use the #gh-dark-mode-only / #gh-light-mode-only pair instead.
-  const themed = (name, alt, width) =>
-    `<img src="assets/${name}-dark${s}.svg#gh-dark-mode-only" width="${width}" alt="${alt}">` +
-    `<img src="assets/${name}-light${s}.svg#gh-light-mode-only" width="${width}" alt="${alt}">`;
+  // Every row of images is one raw HTML block (no blank lines inside): outside
+  // a block, GitHub's Markdown parser splits a linked <picture> apart.
+  const linked = (href, pic) => `<a href="${href}">${pic}</a>`;
   const projectAlt = (p) => escAttr(`${p.name} — ${c.projects.status[p.status]}. ${p.desc}`);
-  const privateRow = c.projects.items
-    .filter((p) => !p.link)
-    .map((p) => picture(`project-${p.slug}`, s, projectAlt(p), '32.5%'))
-    .join('\n');
-  const linkedRow = c.projects.items
-    .filter((p) => p.link)
-    .map((p) => `<a href="${p.link}">${themed(`project-${p.slug}`, projectAlt(p), '49%')}</a>`)
-    .join('\n');
-  const grid = [privateRow, `<p>\n${linkedRow}\n</p>`];
+  const card = (p, width) => {
+    const pic = picture(`project-${p.slug}`, s, projectAlt(p), width);
+    return p.link ? linked(p.link, pic) : pic;
+  };
+  const block = (items) => `<p align="center">\n${items.join('\n')}\n</p>`;
+  const privateRow = block(c.projects.items.filter((p) => !p.link).map((p) => card(p, '32.5%')));
+  const linkedRow = block(c.projects.items.filter((p) => p.link).map((p) => card(p, '49%')));
+  const grid = [privateRow, linkedRow];
   const contact = c.contact
-    .map((it) => `<a href="${it.href}">${themed(`contact-${it.slug}`, escAttr(`${it.label}: ${it.sub}`), '24%')}</a>`)
+    .map((it) => linked(it.href, picture(`contact-${it.slug}`, s, escAttr(`${it.label}: ${it.sub}`), '24%')))
     .join('\n');
   const years = manifest().years.filter((y) => y.total > 0 || y.year === manifest().years[0]?.year);
   const yearBlocks = years
@@ -133,9 +130,7 @@ ${picture('stack', s, u.stackAlt)}
 
 ## ${u.h.activity}
 
-${picture('generated/streak', s, u.alts.streak)}
-${picture('generated/stats', s, u.alts.stats, '49%')}
-${picture('generated/langs', s, u.alts.langs, '49%')}
+${block([picture('generated/streak', s, u.alts.streak), picture('generated/stats', s, u.alts.stats, '49%'), picture('generated/langs', s, u.alts.langs, '49%')])}
 
 ${picture('generated/trail', s, u.alts.trail)}
 ${yearBlocks ? `\n<p><sub><b>${u.years}</b></sub></p>\n\n${yearBlocks}\n` : ''}

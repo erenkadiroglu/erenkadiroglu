@@ -13,10 +13,22 @@
 <br>
 
 <p align="center">
-<a href="https://www.linkedin.com/in/erenkadiroglu"><img src="assets/contact-linkedin-dark.svg#gh-dark-mode-only" width="24%" alt="LinkedIn: in/erenkadiroglu"><img src="assets/contact-linkedin-light.svg#gh-light-mode-only" width="24%" alt="LinkedIn: in/erenkadiroglu"></a>
-<a href="https://erenkadiroglu.com"><img src="assets/contact-portfolio-dark.svg#gh-dark-mode-only" width="24%" alt="Portfolio: erenkadiroglu.com"><img src="assets/contact-portfolio-light.svg#gh-light-mode-only" width="24%" alt="Portfolio: erenkadiroglu.com"></a>
-<a href="mailto:erenkdroglu@gmail.com"><img src="assets/contact-email-dark.svg#gh-dark-mode-only" width="24%" alt="Email: erenkdroglu@gmail.com"><img src="assets/contact-email-light.svg#gh-light-mode-only" width="24%" alt="Email: erenkdroglu@gmail.com"></a>
-<a href="https://www.instagram.com/eren_kdroglu"><img src="assets/contact-instagram-dark.svg#gh-dark-mode-only" width="24%" alt="Instagram: @eren_kdroglu"><img src="assets/contact-instagram-light.svg#gh-light-mode-only" width="24%" alt="Instagram: @eren_kdroglu"></a>
+<a href="https://www.linkedin.com/in/erenkadiroglu"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-linkedin-dark.svg">
+  <img src="assets/contact-linkedin-light.svg" width="24%" alt="LinkedIn: in/erenkadiroglu">
+</picture></a>
+<a href="https://erenkadiroglu.com"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-portfolio-dark.svg">
+  <img src="assets/contact-portfolio-light.svg" width="24%" alt="Portfolio: erenkadiroglu.com">
+</picture></a>
+<a href="mailto:erenkdroglu@gmail.com"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-email-dark.svg">
+  <img src="assets/contact-email-light.svg" width="24%" alt="Email: erenkdroglu@gmail.com">
+</picture></a>
+<a href="https://www.instagram.com/eren_kdroglu"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-instagram-dark.svg">
+  <img src="assets/contact-instagram-light.svg" width="24%" alt="Instagram: @eren_kdroglu">
+</picture></a>
 </p>
 
 <br>
@@ -30,6 +42,7 @@
 
 ## Featured work
 
+<p align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/project-saharez-dark.svg">
   <img src="assets/project-saharez-light.svg" width="32.5%" alt="SahaRez — private. Booking and matchmaking platform for sports facilities, with AI demand forecasting. Graduation project.">
@@ -42,10 +55,17 @@
   <source media="(prefers-color-scheme: dark)" srcset="assets/project-pathwords-dark.svg">
   <img src="assets/project-pathwords-light.svg" width="32.5%" alt="PathWords — private. Path-tracing word puzzle that teaches English–Turkish vocabulary, with endless levels.">
 </picture>
+</p>
 
-<p>
-<a href="https://erenkadiroglu.com"><img src="assets/project-portfolio-dark.svg#gh-dark-mode-only" width="49%" alt="erenkadiroglu.com — live. Personal portfolio with a JSON-driven content model and an admin panel; static and fast on GitHub Pages."><img src="assets/project-portfolio-light.svg#gh-light-mode-only" width="49%" alt="erenkadiroglu.com — live. Personal portfolio with a JSON-driven content model and an admin panel; static and fast on GitHub Pages."></a>
-<a href="https://github.com/erenkadiroglu/minesweeper-c-project"><img src="assets/project-minesweeper-dark.svg#gh-dark-mode-only" width="49%" alt="Minesweeper — open source. Console strategy game in C: steer a path across a minefield while tracking each mine's zone of influence."><img src="assets/project-minesweeper-light.svg#gh-light-mode-only" width="49%" alt="Minesweeper — open source. Console strategy game in C: steer a path across a minefield while tracking each mine's zone of influence."></a>
+<p align="center">
+<a href="https://erenkadiroglu.com"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/project-portfolio-dark.svg">
+  <img src="assets/project-portfolio-light.svg" width="49%" alt="erenkadiroglu.com — live. Personal portfolio with a JSON-driven content model and an admin panel; static and fast on GitHub Pages.">
+</picture></a>
+<a href="https://github.com/erenkadiroglu/minesweeper-c-project"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/project-minesweeper-dark.svg">
+  <img src="assets/project-minesweeper-light.svg" width="49%" alt="Minesweeper — open source. Console strategy game in C: steer a path across a minefield while tracking each mine's zone of influence.">
+</picture></a>
 </p>
 
 ## Experience
@@ -64,6 +84,7 @@
 
 ## GitHub activity
 
+<p align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/generated/streak-dark.svg">
   <img src="assets/generated/streak-light.svg" width="100%" alt="Contribution streak: total contributions, current streak and longest streak.">
@@ -76,6 +97,7 @@
   <source media="(prefers-color-scheme: dark)" srcset="assets/generated/langs-dark.svg">
   <img src="assets/generated/langs-light.svg" width="49%" alt="Most used languages across repositories.">
 </picture>
+</p>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/generated/trail-dark.svg">

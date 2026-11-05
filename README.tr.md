@@ -13,10 +13,22 @@
 <br>
 
 <p align="center">
-<a href="https://www.linkedin.com/in/erenkadiroglu"><img src="assets/contact-linkedin-dark.tr.svg#gh-dark-mode-only" width="24%" alt="LinkedIn: in/erenkadiroglu"><img src="assets/contact-linkedin-light.tr.svg#gh-light-mode-only" width="24%" alt="LinkedIn: in/erenkadiroglu"></a>
-<a href="https://erenkadiroglu.com"><img src="assets/contact-portfolio-dark.tr.svg#gh-dark-mode-only" width="24%" alt="Portfolyo: erenkadiroglu.com"><img src="assets/contact-portfolio-light.tr.svg#gh-light-mode-only" width="24%" alt="Portfolyo: erenkadiroglu.com"></a>
-<a href="mailto:erenkdroglu@gmail.com"><img src="assets/contact-email-dark.tr.svg#gh-dark-mode-only" width="24%" alt="E-posta: erenkdroglu@gmail.com"><img src="assets/contact-email-light.tr.svg#gh-light-mode-only" width="24%" alt="E-posta: erenkdroglu@gmail.com"></a>
-<a href="https://www.instagram.com/eren_kdroglu"><img src="assets/contact-instagram-dark.tr.svg#gh-dark-mode-only" width="24%" alt="Instagram: @eren_kdroglu"><img src="assets/contact-instagram-light.tr.svg#gh-light-mode-only" width="24%" alt="Instagram: @eren_kdroglu"></a>
+<a href="https://www.linkedin.com/in/erenkadiroglu"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-linkedin-dark.tr.svg">
+  <img src="assets/contact-linkedin-light.tr.svg" width="24%" alt="LinkedIn: in/erenkadiroglu">
+</picture></a>
+<a href="https://erenkadiroglu.com"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-portfolio-dark.tr.svg">
+  <img src="assets/contact-portfolio-light.tr.svg" width="24%" alt="Portfolyo: erenkadiroglu.com">
+</picture></a>
+<a href="mailto:erenkdroglu@gmail.com"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-email-dark.tr.svg">
+  <img src="assets/contact-email-light.tr.svg" width="24%" alt="E-posta: erenkdroglu@gmail.com">
+</picture></a>
+<a href="https://www.instagram.com/eren_kdroglu"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contact-instagram-dark.tr.svg">
+  <img src="assets/contact-instagram-light.tr.svg" width="24%" alt="Instagram: @eren_kdroglu">
+</picture></a>
 </p>
 
 <br>
@@ -30,6 +42,7 @@
 
 ## Öne çıkan projeler
 
+<p align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/project-saharez-dark.tr.svg">
   <img src="assets/project-saharez-light.tr.svg" width="32.5%" alt="SahaRez — özel. Spor tesisleri için yapay zekâ destekli rezervasyon ve eşleştirme platformu. Bitirme projesi.">
@@ -42,10 +55,17 @@
   <source media="(prefers-color-scheme: dark)" srcset="assets/project-pathwords-dark.tr.svg">
   <img src="assets/project-pathwords-light.tr.svg" width="32.5%" alt="PathWords — özel. İngilizce–Türkçe kelime öğreten, patika çizerek oynanan sonsuz seviyeli kelime bulmacası.">
 </picture>
+</p>
 
-<p>
-<a href="https://erenkadiroglu.com"><img src="assets/project-portfolio-dark.tr.svg#gh-dark-mode-only" width="49%" alt="erenkadiroglu.com — yayında. İçeriği JSON'dan yönetilen, yönetim panelli kişisel portföy; GitHub Pages'te statik ve hızlı."><img src="assets/project-portfolio-light.tr.svg#gh-light-mode-only" width="49%" alt="erenkadiroglu.com — yayında. İçeriği JSON'dan yönetilen, yönetim panelli kişisel portföy; GitHub Pages'te statik ve hızlı."></a>
-<a href="https://github.com/erenkadiroglu/minesweeper-c-project"><img src="assets/project-minesweeper-dark.tr.svg#gh-dark-mode-only" width="49%" alt="Mayın Tarlası — açık kaynak. C ile yazılmış konsol tabanlı strateji oyunu: mayınların etki alanlarını takip ederek tarlada yol bulma."><img src="assets/project-minesweeper-light.tr.svg#gh-light-mode-only" width="49%" alt="Mayın Tarlası — açık kaynak. C ile yazılmış konsol tabanlı strateji oyunu: mayınların etki alanlarını takip ederek tarlada yol bulma."></a>
+<p align="center">
+<a href="https://erenkadiroglu.com"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/project-portfolio-dark.tr.svg">
+  <img src="assets/project-portfolio-light.tr.svg" width="49%" alt="erenkadiroglu.com — yayında. İçeriği JSON'dan yönetilen, yönetim panelli kişisel portföy; GitHub Pages'te statik ve hızlı.">
+</picture></a>
+<a href="https://github.com/erenkadiroglu/minesweeper-c-project"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/project-minesweeper-dark.tr.svg">
+  <img src="assets/project-minesweeper-light.tr.svg" width="49%" alt="Mayın Tarlası — açık kaynak. C ile yazılmış konsol tabanlı strateji oyunu: mayınların etki alanlarını takip ederek tarlada yol bulma.">
+</picture></a>
 </p>
 
 ## Deneyim
@@ -64,6 +84,7 @@
 
 ## GitHub aktivitesi
 
+<p align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/generated/streak-dark.tr.svg">
   <img src="assets/generated/streak-light.tr.svg" width="100%" alt="Katkı serisi: toplam katkı, güncel seri ve en uzun seri.">
@@ -76,6 +97,7 @@
   <source media="(prefers-color-scheme: dark)" srcset="assets/generated/langs-dark.tr.svg">
   <img src="assets/generated/langs-light.tr.svg" width="49%" alt="Depolarda en çok kullanılan diller.">
 </picture>
+</p>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/generated/trail-dark.tr.svg">
