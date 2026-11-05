@@ -5,7 +5,9 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { themes } from '../src/theme.mjs';
 import { summarize } from '../src/stats/compute.mjs';
-import { _internals, renderLanguages, renderStats, renderStreak } from '../src/stats/render.mjs';
+import { _internals, renderLanguages, renderStats, renderStreak, renderTrail } from '../src/stats/render.mjs';
+import { locales } from '../src/i18n.mjs';
+import { files as readmes } from '../src/readme.mjs';
 import { buildAll } from '../src/build-static.mjs';
 import { contrast } from '../src/color.mjs';
 import { assertWellFormed } from './helpers.mjs';
@@ -16,18 +18,18 @@ const today = '2026-11-04';
 const stats = summarize(user, { today, exclude: ['Jupyter Notebook'] });
 
 for (const theme of Object.values(themes)) {
-  test(`stats cards render (${theme.name})`, () => {
-    for (const svg of [renderStreak(stats, theme, { today }), renderStats(stats, theme, { today }), renderLanguages(stats, theme)]) {
-      assertWellFormed(svg);
-    }
-    assert.match(renderStreak(stats, theme, { today }), /Today/);
-  });
+  for (const t of Object.values(locales)) {
+    test(`stats cards render (${theme.name}, ${t.code})`, () => {
+      const cards = [renderStreak, renderStats, renderLanguages, renderTrail].map((fn) => fn(stats, theme, { today, t }));
+      cards.forEach(assertWellFormed);
+      assert.match(cards[0], new RegExp(t.today));
+      assert.match(cards[3], /<animateMotion/);
+    });
 
-  test(`placeholders render (${theme.name})`, () => {
-    for (const svg of [renderStreak(null, theme, { today }), renderStats(null, theme, { today }), renderLanguages(null, theme)]) {
-      assertWellFormed(svg);
-    }
-  });
+    test(`placeholders render (${theme.name}, ${t.code})`, () => {
+      for (const fn of [renderStreak, renderStats, renderLanguages, renderTrail]) assertWellFormed(fn(null, theme, { today, t }));
+    });
+  }
 
   test(`text tokens meet WCAG AA (${theme.name})`, () => {
     for (const token of ['fg', 'muted', 'subtle', 'accentText']) {
@@ -42,10 +44,12 @@ for (const theme of Object.values(themes)) {
   });
 }
 
-test('date ranges read naturally', () => {
-  assert.equal(_internals.range('2026-10-27', '2026-11-04', today), 'Oct 27 – Today');
-  assert.equal(_internals.range('2025-03-01', '2025-03-09', today), 'Mar 1, 2025 – Mar 9, 2025');
-  assert.equal(_internals.monthYear('2025-03-01'), 'Mar 2025');
+test('date ranges read naturally in both languages', () => {
+  const { en, tr } = locales;
+  assert.equal(_internals.range('2026-10-27', '2026-11-04', today, en), 'Oct 27 – Today');
+  assert.equal(_internals.range('2025-03-01', '2025-03-09', today, en), 'Mar 1, 2025 – Mar 9, 2025');
+  assert.equal(_internals.range('2026-10-27', '2026-11-04', today, tr), '27 Eki – Bugün');
+  assert.equal(_internals.monthYear('2025-03-01', tr), 'Mar 2025');
 });
 
 test('every static asset is well-formed and committed up to date (run `npm run build`)', () => {
@@ -55,9 +59,19 @@ test('every static asset is well-formed and committed up to date (run `npm run b
   }
 });
 
-test('README only references local assets that exist', () => {
-  const readme = readFileSync(join(root, 'README.md'), 'utf8');
-  const refs = [...readme.matchAll(/(?:src|srcset)="\.?\/?(assets\/[^"]+)"/g)].map((m) => m[1]);
-  assert.ok(refs.length >= 8, `only ${refs.length} asset references`);
-  for (const ref of refs) assert.ok(existsSync(join(root, ref)), `missing ${ref}`);
+for (const [name, md] of Object.entries(readmes)) {
+  test(`${name} is generated and up to date (run \`npm run readme\`)`, () => {
+    assert.equal(readFileSync(join(root, name), 'utf8'), md);
+  });
+
+  test(`${name} only references local assets that exist`, () => {
+    const refs = [...md.matchAll(/(?:src|srcset)="\.?\/?(assets\/[^"]+)"/g)].map((m) => m[1]);
+    assert.ok(refs.length >= 14, `only ${refs.length} asset references`);
+    for (const ref of refs) assert.ok(existsSync(join(root, ref)), `missing ${ref}`);
+  });
+}
+
+test('the Turkish README uses Turkish assets throughout', () => {
+  const refs = [...readmes['README.tr.md'].matchAll(/(?:src|srcset)="(assets\/(?!flags)[^"]+)"/g)].map((m) => m[1]);
+  for (const ref of refs) assert.match(ref, /\.tr\.svg$/, ref);
 });

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Renders the static README visuals for both GitHub themes into ../assets:
- *   stack-{dark,light}.svg  monochrome tech-stack strip (transparent background)
+ *   stack-{dark,light}[.tr].svg  monochrome tech-stack strip (transparent background)
  *
  *   node src/build-static.mjs [--out <dir>]
  */
@@ -12,6 +12,7 @@ import { parseArgs } from 'node:util';
 import { themes } from './theme.mjs';
 import { document, icon, r, text, textWidth } from './svg.mjs';
 import { stack } from './content.mjs';
+import { locales } from './i18n.mjs';
 
 const W = 1180;
 const COLS = 3;
@@ -20,19 +21,20 @@ const ICON = 30;
 const CELL = 74;
 const ROW_H = 132;
 
-function techStack(theme) {
+function techStack(theme, t) {
   const rows = Math.ceil(stack.length / COLS);
   const H = rows * ROW_H - 18;
   const parts = [];
   stack.forEach((group, gi) => {
+    const label = t.stack.labels[group.key];
     const col = gi % COLS;
     const row = Math.floor(gi / COLS);
     const x0 = col * COL_W + 12;
     const y0 = row * ROW_H;
     const delay = 0.08 * gi;
     parts.push(`<g class="in" style="animation-delay:${r(delay)}s">`);
-    parts.push(text(x0, y0 + 16, group.label, { size: 11.5, weight: 700, extra: `fill="${theme.accentText}" letter-spacing="1.6"` }));
-    parts.push(`<path d="M${r(x0 + textWidth(group.label, 11.5) + group.label.length * 1.6 + 10)} ${y0 + 12}H${r(x0 + COL_W - 40)}" stroke="${theme.divider}"/>`);
+    parts.push(text(x0, y0 + 16, label, { size: 11.5, weight: 700, extra: `fill="${theme.accentText}" letter-spacing="1.6"` }));
+    parts.push(`<path d="M${r(x0 + textWidth(label, 11.5) + label.length * 1.6 + 10)} ${y0 + 12}H${r(x0 + COL_W - 40)}" stroke="${theme.divider}"/>`);
     group.items.forEach(([name, ic], i) => {
       const cx = x0 + i * CELL + CELL / 2 - 8;
       parts.push(icon(ic, cx - ICON / 2, y0 + 40, ICON, theme.ink));
@@ -40,12 +42,12 @@ function techStack(theme) {
     });
     parts.push('</g>');
   });
-  const all = stack.map((g) => `${g.label.toLowerCase()}: ${g.items.map(([n]) => n).join(', ')}`).join('; ');
+  const all = stack.map((g) => `${t.stack.labels[g.key].toLocaleLowerCase(t.code)}: ${g.items.map(([n]) => n).join(', ')}`).join('; ');
   return document({
     width: W,
     height: H,
     theme,
-    title: 'Tech stack',
+    title: t.stack.doc,
     desc: all,
     css:
       '.in{animation:in .6s cubic-bezier(.2,.7,.2,1) both}' +
@@ -57,7 +59,9 @@ function techStack(theme) {
 
 export function buildAll() {
   const files = {};
-  for (const theme of Object.values(themes)) files[`stack-${theme.name}.svg`] = techStack(theme);
+  for (const t of Object.values(locales)) {
+    for (const theme of Object.values(themes)) files[`stack-${theme.name}${t.suffix}.svg`] = techStack(theme, t);
+  }
   return files;
 }
 

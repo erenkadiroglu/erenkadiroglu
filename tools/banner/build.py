@@ -29,7 +29,7 @@ FONTS = HERE.parent / "fonts"
 OUT = HERE.parent.parent / "assets"
 
 GRID_W, GRID_H = 300, 340          # portrait lattice
-CROP = (1268, 60, 1678, 525)       # head + shoulders, same 300:340 aspect
+CROP = (270, 0, 1670, 1587)        # head + shoulders, same 300:340 aspect
 RNG = np.random.default_rng(20261105)
 
 W, H = 1180, 610                   # banner size
@@ -74,7 +74,7 @@ THEMES = [
           "#c4beb3", "#2b3038", "#2a241b", "#8a6a2c", "rgba(138,106,44,0.08)", "#b3372d"),
 ]
 
-PROFILE = json.loads((HERE / "profile.json").read_text(encoding="utf-8"))
+LOCALES = json.loads((HERE / "profile.json").read_text(encoding="utf-8"))
 
 
 # --------------------------------------------------------------------------- portrait
@@ -89,7 +89,7 @@ def segment(rgb: np.ndarray) -> np.ndarray:
     chroma = px.max(axis=2) - px.min(axis=2)
     border = np.concatenate([lum[:12].ravel(), lum[:, -12:].ravel()])
     wall_lum = np.median(border)
-    mask = (lum < wall_lum - 55) | (chroma > 50)
+    mask = (lum < wall_lum - 40) | (chroma > 45)
     mask = ndimage.binary_opening(mask, iterations=2)
     mask = ndimage.binary_closing(mask, iterations=6)
     mask = ndimage.binary_fill_holes(mask)
@@ -195,8 +195,11 @@ def runs_path(cells: np.ndarray) -> str:
         padded = np.concatenate([[0], row.astype(np.int8), [0]])
         diff = np.diff(padded)
         starts, ends = np.nonzero(diff == 1)[0], np.nonzero(diff == -1)[0]
+        # first run absolute, the rest relative to the previous run's end
+        prev = None
         for s, e in zip(starts, ends):
-            parts.append(f"M{s} {y}h{e - s}")
+            parts.append(f"M{s} {y}h{e - s}" if prev is None else f"m{s - prev} 0h{e - s}")
+            prev = e
     return "".join(parts)
 
 
@@ -330,25 +333,27 @@ def straightness(shape, ys, xs, labels) -> float:
 
 # --------------------------------------------------------------------------- panel
 
-def info_panel(theme: Theme) -> str:
+def info_panel(theme: Theme, P: dict) -> str:
     x0, x1 = 492, 1146
     cw = 14 * 0.6
     out = []
     y = 94
-    out.append(f'<text x="{x0}" y="{y}" font-size="13" fill="{theme.chrome}" letter-spacing="1.6" font-weight="700">SYSTEM.INFO</text>')
+    out.append(f'<text x="{x0}" y="{y}" font-size="13" fill="{theme.chrome}" letter-spacing="1.6" font-weight="700">{esc(P["ui"]["info"])}</text>')
     # LIVE badge
-    bx = x1 - 62
+    live = P["ui"]["live"]
+    bw = 38 + len(live) * 7.2 + len(live) * 1.2
+    bx = x1 - bw
     out.append(
-        f'<rect x="{bx}" y="{y - 14}" width="62" height="20" rx="10" fill="none" stroke="{theme.live}" stroke-opacity=".55"/>'
+        f'<rect x="{bx:.1f}" y="{y - 14}" width="{bw:.1f}" height="20" rx="10" fill="none" stroke="{theme.live}" stroke-opacity=".55"/>'
         f'<circle cx="{bx + 14}" cy="{y - 4}" r="3.5" fill="{theme.live}"><animate attributeName="opacity" values="1;.25;1" dur="1.6s" repeatCount="indefinite"/></circle>'
         f'<circle cx="{bx + 14}" cy="{y - 4}" r="3.5" fill="none" stroke="{theme.live}"><animate attributeName="r" values="3.5;8" dur="1.6s" repeatCount="indefinite"/>'
         f'<animate attributeName="opacity" values=".7;0" dur="1.6s" repeatCount="indefinite"/></circle>'
-        f'<text x="{bx + 25}" y="{y}" font-size="12" fill="{theme.live}" letter-spacing="1.2" font-weight="700">LIVE</text>'
+        f'<text x="{bx + 25}" y="{y}" font-size="12" fill="{theme.live}" letter-spacing="1.2" font-weight="700">{esc(live)}</text>'
     )
     out.append(f'<path d="M{x0} {y + 14}H{x1}" stroke="{theme.border}"/>')
     y += 44
     i = 0
-    for section in PROFILE["rows"]:
+    for section in P["rows"]:
         for label, value, *flags in section:
             highlight = "accent" in flags
             chars_total = int((x1 - x0) / cw)
@@ -367,21 +372,23 @@ def info_panel(theme: Theme) -> str:
             i += 1
         y += 13
     # handle pill
-    handle = PROFILE["handle"]
+    handle = P["handle"]
     pw = len(handle) * cw + 32
     py = y + 2
     out.append(
         f'<g opacity="0"><animate attributeName="opacity" values="0;1" begin="{0.35 + i * 0.07:.2f}s" dur=".45s" fill="freeze"/>'
         f'<rect x="{x0}" y="{py}" width="{pw:.1f}" height="30" rx="15" fill="{theme.accent_soft}" stroke="{theme.accent}" stroke-opacity=".7"/>'
         f'<text x="{x0 + 16}" y="{py + 20}" font-size="14" fill="{theme.accent}" font-weight="700">{esc(handle)}</text>'
-        f'<text x="{x1}" y="{py + 20}" font-size="11.5" fill="{theme.label}" text-anchor="end">{esc(PROFILE["footnote"])}</text></g>'
+        f'<text x="{x1}" y="{py + 20}" font-size="11.5" fill="{theme.label}" text-anchor="end">{esc(P["ui"]["footnote"])}</text></g>'
     )
     return "".join(out)
 
 
 # --------------------------------------------------------------------------- compose
 
-def render(theme: Theme, logos: list[np.ndarray]) -> tuple[str, dict]:
+def render(theme: Theme, logos: list[np.ndarray], P: dict) -> tuple[str, dict]:
+    global RNG
+    RNG = np.random.default_rng(20261105)  # identical portrait in every locale
     cells = np.load(DATA / f"portrait-{theme.name}.npy")
     centroid = logos[0].mean(0)
     intro, bands, metrics = portrait_layers(cells, theme, centroid)
@@ -402,13 +409,13 @@ def render(theme: Theme, logos: list[np.ndarray]) -> tuple[str, dict]:
 <path d="M14 .5H{W - 14}A13.5 13.5 0 0 1 {W - .5} 14V40H.5V14A13.5 13.5 0 0 1 14 .5Z" fill="{theme.bar}"/>
 <path d="M.5 40.5H{W - .5}" stroke="{theme.border}"/>
 {''.join(f'<circle cx="{24 + k * 18}" cy="20.5" r="5.5" fill="{theme.border}"/>' for k in range(3))}
-<text x="{W / 2}" y="25" font-size="12.5" fill="{theme.label}" text-anchor="middle">profile.sh --live</text>
+<text x="{W / 2}" y="25" font-size="12.5" fill="{theme.label}" text-anchor="middle">{esc(P["ui"]["title"])}</text>
 <rect x="{fx + .5}" y="{fy + .5}" width="{fw - 1}" height="{fh - 1}" rx="8" fill="{theme.frame}" stroke="{theme.border}"/>
 {ticks}
-<text x="{fx + 24}" y="{fy + 30}" font-size="11.5" fill="{theme.chrome}" letter-spacing="1.4" font-weight="700">VISUAL.MAP</text>
+<text x="{fx + 24}" y="{fy + 30}" font-size="11.5" fill="{theme.chrome}" letter-spacing="1.4" font-weight="700">{esc(P["ui"]["visual"])}</text>
 <text x="{fx + fw - 24}" y="{fy + 30}" font-size="11" fill="{theme.label}" text-anchor="end">{GRID_W}×{GRID_H} · 1-bit</text>
-<text x="{fx + 24}" y="{fy + fh - 20}" font-size="11" fill="{theme.label}">{esc(PROFILE["coords"])}</text>
-<text x="{fx + fw - 24}" y="{fy + fh - 20}" font-size="11" fill="{theme.label}" text-anchor="end">fs-dither · serpentine</text>
+<text x="{fx + 24}" y="{fy + fh - 20}" font-size="11" fill="{theme.label}">{esc(P["coords"])}</text>
+<text x="{fx + fw - 24}" y="{fy + fh - 20}" font-size="11" fill="{theme.label}" text-anchor="end">{esc(P["ui"]["method"])}</text>
 <g transform="{portrait_tf}" stroke="{theme.portrait}" stroke-width="1" shape-rendering="crispEdges" fill="none">
   <g><set attributeName="display" to="none" begin="{INTRO}s" fill="freeze"/>{intro}</g>
   <g display="none"><set attributeName="display" to="inline" begin="{INTRO}s" fill="freeze"/>{bands}</g>
@@ -419,16 +426,15 @@ def render(theme: Theme, logos: list[np.ndarray]) -> tuple[str, dict]:
     keySplines=".5 0 .5 1;.4 0 .6 1;.5 0 .5 1;.4 0 .6 1"/>
   {travellers(sources, logos, theme)}
 </g>
-{info_panel(theme)}
+{info_panel(theme, P)}
 """
     desc = (
-        f"Animated terminal banner. A dithered portrait of {PROFILE['name']} dissolves into dots that form the "
-        "React, TypeScript and code logos. "
-        + "; ".join(f"{label}: {value}" for section in PROFILE["rows"] for label, value, *_ in section)
+        P["ui"]["desc"] + " "
+        + "; ".join(f"{label}: {value}" for section in P["rows"] for label, value, *_ in section)
     )
     svg = (
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-labelledby="t d">'
-        f'<title id="t">{esc(PROFILE["name"])} — {esc(PROFILE["role"])}</title><desc id="d">{esc(desc)}</desc>'
+        f'<title id="t">{esc(P["name"])} — {esc(P["role"])}</title><desc id="d">{esc(desc)}</desc>'
         f"<style>{font_face()}text{{font-family:'JBM',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}}</style>"
         f"{body}</svg>\n"
     )
@@ -444,11 +450,13 @@ def main() -> None:
         build_portraits(args.photo)
     logos = [logo_points(name, N_TRAVELLERS) for name in ("react", "typescript", "code")]
     args.out.mkdir(parents=True, exist_ok=True)
-    for theme in THEMES:
-        svg, metrics = render(theme, logos)
-        path = args.out / f"banner-{theme.name}.svg"
-        path.write_text(svg, encoding="utf-8")
-        print(f"{path.name}: {len(svg.encode()) / 1024:.0f} KB · " + " · ".join(f"{k}={v:.3f}" if isinstance(v, float) else f"{k}={v}" for k, v in metrics.items()))
+    for lang, P in LOCALES.items():
+        suffix = "" if lang == "en" else f".{lang}"
+        for theme in THEMES:
+            svg, metrics = render(theme, logos, P)
+            path = args.out / f"banner-{theme.name}{suffix}.svg"
+            path.write_text(svg, encoding="utf-8")
+            print(f"{path.name}: {len(svg.encode()) / 1024:.0f} KB · " + " · ".join(f"{k}={v:.3f}" if isinstance(v, float) else f"{k}={v}" for k, v in metrics.items()))
 
 
 if __name__ == "__main__":

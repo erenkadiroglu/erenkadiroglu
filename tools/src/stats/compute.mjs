@@ -69,6 +69,29 @@ export function languages(repos, { limit = 8, exclude = [] } = {}) {
   return top;
 }
 
+/**
+ * The last 53 calendar weeks (Sunday first) with GitHub-style levels:
+ * quartiles of the non-zero days in the window.
+ */
+export function trailWeeks(days, today) {
+  const byDate = new Map(days.map((d) => [d.date, d.count]));
+  const end = new Date(`${today}T00:00:00Z`);
+  const start = new Date(end);
+  start.setUTCDate(start.getUTCDate() - 52 * 7 - start.getUTCDay());
+  const window = [];
+  for (const d = new Date(start); d <= end; d.setUTCDate(d.getUTCDate() + 1)) {
+    const date = d.toISOString().slice(0, 10);
+    window.push({ date, count: byDate.get(date) ?? 0 });
+  }
+  const nz = window.map((d) => d.count).filter((c) => c > 0).sort((a, b) => a - b);
+  const q = (p) => nz[Math.min(nz.length - 1, Math.floor(p * nz.length))] ?? 0;
+  const [q1, q2, q3] = [q(0.25), q(0.5), q(0.75)];
+  const level = (c) => (c === 0 ? 0 : c <= q1 ? 1 : c <= q2 ? 2 : c <= q3 ? 3 : 4);
+  const weeks = [];
+  for (let i = 0; i < window.length; i += 7) weeks.push(window.slice(i, i + 7).map((d) => ({ ...d, level: level(d.count) })));
+  return { weeks, total: window.reduce((a, d) => a + d.count, 0) };
+}
+
 export function summarize(user, { today = new Date().toISOString().slice(0, 10), exclude = [] } = {}) {
   const days = allDays(user.years, today);
   const first = days.find((d) => d.count > 0)?.date ?? null;
@@ -87,5 +110,6 @@ export function summarize(user, { today = new Date().toISOString().slice(0, 10),
     stars: repos.reduce((acc, r) => acc + r.stargazerCount, 0),
     ...streaks(days, today),
     languages: languages(repos, { exclude }),
+    ...(({ weeks, total }) => ({ trail: weeks, trailTotal: total }))(trailWeeks(days, today)),
   };
 }

@@ -4,10 +4,11 @@
  * base64 data URIs: shields only renders its LinkedIn logo on brand blue, and
  * a data URI keeps every glyph in the palette's gold.
  *
- *   node src/badges.mjs
+ *   node src/badges.mjs [en|tr]
  */
 import { icons } from './icons.mjs';
 import { themes } from './theme.mjs';
+import { locales } from './i18n.mjs';
 
 const GOLD = themes.dark.accent;
 const LABEL_BG = themes.dark.surface.slice(1);
@@ -19,15 +20,15 @@ const brand = (name) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24
 const data = (svg) => `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
 const enc = (s) => encodeURIComponent(s.replace(/-/g, '--').replace(/_/g, '__'));
 
-export const badges = [
-  { label: 'LinkedIn', message: 'in/erenkadiroglu', href: 'https://www.linkedin.com/in/erenkadiroglu', logo: brand('linkedin') },
-  { label: 'Portfolio', message: 'erenkadiroglu.com', href: 'https://erenkadiroglu.com', logo: globe },
-  { label: 'Email', message: 'erenkdroglu@gmail.com', href: 'mailto:erenkdroglu@gmail.com', logo: brand('gmail') },
-  { label: 'Instagram', message: 'eren_kdroglu', href: 'https://www.instagram.com/eren_kdroglu', logo: brand('instagram') },
+const badges = (t) => [
+  { label: t.badges.linkedin, message: 'in/erenkadiroglu', href: 'https://www.linkedin.com/in/erenkadiroglu', logo: brand('linkedin') },
+  { label: t.badges.portfolio, message: 'erenkadiroglu.com', href: 'https://erenkadiroglu.com', logo: globe },
+  { label: t.badges.email, message: 'erenkdroglu@gmail.com', href: 'mailto:erenkdroglu@gmail.com', logo: brand('gmail') },
+  { label: t.badges.instagram, message: 'eren_kdroglu', href: 'https://www.instagram.com/eren_kdroglu', logo: brand('instagram') },
 ];
 
-export function badgeRow() {
-  return badges
+export function badgeRow(lang = 'en') {
+  return badges(locales[lang])
     .map(
       (b) =>
         `<a href="${b.href}"><img src="https://img.shields.io/badge/${enc(b.label)}-${LABEL_BG}?style=for-the-badge` +
@@ -36,4 +37,4 @@ export function badgeRow() {
     .join('&nbsp;&nbsp;\n');
 }
 
-if (process.argv[1]?.endsWith('badges.mjs')) console.log(badgeRow());
+if (process.argv[1]?.endsWith('badges.mjs')) console.log(badgeRow(process.argv[2] ?? 'en'));

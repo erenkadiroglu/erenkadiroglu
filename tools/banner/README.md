@@ -1,6 +1,6 @@
 # banner
 
-Animated terminal banner (`assets/banner-{dark,light}.svg`): a 1-bit dithered portrait that dissolves into
+Animated terminal banner (`assets/banner-{dark,light}[.tr].svg`): a 1-bit dithered portrait that dissolves into
 900 "traveller" dots morphing React → TypeScript → `</>`, next to a `SYSTEM.INFO` panel.
 
 ```bash
@@ -11,6 +11,7 @@ node render-logos.cjs                       # only when data/logos.json changes
 
 Requires Python 3.10+ with `numpy`, `scipy` and `Pillow`; `render-logos.cjs` needs Playwright.
 The photo itself is not stored in the repository — `data/portrait-*.npy` are the source of truth.
+Panel text for both languages lives in `profile.json` (`en`, `tr`); the portrait is identical in every locale.
 
 | Step | Detail |
 | --- | --- |

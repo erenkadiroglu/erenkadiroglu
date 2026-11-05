@@ -10,7 +10,7 @@ export const profile = {
 /** `icon` refers to a key in icons.mjs. */
 export const stack = [
   {
-    label: 'LANGUAGES',
+    key: 'languages',
     items: [
       ['TypeScript', 'typescript'],
       ['JavaScript', 'javascript'],
@@ -20,7 +20,7 @@ export const stack = [
     ],
   },
   {
-    label: 'FRONTEND',
+    key: 'frontend',
     items: [
       ['React', 'react'],
       ['Next.js', 'nextdotjs'],
@@ -29,7 +29,7 @@ export const stack = [
     ],
   },
   {
-    label: 'MOBILE',
+    key: 'mobile',
     items: [
       ['React Native', 'react'],
       ['Expo', 'expo'],
@@ -37,7 +37,7 @@ export const stack = [
     ],
   },
   {
-    label: 'BACKEND',
+    key: 'backend',
     items: [
       ['Node.js', 'nodedotjs'],
       ['NestJS', 'nestjs'],
@@ -46,7 +46,7 @@ export const stack = [
     ],
   },
   {
-    label: 'DATA',
+    key: 'data',
     items: [
       ['PostgreSQL', 'postgresql'],
       ['Prisma', 'prisma'],
@@ -55,7 +55,7 @@ export const stack = [
     ],
   },
   {
-    label: 'INFRA & TOOLS',
+    key: 'infra',
     items: [
       ['Docker', 'docker'],
       ['Actions', 'githubactions'],

@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "node src/build-static.mjs",
+    "readme": "node src/readme.mjs",
     "stats": "node src/stats/index.mjs",
     "stats:placeholder": "node src/stats/index.mjs --placeholder",
     "preview": "node src/stats/index.mjs --fixture test/fixtures/user.json --today 2026-11-04 --exclude 'Jupyter Notebook' --out ../.preview/stats",
