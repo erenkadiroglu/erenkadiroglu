@@ -11,15 +11,11 @@ import { copy } from './copy.mjs';
 
 const root = (p) => fileURLToPath(new URL(`../../${p}`, import.meta.url));
 
-// Flags share one 3:2 box so both read the same size.
-const flag = (code) => `<img src="assets/flags/${code}.svg" width="21" height="14" alt="">`;
 
 const ui = {
   en: {
     file: 'README.md',
     suffix: '',
-    // Relative links resolve on the profile, in the repository and on any branch.
-    switch: `${flag('gb')}&nbsp; <b>English</b> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="README.tr.md">${flag('tr')}&nbsp; Türkçe</a>`,
     bannerAlt: 'Eren Kadiroğlu — Mobile &amp; Web Developer. A dithered portrait that dissolves into the React, TypeScript and code logos, next to a system-info panel.',
     h: { about: 'About', work: 'Featured work', experience: 'Experience', stack: 'Tech stack', activity: 'GitHub activity' },
     stackAlt: 'Languages: TypeScript, JavaScript, Python, C++, Java. Frontend: React, Next.js, Tailwind, Vite. Mobile: React Native, Expo, Android Studio. Backend: Node.js, NestJS, FastAPI, Socket.IO. Data: PostgreSQL, Prisma, Redis, SQLite. Infra and tools: Docker, GitHub Actions, Git, VS Code.',
@@ -33,7 +29,6 @@ const ui = {
   tr: {
     file: 'README.tr.md',
     suffix: '.tr',
-    switch: `<a href="README.md">${flag('gb')}&nbsp; English</a> &nbsp;&nbsp;|&nbsp;&nbsp; ${flag('tr')}&nbsp; <b>Türkçe</b>`,
     bannerAlt: 'Eren Kadiroğlu — Mobil &amp; Web Geliştirici. Dağılıp React, TypeScript ve kod logolarına dönüşen noktalı bir portre ve yanında sistem bilgisi paneli.',
     h: { about: 'Hakkımda', work: 'Öne çıkan projeler', experience: 'Deneyim', stack: 'Teknoloji yığını', activity: 'GitHub aktivitesi' },
     stackAlt: 'Diller: TypeScript, JavaScript, Python, C++, Java. Frontend: React, Next.js, Tailwind, Vite. Mobil: React Native, Expo, Android Studio. Backend: Node.js, NestJS, FastAPI, Socket.IO. Veri: PostgreSQL, Prisma, Redis, SQLite. Altyapı ve araçlar: Docker, GitHub Actions, Git, VS Code.',
@@ -59,6 +54,22 @@ const picture = (name, suffix, alt, width = '100%') => {
 
 const escAttr = (s) => s.replace(/\*\*/g, '').replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 
+
+/**
+ * Two buttons, current language filled. Relative links resolve on the profile,
+ * in the repository and on any branch. Same images in both READMEs.
+ */
+function languageSwitch(current) {
+  const pic = (code, on) => {
+    const name = `lang-${code}-${on ? 'on' : 'off'}`;
+    const alt = code === 'en' ? 'English' : 'Türkçe';
+    return (
+      `<a href="${code === 'en' ? 'README.md' : 'README.tr.md'}"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/${name}-dark.svg">` +
+      `<img src="assets/${name}-light.svg" width="150" alt="${alt}"></picture></a>`
+    );
+  };
+  return `<p align="center">\n${pic('en', current === 'en')}\n${pic('tr', current === 'tr')}\n</p>`;
+}
 
 export function render(lang) {
   const u = ui[lang];
@@ -88,7 +99,7 @@ export function render(lang) {
   Visuals: tools/banner/build.py · tools/src/build-static.mjs · .github/workflows/stats.yml
 -->
 
-<p align="center">${u.switch}</p>
+${languageSwitch(lang)}
 
 ${block([picture('banner', s, u.bannerAlt)])}
 

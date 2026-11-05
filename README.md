@@ -3,7 +3,10 @@
   Visuals: tools/banner/build.py · tools/src/build-static.mjs · .github/workflows/stats.yml
 -->
 
-<p align="center"><img src="assets/flags/gb.svg" width="21" height="14" alt="">&nbsp; <b>English</b> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="README.tr.md"><img src="assets/flags/tr.svg" width="21" height="14" alt="">&nbsp; Türkçe</a></p>
+<p align="center">
+<a href="README.md"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lang-en-on-dark.svg"><img src="assets/lang-en-on-light.svg" width="150" alt="English"></picture></a>
+<a href="README.tr.md"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lang-tr-off-dark.svg"><img src="assets/lang-tr-off-light.svg" width="150" alt="Türkçe"></picture></a>
+</p>
 
 <p align="center">
 <picture>

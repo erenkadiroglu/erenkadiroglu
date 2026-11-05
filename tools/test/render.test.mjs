@@ -74,7 +74,7 @@ for (const [name, md] of Object.entries(readmes)) {
 }
 
 test('the Turkish README uses Turkish assets throughout', () => {
-  const refs = [...readmes['README.tr.md'].matchAll(/(?:src|srcset)="((?:assets\/(?!flags)|https:\/\/raw\.githubusercontent\.com\/)[^"#]+)/g)].map((m) => m[1]);
+  const refs = [...readmes['README.tr.md'].matchAll(/(?:src|srcset)="((?:assets\/(?!lang-)|https:\/\/raw\.githubusercontent\.com\/)[^"#]+)/g)].map((m) => m[1]);
   assert.ok(refs.some((r) => r.includes('/stats/')), 'stats cards should come from the stats branch');
   for (const ref of refs) assert.match(ref, /\.tr\.svg$/, ref);
 });
