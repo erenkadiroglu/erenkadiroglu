@@ -72,11 +72,13 @@ export function languages(repos, { limit = 8, exclude = [] } = {}) {
 export function summarize(user, { today = new Date().toISOString().slice(0, 10), exclude = [] } = {}) {
   const days = allDays(user.years, today);
   const first = days.find((d) => d.count > 0)?.date ?? null;
+  const last = days.findLast((d) => d.count > 0)?.date ?? null;
   const repos = user.repositories.nodes;
   return {
     login: user.login,
     generatedAt: today,
     firstContribution: first,
+    lastContribution: last,
     totalContributions: user.years.reduce((acc, y) => acc + (y.contributionCalendar?.totalContributions ?? 0), 0),
     commits: user.years.reduce((acc, y) => acc + (y.totalCommitContributions ?? 0), 0),
     pullRequests: user.pullRequests.totalCount,

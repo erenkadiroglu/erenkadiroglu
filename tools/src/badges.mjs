@@ -11,7 +11,6 @@ import { themes } from './theme.mjs';
 
 const GOLD = themes.dark.accent;
 const LABEL_BG = themes.dark.surface.slice(1);
-const MESSAGE_BG = themes.dark.divider.slice(1);
 
 const globe =
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="${GOLD}" stroke-width="2" stroke-linecap="round">` +
@@ -31,7 +30,7 @@ export function badgeRow() {
   return badges
     .map(
       (b) =>
-        `<a href="${b.href}"><img src="https://img.shields.io/badge/${enc(b.label)}-${enc(b.message)}-${MESSAGE_BG}?style=for-the-badge` +
+        `<a href="${b.href}"><img src="https://img.shields.io/badge/${enc(b.label)}-${LABEL_BG}?style=for-the-badge` +
         `&labelColor=${LABEL_BG}&logo=${encodeURIComponent(data(b.logo))}" alt="${b.label}: ${b.message}"></a>`,
     )
     .join('&nbsp;&nbsp;\n');

@@ -82,7 +82,7 @@ export function renderStreak(stats, theme, { today }) {
       glyph('flame', cx(1) - 10, ry - R - 11, 20, theme.accent, 1.7) +
       text(cx(1), ry + 13, s ? fmt(s.current.length) : '—', { size: 36, weight: 700, anchor: 'middle' }) +
       text(cx(1), 182, 'Current Streak', { size: 13, anchor: 'middle', extra: `fill="${theme.accentText}" font-weight="700"` }) +
-      text(cx(1), 204, s ? range(s.current.start, s.current.end, today) : '—', { size: 11.5, cls: 's', anchor: 'middle' }) +
+      text(cx(1), 204, !s ? '—' : s.current.length ? range(s.current.start, s.current.end, today) : s.lastContribution ? `last active ${range(s.lastContribution, s.lastContribution, today)}` : 'no activity yet', { size: 11.5, cls: 's', anchor: 'middle' }) +
       `</g>`,
   );
   parts.push(`<path d="M${r(26 + colW)} 76V210M${r(26 + 2 * colW)} 76V210" stroke="${theme.divider}"/>`);
