@@ -33,7 +33,7 @@ export const copy = {
           slug: 'fileconvert',
           name: 'FileConvert',
           status: 'private',
-          desc: 'On-device PDF converter and editor for mobile — no server, no account, no tracking.',
+          desc: 'On-device PDF converter and editor for mobile.',
           stack: ['React Native', 'Expo', 'Kotlin'],
         },
         {
@@ -135,7 +135,7 @@ export const copy = {
           slug: 'fileconvert',
           name: 'FileConvert',
           status: 'private',
-          desc: "Cihaz içinde çalışan mobil PDF dönüştürücü ve düzenleyici — sunucu, hesap ve takip yok.",
+          desc: "Cihaz içinde çalışan mobil PDF dönüştürücü ve düzenleyici.",
           stack: ['React Native', 'Expo', 'Kotlin'],
         },
         {

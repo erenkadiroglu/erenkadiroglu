@@ -36,7 +36,7 @@
 </picture>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/project-fileconvert-dark.tr.svg">
-  <img src="assets/project-fileconvert-light.tr.svg" width="32%" alt="FileConvert — özel. Cihaz içinde çalışan mobil PDF dönüştürücü ve düzenleyici — sunucu, hesap ve takip yok.">
+  <img src="assets/project-fileconvert-light.tr.svg" width="32%" alt="FileConvert — özel. Cihaz içinde çalışan mobil PDF dönüştürücü ve düzenleyici.">
 </picture>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/project-pathwords-dark.tr.svg">

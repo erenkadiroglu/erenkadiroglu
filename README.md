@@ -36,7 +36,7 @@
 </picture>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/project-fileconvert-dark.svg">
-  <img src="assets/project-fileconvert-light.svg" width="32%" alt="FileConvert — private. On-device PDF converter and editor for mobile — no server, no account, no tracking.">
+  <img src="assets/project-fileconvert-light.svg" width="32%" alt="FileConvert — private. On-device PDF converter and editor for mobile.">
 </picture>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/project-pathwords-dark.svg">
