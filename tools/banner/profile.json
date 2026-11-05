@@ -1,0 +1,82 @@
+{
+  "en": {
+    "name": "Eren Kadiroğlu",
+    "role": "Mobile & Web Developer",
+    "handle": "@erenkadiroglu",
+    "coords": "39.7767° N · 30.5206° E",
+    "ui": {
+      "title": "profile.sh --live",
+      "visual": "VISUAL.MAP",
+      "method": "fs-dither · serpentine",
+      "info": "SYSTEM.INFO",
+      "live": "LIVE",
+      "footnote": "source: tools/banner/build.py",
+      "desc": "Animated terminal banner: a dithered portrait dissolves into dots that form the React, TypeScript and code logos."
+    },
+    "rows": [
+      [
+        ["Subject", "Eren Kadiroğlu"],
+        ["Role", "Mobile & Web Developer"],
+        ["Origin", "Eskişehir, Türkiye"],
+        ["Education", "Computer Eng. @ KSÜ"],
+        ["Status", "Building · Learning · Shipping"],
+        ["Availability", "Open to opportunities", "accent"]
+      ],
+      [
+        ["Core.Lang", "TypeScript · JavaScript · Python · C/C++ · Java"],
+        ["Core.Frontend", "React · Next.js · Tailwind CSS · Vite"],
+        ["Core.Mobile", "React Native · Expo"],
+        ["Core.Backend", "Node.js · NestJS · FastAPI · Socket.IO"],
+        ["Core.Database", "PostgreSQL · Prisma · Redis · SQLite"],
+        ["Core.Infra", "Docker · GitHub Actions"],
+        ["ToolChain", "VS Code · Git · Android Studio"]
+      ],
+      [
+        ["Grid.Mail", "erenkdroglu@gmail.com"],
+        ["Grid.Portfolio", "erenkadiroglu.com"],
+        ["Grid.LinkedIn", "in/erenkadiroglu"],
+        ["Grid.GitHub", "github.com/erenkadiroglu"]
+      ]
+    ]
+  },
+  "tr": {
+    "name": "Eren Kadiroğlu",
+    "role": "Mobil & Web Geliştirici",
+    "handle": "@erenkadiroglu",
+    "coords": "39.7767° K · 30.5206° D",
+    "ui": {
+      "title": "profil.sh --canli",
+      "visual": "GÖRSEL.HARİTA",
+      "method": "fs-dither · kıvrımlı tarama",
+      "info": "SİSTEM.BİLGİ",
+      "live": "CANLI",
+      "footnote": "kaynak: tools/banner/build.py",
+      "desc": "Hareketli terminal banner'ı: noktalı bir portre dağılıp React, TypeScript ve kod logolarını oluşturan noktalara dönüşür."
+    },
+    "rows": [
+      [
+        ["Kişi", "Eren Kadiroğlu"],
+        ["Rol", "Mobil & Web Geliştirici"],
+        ["Konum", "Eskişehir, Türkiye"],
+        ["Eğitim", "Bilgisayar Müh. @ KSÜ"],
+        ["Durum", "Geliştir · Öğren · Yayınla"],
+        ["Müsaitlik", "Tekliflere açık", "accent"]
+      ],
+      [
+        ["Çekirdek.Dil", "TypeScript · JavaScript · Python · C/C++ · Java"],
+        ["Çekirdek.Frontend", "React · Next.js · Tailwind CSS · Vite"],
+        ["Çekirdek.Mobil", "React Native · Expo"],
+        ["Çekirdek.Backend", "Node.js · NestJS · FastAPI · Socket.IO"],
+        ["Çekirdek.Veritabanı", "PostgreSQL · Prisma · Redis · SQLite"],
+        ["Çekirdek.Altyapı", "Docker · GitHub Actions"],
+        ["Araç.Zinciri", "VS Code · Git · Android Studio"]
+      ],
+      [
+        ["Ağ.Posta", "erenkdroglu@gmail.com"],
+        ["Ağ.Portfolyo", "erenkadiroglu.com"],
+        ["Ağ.LinkedIn", "in/erenkadiroglu"],
+        ["Ağ.GitHub", "github.com/erenkadiroglu"]
+      ]
+    ]
+  }
+}

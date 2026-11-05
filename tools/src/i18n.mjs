@@ -1,0 +1,86 @@
+/**
+ * UI strings for the generated visuals. Technology and project names are not
+ * translated; only labels a reader would see as prose.
+ */
+export const locales = {
+  en: {
+    code: 'en',
+    suffix: '',
+    numberLocale: 'en-US',
+    months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    days: ['Mon', 'Wed', 'Fri'],
+    today: 'Today',
+    present: 'Present',
+    updated: 'updated',
+    streak: {
+      title: 'CONTRIB.STREAK',
+      total: 'Total Contributions',
+      current: 'Current Streak',
+      longest: 'Longest Streak',
+      lastActive: 'last active',
+      none: 'no activity yet',
+      doc: 'GitHub contribution streak',
+    },
+    stats: {
+      title: 'GIT.STATS',
+      meta: 'all time',
+      rows: ['Stars earned', 'Commits', 'Pull requests', 'Issues', 'Repositories'],
+      doc: 'GitHub stats',
+    },
+    langs: { title: 'LANG.DIST', meta: { public: 'public repositories only', all: 'all repositories · sqrt(bytes)' }, other: 'Other', doc: 'Most used languages' },
+    trail: {
+      title: 'CONTRIB.TRAIL',
+      meta: 'last 12 months',
+      less: 'less',
+      more: 'more',
+      caption: 'a snake weaving between commits, lighting each one as it passes',
+      doc: 'Contribution graph with a snake weaving between the cells',
+      cell: (n, date) => `${n} contribution${n === 1 ? '' : 's'} on ${date}`,
+    },
+    pending: 'awaiting first workflow run',
+    stack: {
+      doc: 'Tech stack',
+      labels: { languages: 'LANGUAGES', frontend: 'FRONTEND', mobile: 'MOBILE', backend: 'BACKEND', data: 'DATA', infra: 'INFRA & TOOLS' },
+    },
+  },
+  tr: {
+    code: 'tr',
+    suffix: '.tr',
+    numberLocale: 'tr-TR',
+    months: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
+    days: ['Pzt', 'Çar', 'Cum'],
+    today: 'Bugün',
+    present: 'Bugün',
+    updated: 'güncellendi',
+    streak: {
+      title: 'KATKI.SERİSİ',
+      total: 'Toplam Katkı',
+      current: 'Güncel Seri',
+      longest: 'En Uzun Seri',
+      lastActive: 'son katkı',
+      none: 'henüz katkı yok',
+      doc: 'GitHub katkı serisi',
+    },
+    stats: {
+      title: 'GIT.İSTATİSTİK',
+      meta: 'tüm zamanlar',
+      rows: ['Kazanılan yıldız', 'Commit', 'Pull request', 'Issue', 'Depo'],
+      doc: 'GitHub istatistikleri',
+    },
+    langs: { title: 'DİL.DAĞILIMI', meta: { public: 'yalnızca public depolar', all: 'tüm depolar · sqrt(bayt)' }, other: 'Diğer', doc: 'En çok kullanılan diller' },
+    trail: {
+      title: 'KATKI.İZİ',
+      meta: 'son 12 ay',
+      less: 'az',
+      more: 'çok',
+      caption: "commit'lerin arasında kıvrılan, geçtiği her katkıyı aydınlatan bir yılan",
+      doc: 'Hücrelerin arasında kıvrılan bir yılanla katkı grafiği',
+      cell: (n, date) => `${date} tarihinde ${n} katkı`,
+    },
+    pending: 'ilk iş akışı bekleniyor',
+    stack: {
+      doc: 'Teknoloji yığını',
+      labels: { languages: 'DİLLER', frontend: 'FRONTEND', mobile: 'MOBİL', backend: 'BACKEND', data: 'VERİ', infra: 'ALTYAPI & ARAÇLAR' },
+    },
+  },
+};
